@@ -24,7 +24,7 @@ def get_Donantes():
         cursor = conn.cursor()
 
         cursor.execute("SELECT * FROM OPE_DONANTES")
-        users = cursor.fetchall()
+        users = [{'ID':row[0]}for row in cursor.fetchall()]
 
         cursor.close()
         conn.close()
