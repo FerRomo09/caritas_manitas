@@ -14,6 +14,8 @@
 		FB1491532AE04FF000C29C1E /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491522AE04FF000C29C1E /* LandingView.swift */; };
 		FB1491552AE04FFF00C29C1E /* DetalleOrdenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491542AE04FFF00C29C1E /* DetalleOrdenView.swift */; };
 		FB14915A2AE0570B00C29C1E /* profileBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491592AE0570B00C29C1E /* profileBarView.swift */; };
+		FB14915C2AE05EA400C29C1E /* profileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB14915B2AE05EA400C29C1E /* profileView.swift */; };
+		FB6062C62AE0722D007A7B9F /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6062C52AE0722D007A7B9F /* LogInView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		FB1491522AE04FF000C29C1E /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		FB1491542AE04FFF00C29C1E /* DetalleOrdenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetalleOrdenView.swift; sourceTree = "<group>"; };
 		FB1491592AE0570B00C29C1E /* profileBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileBarView.swift; sourceTree = "<group>"; };
+		FB14915B2AE05EA400C29C1E /* profileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileView.swift; sourceTree = "<group>"; };
+		FB6062C52AE0722D007A7B9F /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,8 @@
 			children = (
 				FB1491542AE04FFF00C29C1E /* DetalleOrdenView.swift */,
 				FB1491522AE04FF000C29C1E /* LandingView.swift */,
+				FB6062C52AE0722D007A7B9F /* LogInView.swift */,
+				FB14915B2AE05EA400C29C1E /* profileView.swift */,
 				FB1491592AE0570B00C29C1E /* profileBarView.swift */,
 				FB1491462AE04F9900C29C1E /* ContentView.swift */,
 			);
@@ -155,7 +161,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB1491532AE04FF000C29C1E /* LandingView.swift in Sources */,
+				FB6062C62AE0722D007A7B9F /* LogInView.swift in Sources */,
 				FB1491472AE04F9900C29C1E /* ContentView.swift in Sources */,
+				FB14915C2AE05EA400C29C1E /* profileView.swift in Sources */,
 				FB14915A2AE0570B00C29C1E /* profileBarView.swift in Sources */,
 				FB1491452AE04F9900C29C1E /* manitasAPP_mcApp.swift in Sources */,
 				FB1491552AE04FFF00C29C1E /* DetalleOrdenView.swift in Sources */,

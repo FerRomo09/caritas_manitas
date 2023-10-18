@@ -9,7 +9,42 @@ import SwiftUI
 
 struct LandingView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack(){
+            //Main VStack
+            VStack(){
+                
+                //Profile Bar, link a profile view
+                VStack(){
+                    NavigationLink(destination: (profileView())){
+                        profileBarView()
+                    }
+                    .padding(.top, 10)
+                    .padding(.bottom, 20)
+                }
+                
+                //Stack ordenes del dia
+                VStack(alignment: .leading){
+                    HStack{Spacer()}
+                    Text("Ordenes del dia: ")
+                        .font(.system(size: 25))
+                        .fontWeight(.bold)
+                        .foregroundColor(Color("manitasNegro"))
+                    + Text("15")
+                        .font(.system(size: 25))
+                        .fontWeight(.bold)
+                        .foregroundColor(Color("manitasAzul"))
+        
+                    ProgressView(value: 20, total: 100) //Remplazar
+                        .tint(Color("manitasAzul"))
+                    Text("Ordenes Completadas: 13.33% (3)") //Remplazar con variables
+                        
+                }
+                .padding(.horizontal, 40)
+                
+                //Manda foto para arriba
+                Spacer()
+            }
+        }
     }
 }
 
