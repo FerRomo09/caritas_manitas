@@ -15,6 +15,7 @@
 		FB1491552AE04FFF00C29C1E /* DetalleOrdenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491542AE04FFF00C29C1E /* DetalleOrdenView.swift */; };
 		FB14915A2AE0570B00C29C1E /* profileBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491592AE0570B00C29C1E /* profileBarView.swift */; };
 		FB14915C2AE05EA400C29C1E /* profileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB14915B2AE05EA400C29C1E /* profileView.swift */; };
+		FB14915F2AE075C000C29C1E /* ordenBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB14915E2AE075C000C29C1E /* ordenBarView.swift */; };
 		FB7AA1AB2AE0734700F0D70D /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7AA1AA2AE0734700F0D70D /* LogInView.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 		FB1491542AE04FFF00C29C1E /* DetalleOrdenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetalleOrdenView.swift; sourceTree = "<group>"; };
 		FB1491592AE0570B00C29C1E /* profileBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileBarView.swift; sourceTree = "<group>"; };
 		FB14915B2AE05EA400C29C1E /* profileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileView.swift; sourceTree = "<group>"; };
+		FB14915E2AE075C000C29C1E /* ordenBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ordenBarView.swift; sourceTree = "<group>"; };
 		FB7AA1AA2AE0734700F0D70D /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,13 +83,22 @@
 			isa = PBXGroup;
 			children = (
 				FB1491542AE04FFF00C29C1E /* DetalleOrdenView.swift */,
-				FB1491522AE04FF000C29C1E /* LandingView.swift */,
+				FB14915D2AE075A000C29C1E /* Landing Views */,
 				FB14915B2AE05EA400C29C1E /* profileView.swift */,
-				FB1491592AE0570B00C29C1E /* profileBarView.swift */,
 				FB1491462AE04F9900C29C1E /* ContentView.swift */,
 				FB7AA1AA2AE0734700F0D70D /* LogInView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		FB14915D2AE075A000C29C1E /* Landing Views */ = {
+			isa = PBXGroup;
+			children = (
+				FB1491522AE04FF000C29C1E /* LandingView.swift */,
+				FB1491592AE0570B00C29C1E /* profileBarView.swift */,
+				FB14915E2AE075C000C29C1E /* ordenBarView.swift */,
+			);
+			path = "Landing Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,6 +176,7 @@
 				FB1491472AE04F9900C29C1E /* ContentView.swift in Sources */,
 				FB14915C2AE05EA400C29C1E /* profileView.swift in Sources */,
 				FB14915A2AE0570B00C29C1E /* profileBarView.swift in Sources */,
+				FB14915F2AE075C000C29C1E /* ordenBarView.swift in Sources */,
 				FB1491452AE04F9900C29C1E /* manitasAPP_mcApp.swift in Sources */,
 				FB1491552AE04FFF00C29C1E /* DetalleOrdenView.swift in Sources */,
 			);

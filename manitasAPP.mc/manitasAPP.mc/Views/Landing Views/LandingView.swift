@@ -19,7 +19,7 @@ struct LandingView: View {
                         profileBarView()
                     }
                     .padding(.top, 10)
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 15)
                 }
                 
                 //Stack ordenes del dia
@@ -33,13 +33,17 @@ struct LandingView: View {
                         .font(.system(size: 25))
                         .fontWeight(.bold)
                         .foregroundColor(Color("manitasAzul"))
-        
-                    ProgressView(value: 20, total: 100) //Remplazar
-                        .tint(Color("manitasAzul"))
-                    Text("Ordenes Completadas: 13.33% (3)") //Remplazar con variables
-                        
                 }
                 .padding(.horizontal, 40)
+                ProgressView(value: 20, total: 100)
+                    .padding(.horizontal, 40) //Remplazar
+                    .tint(Color("manitasAzul"))
+                Text("Ordenes Completadas: ")
+                    .font(.system(size: 15))
+                    .foregroundColor(Color("manitasNegro"))
+                + Text("20%") //Remplazar con variables
+                    .font(.system(size: 15))
+                    .foregroundColor(Color("manitasAzul"))
                 
                 //Manda foto para arriba
                 Spacer()

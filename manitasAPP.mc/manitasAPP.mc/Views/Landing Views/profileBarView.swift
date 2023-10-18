@@ -9,7 +9,6 @@ import SwiftUI
 
 struct profileBarView: View {
     var body: some View {
-        
         ZStack(){
             Image("bar")
                 .cornerRadius(24)
@@ -33,9 +32,6 @@ struct profileBarView: View {
                 
                 
             }
-            //.padding(.vertical, 10)
-            //.padding(.leading, -100)
-            
         }
     }
 }
