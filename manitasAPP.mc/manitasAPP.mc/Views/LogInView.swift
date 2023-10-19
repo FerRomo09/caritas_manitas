@@ -94,7 +94,7 @@ struct LogInView: View {
                 }
                 
                 // NavigationLink oculto para la navegación programática
-                NavigationLink("", destination: profileView(), isActive: $navigationToMain)
+                NavigationLink("", destination: ProfileView(), isActive: $navigationToMain)
                     .hidden()
             }
         }
