@@ -15,8 +15,8 @@ struct LandingView: View {
                 
                 //Profile Bar, link a profile view
                 VStack(){
-                    NavigationLink(destination: (profileView())){
-                        profileBarView()
+                    NavigationLink(destination: (ProfileView())){
+                        ProfileBarView()
                     }
                     .padding(.top, 10)
                     .padding(.bottom, 15)

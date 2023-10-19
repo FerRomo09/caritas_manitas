@@ -1,20 +1,20 @@
 //
-//  profileView.swift
+//  ProfileView.swift
 //  manitasAPP.mc
 //
-//  Created by Alumno on 18/10/23.
+//  Created by Alumno on 19/10/23.
 //
 
 import SwiftUI
 
-struct profileView: View {
+struct ProfileView: View {
     var body: some View {
         Text("Profile View")
     }
 }
 
-struct profileView_Previews: PreviewProvider {
+struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        profileView()
+        ProfileView()
     }
 }

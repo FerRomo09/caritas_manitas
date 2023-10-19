@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ordenBarView: View {
+struct OrdenBarView: View {
     var body: some View {
         ZStack(){
             Image("barGris")
@@ -47,8 +47,8 @@ struct ordenBarView: View {
     }
 }
 
-struct ordenBarView_Previews: PreviewProvider {
+struct OrdenBarView_Previews: PreviewProvider {
     static var previews: some View {
-        ordenBarView()
+        OrdenBarView()
     }
 }
