@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, status
 import pyodbc
 import hashing as hs
 import apiModels as am
@@ -10,7 +10,7 @@ app = FastAPI()
 conn_str = (
     "DRIVER={ODBC Driver 18 for SQL Server};"
     "SERVER=10.14.255.87;"  
-    "DATABASE=DB_INGRESOS;"  
+    "DATABASE=DB_CARITAS;"  
     "UID=SA;"
     "PWD=Shakira123.;"
     "TrustServerCertificate=yes"  
@@ -34,26 +34,30 @@ async def check_login(login_data: am.LoginRequest):
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        cursor.execute("SELECT * FROM OPE_INGRESO WHERE USUARIO = ?", (username,))
+        cursor.execute("SELECT O.*, E.ROL FROM DB_CARITAS.dbo.OPE_INGRESO AS O INNER JOIN DB_CARITAS.dbo.EMPLEADOS AS E ON O.ID_EMPLEADO = E.ID_EMPLEADO WHERE O.USUARIO = ?", (username,))
         user = cursor.fetchone()
 
         cursor.close()
         conn.close()
-
         if user is None:
             raise HTTPException(status_code=401, detail="User not found")
         else:
-            if hs.check_password(password, user[4]):
+            if hs.check_password(password, user[3]):
+                
                 '''
                 # Create JWT token
                 user_data = {"id": user[0], "username": username} 
                 token = create_jwt_token(user_data)
                 return {"message": "Login successful", "token": token, "id": user[0], "rol": user[5]}
                 '''
-                return {"message": "Login successful", "id": user[0], "rol": user[5]}
+                return {"message": "Login successful", "id": user[1], "rol": 1 if user[4] else 0}
             else:
-                raise HTTPException(status_code=401, detail="Incorrect password")
+                raise HTTPException(status_code=401, detail="Incorrect password")#usar status
+            
+    except HTTPException as e:
+        raise e
     except Exception as e:
+        print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
@@ -64,7 +68,7 @@ async def get_user(ID_Empleado: str):
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        cursor.execute("SELECT * FROM OPE_EMPLEADO WHERE USUARIO = ?", (ID_Empleado,))
+        cursor.execute("SELECT * FROM EMPLEADOS WHERE ID_EMPLEADO = ?", (ID_Empleado,))
         user = cursor.fetchone()
 
         cursor.close()
@@ -83,7 +87,10 @@ async def get_user(ID_Empleado: str):
                 'telefono': user[6],
                 'id_genero': user[7]
             }
+    except HTTPException as e:
+        raise e
     except Exception as e:
+        print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
@@ -109,4 +116,4 @@ async def confirm_order(orderID: int, order_data: am.OrderConfirmation):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8037)
+    uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8037, reload=True)

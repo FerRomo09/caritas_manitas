@@ -1,4 +1,6 @@
 from pydantic import BaseModel
+import datetime
+from decimal import Decimal
 
 class LoginRequest(BaseModel):
     username: str
@@ -11,14 +13,14 @@ class OrderConfirmation(BaseModel):
 class LoginResponse(BaseModel):
     message: str
     id: int
-    rol: str
+    rol: int
 
 class UserResponse(BaseModel):
     id: int
     a_paterno: str
     a_materno: str
     nombre: str
-    fecha_nacimiento: str
+    fecha_nacimiento: datetime.date
     email: str
-    telefono: str
+    telefono: Decimal
     id_genero: int
