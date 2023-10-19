@@ -34,7 +34,10 @@ def check_login(username, password):
         if user is None:
             return False
         else:
-            return hs.check_password(password, user[4])
+            if hs.check_password(password, user[4]):
+                return {"message": "Login successful", "id": user[0], "rol": user[5]}
+            else:
+                return {"message": "Incorrect password"}
     except Exception as e:
         return False
     
@@ -61,8 +64,7 @@ def get_user(ID_Empleado):
                 'fecha_nacimiento': user[4],
                 'email': user[5],
                 'telefono': user[6],
-                'id_genero': user[7],
-                'rol': user[8]
+                'id_genero': user[7]
             }
     except Exception as e:
         return None
@@ -82,7 +84,7 @@ def confirm_order(newPagoTemp, newPagoFin, orderID):
         return True
     except Exception as e:
         return False
-
+"""
 def get_Donantes():
     try:
         conn = get_db_connection()
@@ -96,8 +98,6 @@ def get_Donantes():
         return users
     except Exception as e:
         return []
-    
-"""
 
 # Create a user in the database
 def create_user(userid, username, email,passwd):
