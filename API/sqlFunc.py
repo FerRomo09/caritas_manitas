@@ -68,12 +68,12 @@ def get_user(ID_Empleado):
         return None
     
 # Function to confirm an order was completed
-def confirm_order(orderID):
+def confirm_order(newPagoTemp, newPagoFin, orderID):
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
         #ESTATUS_ORDEN_FINAL=0 1 2 ESTATUS_ORDEN_TEMPORAL=0 1 2 
-        cursor.execute("UPDATE OPE_ORDENES SET ESTATUS_PAGO_TEMPORAL = ?, ESTATUS_PAGO_FINAL = ? WHERE ID_ORDEN = ?", (orderID,))
+        cursor.execute("UPDATE OPE_ORDENES SET ESTATUS_PAGO_TEMPORAL = ?, ESTATUS_PAGO_FINAL = ? WHERE ID_ORDEN = ?", (newPagoTemp, newPagoFin, orderID,))
         conn.commit()
 
         cursor.close()
@@ -82,10 +82,6 @@ def confirm_order(orderID):
         return True
     except Exception as e:
         return False
-
-
-
-
 
 def get_Donantes():
     try:
@@ -100,6 +96,7 @@ def get_Donantes():
         return users
     except Exception as e:
         return []
+    
 """
 
 # Create a user in the database
