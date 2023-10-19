@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 import pyodbc
 import hashing as hs
 import apiModels as am
+# from jwtTokens import create_jwt_token, get_current_user
 
 app = FastAPI()
 
@@ -43,6 +44,12 @@ async def check_login(login_data: am.LoginRequest):
             raise HTTPException(status_code=401, detail="User not found")
         else:
             if hs.check_password(password, user[4]):
+                '''
+                # Create JWT token
+                user_data = {"id": user[0], "username": username} 
+                token = create_jwt_token(user_data)
+                return {"message": "Login successful", "token": token, "id": user[0], "rol": user[5]}
+                '''
                 return {"message": "Login successful", "id": user[0], "rol": user[5]}
             else:
                 raise HTTPException(status_code=401, detail="Incorrect password")
