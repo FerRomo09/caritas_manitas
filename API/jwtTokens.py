@@ -1,7 +1,14 @@
 from fastapi import Depends, HTTPException
 import jwt
 import datetime
-import secrets
+import json
+
+
+# Read the secret key from the configuration file
+with open("config.json", "r") as config_file:
+    config = json.load(config_file)
+    SECRET_KEY = config["secret_key"]
+
 
 # Function to create JWT tokens
 def create_jwt_token(data):
