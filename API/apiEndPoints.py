@@ -111,6 +111,7 @@ async def confirm_order(orderID: int, order_data: am.OrderConfirmation):
 
         return {"message": "Order confirmed"}
     except Exception as e:
+        print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
