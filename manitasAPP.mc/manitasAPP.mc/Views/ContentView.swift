@@ -79,15 +79,17 @@ struct ContentView: View {
                             Spacer().frame(height: 35)
                             
                             Button(action: {
-                                navigationToMain = autenticarEjemplo()
+                                var logInRes: logInInfo
+                                logInRes=checkLogIn(user: username, pass: password)
+                                navigationToMain = logInRes.res
                                 showAlert = !navigationToMain}){
-                                Text("INGRESAR")
-                                    .fontWeight(.bold)
-                                    .padding(.horizontal, 90)
-                                    .padding(.vertical, 8)
-                                    .foregroundColor(Color("manitasBlanco"))
-                                    .cornerRadius(10)
-                            }
+                                    Text("INGRESAR")
+                                        .fontWeight(.bold)
+                                        .padding(.horizontal, 90)
+                                        .padding(.vertical, 8)
+                                        .foregroundColor(Color("manitasBlanco"))
+                                        .cornerRadius(10)
+                                }
                             .tint(Color("manitasMorado"))
                             .buttonStyle(.borderedProminent)
                             .navigationDestination(isPresented: $navigationToMain){
