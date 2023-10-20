@@ -16,7 +16,7 @@
 		FB14915A2AE0570B00C29C1E /* ProfileBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491592AE0570B00C29C1E /* ProfileBarView.swift */; };
 		FB14915F2AE075C000C29C1E /* OrdenBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB14915E2AE075C000C29C1E /* OrdenBarView.swift */; };
 		FB1491612AE19FB100C29C1E /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491602AE19FB100C29C1E /* ProfileView.swift */; };
-		FB7AA1AB2AE0734700F0D70D /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7AA1AA2AE0734700F0D70D /* LogInView.swift */; };
+		FB77A66C2AE20FDA0024B088 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB77A66B2AE20FDA0024B088 /* SplashView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +30,7 @@
 		FB1491592AE0570B00C29C1E /* ProfileBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBarView.swift; sourceTree = "<group>"; };
 		FB14915E2AE075C000C29C1E /* OrdenBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdenBarView.swift; sourceTree = "<group>"; };
 		FB1491602AE19FB100C29C1E /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		FB7AA1AA2AE0734700F0D70D /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
+		FB77A66B2AE20FDA0024B088 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,8 +83,8 @@
 			isa = PBXGroup;
 			children = (
 				FB1491462AE04F9900C29C1E /* ContentView.swift */,
+				FB77A66B2AE20FDA0024B088 /* SplashView.swift */,
 				FB1491542AE04FFF00C29C1E /* DetalleOrdenView.swift */,
-				FB7AA1AA2AE0734700F0D70D /* LogInView.swift */,
 				FB1491602AE19FB100C29C1E /* ProfileView.swift */,
 				FB14915D2AE075A000C29C1E /* Landing Views */,
 			);
@@ -172,8 +172,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB1491612AE19FB100C29C1E /* ProfileView.swift in Sources */,
+				FB77A66C2AE20FDA0024B088 /* SplashView.swift in Sources */,
 				FB1491532AE04FF000C29C1E /* LandingView.swift in Sources */,
-				FB7AA1AB2AE0734700F0D70D /* LogInView.swift in Sources */,
 				FB1491472AE04F9900C29C1E /* ContentView.swift in Sources */,
 				FB14915A2AE0570B00C29C1E /* ProfileBarView.swift in Sources */,
 				FB14915F2AE075C000C29C1E /* OrdenBarView.swift in Sources */,
