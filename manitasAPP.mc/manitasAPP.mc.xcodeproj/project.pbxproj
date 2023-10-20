@@ -17,6 +17,7 @@
 		FB14915F2AE075C000C29C1E /* OrdenBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB14915E2AE075C000C29C1E /* OrdenBarView.swift */; };
 		FB1491612AE19FB100C29C1E /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491602AE19FB100C29C1E /* ProfileView.swift */; };
 		FB1491632AE1B0E900C29C1E /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491622AE1B0E900C29C1E /* TabView.swift */; };
+		FB8AC7312AE2F7C0005A8022 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8AC7302AE2F7C0005A8022 /* ModelData.swift */; };
 		FBF6CEFB2AE2F06F00E3950A /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF6CEFA2AE2F06F00E3950A /* SplashView.swift */; };
 		FBF6CEFD2AE2F25400E3950A /* Back-Views in Resources */ = {isa = PBXBuildFile; fileRef = FBF6CEFC2AE2F25400E3950A /* Back-Views */; };
 /* End PBXBuildFile section */
@@ -33,6 +34,7 @@
 		FB14915E2AE075C000C29C1E /* OrdenBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdenBarView.swift; sourceTree = "<group>"; };
 		FB1491602AE19FB100C29C1E /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		FB1491622AE1B0E900C29C1E /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		FB8AC7302AE2F7C0005A8022 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		FBF6CEFA2AE2F06F00E3950A /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		FBF6CEFC2AE2F25400E3950A /* Back-Views */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Back-Views"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,6 +74,7 @@
 				FB1491442AE04F9900C29C1E /* manitasAPP_mcApp.swift */,
 				FB1491482AE04F9A00C29C1E /* Assets.xcassets */,
 				FB14914A2AE04F9A00C29C1E /* Preview Content */,
+				FB8AC7302AE2F7C0005A8022 /* ModelData.swift */,
 			);
 			path = manitasAPP.mc;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 				FB14915F2AE075C000C29C1E /* OrdenBarView.swift in Sources */,
 				FB1491452AE04F9900C29C1E /* manitasAPP_mcApp.swift in Sources */,
 				FB1491632AE1B0E900C29C1E /* TabView.swift in Sources */,
+				FB8AC7312AE2F7C0005A8022 /* ModelData.swift in Sources */,
 				FB1491552AE04FFF00C29C1E /* DetalleOrdenView.swift in Sources */,
 				FBF6CEFB2AE2F06F00E3950A /* SplashView.swift in Sources */,
 			);

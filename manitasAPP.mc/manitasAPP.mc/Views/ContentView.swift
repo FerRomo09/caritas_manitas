@@ -92,6 +92,7 @@ struct ContentView: View {
                             .buttonStyle(.borderedProminent)
                             .navigationDestination(isPresented: $navigationToMain){
                                     LandingView()
+                            .navigationBarBackButtonHidden(true)
                             }
                             .alert(isPresented: $showAlert) {
                                 Alert(title: Text("Error"), message: Text("Usuario o contraseña incorrectos"), dismissButton: .default(Text("Ok")))
