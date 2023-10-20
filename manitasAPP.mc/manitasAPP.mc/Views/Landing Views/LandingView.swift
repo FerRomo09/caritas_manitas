@@ -71,17 +71,23 @@ struct LandingView: View {
                             let textoStatus = "Completado"
                             let colorStatus = Color.green
                             let iconStatus = Image(systemName: "checkmark.circle.fill")
-                            OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
+                            NavigationLink(destination: (DetalleOrdenView())){
+                                OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
+                            }
                         } else if (numStatus == 2){
                             let textoStatus = "En Proceso"
                             let colorStatus = Color.yellow
                             let iconStatus = Image(systemName: "exclamationmark.triangle.fill")
-                            OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
+                            NavigationLink(destination: (DetalleOrdenView())){
+                                OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
+                            }
                         }else if (numStatus == 1){
                             let textoStatus = "Pendiente"
                             let colorStatus = Color.red
                             let iconStatus = Image(systemName: "xmark.circle.fill")
-                            OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
+                            NavigationLink(destination: (DetalleOrdenView())){
+                                OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
+                            }
                         }
                          }
                          
