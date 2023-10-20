@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException, status
 import pyodbc
 import hashing as hs
 import apiModels as am
+
 # from jwtTokens import create_jwt_token, get_current_user
 
 app = FastAPI()
@@ -40,7 +41,7 @@ async def check_login(login_data: am.LoginRequest):
         cursor.close()
         conn.close()
         if user is None:
-            raise HTTPException(status_code=401, detail="User not found")
+            raise HTTPException(status_code=404, detail="User not found")
         else:
             if hs.check_password(password, user[3]):
                 
@@ -103,13 +104,18 @@ async def confirm_order(orderID: int, order_data: am.OrderConfirmation):
         conn = get_db_connection()
         cursor = conn.cursor()
         # ESTATUS_ORDEN_FINAL=0 1 2 ESTATUS_ORDEN_TEMPORAL=0 1 2
-        cursor.execute("UPDATE OPE_ORDENES SET ESTATUS_PAGO_TEMPORAL = ?, ESTATUS_PAGO_FINAL = ? WHERE ID_ORDEN = ?", (newPagoTemp, newPagoFin, orderID,))
+        cursor.execute("UPDATE OPE_ORDENES SET ESTATUS_ORDEN_TEMPORAL = ?, ESTATUS_ORDEN_FINAL = ? WHERE ID_ORDEN = ?", (newPagoTemp, newPagoFin, orderID,))
         conn.commit()
-
+        if cursor.rowcount == 0:
+            # No rows were affected, meaning the order with the specified ID does not exist
+            raise HTTPException(status_code=404, detail="Order not found")
         cursor.close()
         conn.close()
 
         return {"message": "Order confirmed"}
+    
+    except HTTPException as e:
+        raise e
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
