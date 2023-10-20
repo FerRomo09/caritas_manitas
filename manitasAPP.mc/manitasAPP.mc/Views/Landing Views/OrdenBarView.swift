@@ -16,7 +16,7 @@ struct OrdenBarView: View {
             HStack{
                 VStack(alignment: .leading){
                     HStack{Spacer()}
-                    Text("Orden #9182379") //remplazar con numero de orden
+                    Text("Recibo #9182379") //remplazar con numero de orden
                         .font(.system(size: 25))
                         .fontWeight(.bold)
                         .foregroundColor(Color("manitasNegro"))

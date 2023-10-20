@@ -108,12 +108,12 @@ struct DetalleOrdenView: View {
                     .offset(x:-48, y:145)
                     
                     HStack{
-                        Text("Ciudad:")
+                        Text("Municipio:")
                             .font(.system(size: 18))
                         Text("Monterrey")//REEMPLAZAR POR VARIABLE
                             .font(.system(size: 18, weight: .ultraLight))
                     }
-                    .offset(x:-62, y:170)
+                    .offset(x:-52, y:170)
                     
                     Image("Reemplazar")
                         .offset(x:110, y:145)
