@@ -19,17 +19,17 @@ struct LandingView: View {
                         ProfileBarView()
                     }
                     .padding(.top, 10)
-                    .padding(.bottom, 15)
+                    .padding(.bottom, 5)
                 }
                 
                 //Stack ordenes del dia
                 VStack(alignment: .leading){
                     HStack{Spacer()}
-                    Text("Ordenes del dia: ")
+                    Text("Recibos del dia: ")
                         .font(.system(size: 25))
                         .fontWeight(.bold)
                         .foregroundColor(Color("manitasNegro"))
-                    + Text("15")
+                    + Text("15")//REEMPLAZAR POR VARIABLES
                         .font(.system(size: 25))
                         .fontWeight(.bold)
                         .foregroundColor(Color("manitasAzul"))
@@ -38,13 +38,27 @@ struct LandingView: View {
                 ProgressView(value: 20, total: 100)
                     .padding(.horizontal, 40) //Remplazar
                     .tint(Color("manitasAzul"))
-                Text("Ordenes Completadas: ")
+                Text("Recibos pendientes: ")
                     .font(.system(size: 15))
                     .foregroundColor(Color("manitasNegro"))
-                + Text("20%") //Remplazar con variables
+                + Text("20%") //REEMPLAZAR POR VARIABLE ENTERA
                     .font(.system(size: 15))
                     .foregroundColor(Color("manitasAzul"))
+                }
+                .padding(.bottom, 10)
                 
+                ScrollView(.vertical, showsIndicators: true){
+                    LazyVStack(){
+                        OrdenBarView()
+                        OrdenBarView()
+                        OrdenBarView()
+                        OrdenBarView()
+                        OrdenBarView()
+                        OrdenBarView()
+                        OrdenBarView()
+                        OrdenBarView()
+                }
+               
                 //Manda foto para arriba
                 Spacer()
             }
