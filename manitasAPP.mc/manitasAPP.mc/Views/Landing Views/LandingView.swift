@@ -58,7 +58,7 @@ struct LandingView: View {
                         OrdenBarView()
                         OrdenBarView()
                 }
-                
+               
                 //Manda foto para arriba
                 Spacer()
             }
