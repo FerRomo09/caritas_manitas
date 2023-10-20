@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  manitasAPP.mc
 //
-//  Created by Romo on 17/10/23.
+//  Created by Romo
 //
 
 import SwiftUI
