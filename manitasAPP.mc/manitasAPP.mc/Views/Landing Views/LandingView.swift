@@ -19,7 +19,7 @@ struct LandingView: View {
                         ProfileBarView()
                     }
                     .padding(.top, 10)
-                    .padding(.bottom, 15)
+                    .padding(.bottom, 5)
                 }
                 
                 //Stack ordenes del dia
@@ -44,6 +44,20 @@ struct LandingView: View {
                 + Text("20%") //Remplazar con variables
                     .font(.system(size: 15))
                     .foregroundColor(Color("manitasAzul"))
+                }
+                .padding(.bottom, 10)
+                
+                ScrollView(.vertical, showsIndicators: true){
+                    LazyVStack(){
+                        OrdenBarView()
+                        OrdenBarView()
+                        OrdenBarView()
+                        OrdenBarView()
+                        OrdenBarView()
+                        OrdenBarView()
+                        OrdenBarView()
+                        OrdenBarView()
+                }
                 
                 //Manda foto para arriba
                 Spacer()
