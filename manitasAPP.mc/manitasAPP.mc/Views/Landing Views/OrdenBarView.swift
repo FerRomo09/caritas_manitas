@@ -7,33 +7,58 @@
 
 import SwiftUI
 
-struct OrdenBarView: View {    
+struct OrdenBarView: View {
+    @State var textoRecibido: String = "Completado"
+    @State var colorRecibido: Color = .green
+    @State var iconRecibido: Image = Image(systemName: "checkmark.circle.fill")
+
     var body: some View {
         ZStack(){
             Image("barGris")
+                .resizable(resizingMode: .stretch)
                 .cornerRadius(24)
+                .frame(width:368, height: 150.0)
             
             HStack{
-                VStack(alignment: .leading){
+                VStack(alignment: .leading, spacing: 1.5){
                     HStack{Spacer()}
                     Text("Recibo #9182379") //remplazar con numero de orden
-                        .font(.system(size: 25))
+                        .font(.system(size: 20))
                         .fontWeight(.bold)
                         .foregroundColor(Color("manitasNegro"))
+                        .padding(.bottom, 10)
                     Text("Donante: ")
-                        .font(.system(size: 18))
+                        .font(.system(size: 16))
                         .fontWeight(.medium)
                         .foregroundColor(Color("manitasNegro"))
                     + Text("Sr. Alberto Tamez V.")
-                        .font(.system(size: 18))
+                        .font(.system(size: 16))
                         .fontWeight(.thin)
                         .foregroundColor(Color("manitasNegro"))
-                    Text("Cantidad: ")
-                        .font(.system(size: 18))
+                    
+                    //Colinia, municipio, codigo postal
+                    Text("Col: ")
+                        .font(.system(size: 16))
                         .fontWeight(.medium)
                         .foregroundColor(Color("manitasNegro"))
-                    + Text("$1,500 pesos")
-                        .font(.system(size: 18))
+                    + Text("Prolongacion Chipinque")
+                        .font(.system(size: 16))
+                        .fontWeight(.thin)
+                        .foregroundColor(Color("manitasNegro"))
+                    Text("Mun: ")
+                        .font(.system(size: 16))
+                        .fontWeight(.medium)
+                        .foregroundColor(Color("manitasNegro"))
+                    + Text("Santa Catarina")
+                        .font(.system(size: 16))
+                        .fontWeight(.thin)
+                        .foregroundColor(Color("manitasNegro"))
+                    Text("CP: ")
+                        .font(.system(size: 16))
+                        .fontWeight(.medium)
+                        .foregroundColor(Color("manitasNegro"))
+                    + Text("66290")
+                        .font(.system(size: 16))
                         .fontWeight(.thin)
                         .foregroundColor(Color("manitasNegro"))
                     
@@ -44,25 +69,25 @@ struct OrdenBarView: View {
                 VStack(alignment: .trailing){
                     ZStack(){
                         Rectangle()
-                            .frame(width: 84.0, height: 91.0)
+                            .frame(width: 104.0, height: 150.0)
                             .opacity(0.8)
-                            .foregroundColor(.green)
+                            .foregroundColor(colorRecibido)
                             .cornerRadius(0, corners: .topLeft)
                             .cornerRadius(24, corners: .topRight)
                             .cornerRadius(0, corners: .bottomLeft)
                             .cornerRadius(24, corners: .bottomRight)
                         
                         VStack(){
-                            Image(systemName: "checkmark.circle.fill")
+                            iconRecibido
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .foregroundColor(.white)
-                                .frame(width: 28, height: 28, alignment: .center)
+                                .frame(width: 40, height: 40, alignment: .center)
                             
-                            Text("Completado")
+                            Text(textoRecibido)
                                 .fontWeight(.semibold)
                                 .foregroundColor(Color.white)
-                                .font(.system(size: 10))
+                                .font(.system(size: 14))
                         }
                     }
                 }
@@ -91,6 +116,9 @@ struct RoundedCorner: Shape {
 
 struct OrdenBarView_Previews: PreviewProvider {
     static var previews: some View {
-        OrdenBarView()
+        @State var variableTempTexto: String = "Completado"
+        @State var variableTempColor: Color = .green
+        @State var variableTempIcon: Image = Image(systemName: "checkmark.circle.fill")
+        OrdenBarView(textoRecibido: variableTempTexto, colorRecibido: variableTempColor, iconRecibido: variableTempIcon)
     }
 }

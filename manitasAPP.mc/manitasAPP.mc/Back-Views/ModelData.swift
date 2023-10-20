@@ -2,117 +2,62 @@
 //  ModelData.swift
 //  ProbarAPIRomo
 //
-//  Created by Romo on 17/10/23.
+//  Created by Romo
 //
 
 import Foundation
-/*
-func CallAPIUsuarios() -> Array<Usuario>{ // Regresar toda la lista POST
-    var usuariosList: Array<Usuario> = []
-    guard let url = URL(string:"http://10.14.255.83:8088/users") else{
-        print("No pude asignar el URLD del API")
-        return usuariosList
-    }
-    
-    let group = DispatchGroup()
-    group.enter()
-    
-    let task = URLSession.shared.dataTask(with: url){ data, response, error in
-        let jsonDecoder = JSONDecoder()
-        if (data != nil){
-            
-            do{ // objeto de tipo post para hacer algo
-                usuariosList = try jsonDecoder.decode([Usuario].self, from: data!) // le damos la estructura de datos que queremos utilizar
-                for usuarioItem in usuariosList{
-                    print("Id: \(usuarioItem.id) - User: \(usuarioItem.User) -Email: \(usuarioItem.email)")
-                }
-            }catch{
-                print(error)
-            }
-            group.leave()
-        }
-    }
-    task.resume()
-    group.wait()
-    print("******** Saliendo de la función.")
-    return usuariosList
-}
 
-
-func CallAPIList() -> Array<Post>{ // Regresar toda la lista POST
-    var postList: Array<Post> = []
-    guard let url = URL(string:"https://jsonplaceholder.typicode.com/posts") else{
-        print("No pude asignar el URLD del API")
-        return postList
-    }
-    
-    let group = DispatchGroup()
-    group.enter()
-    
-    let task = URLSession.shared.dataTask(with: url){ data, response, error in
-        let jsonDecoder = JSONDecoder()
-        if (data != nil){
-            
-            do{ // objeto de tipo post para hacer algo
-                postList = try jsonDecoder.decode([Post].self, from: data!) // le damos la estructura de datos que queremos utilizar
-                for postItem in postList{
-                    print("Id: \(postItem.id) - Titulo: \(postItem.title) ")
-                }
-            }catch{
-                print(error)
-            }
-            group.leave()
-        }
-    }
-    task.resume()
-    group.wait()
-    print("******** Saliendo de la función.")
-    return postList
-}
-
-func CallAPI() { // Regresar un elemento (solo 1)
-    guard let url = URL(string:"https://jsonplaceholder.typicode.com/posts/1") else{
-        print("No pude asignar el URLD del API")
-        return
-    }
-    
-    // Abre un task y llama a la API de arriba
-    let task = URLSession.shared.dataTask(with: url){ data, response, error in
-        let jsonDecoder = JSONDecoder()
-        
-        if (data != nil){
-            //if let datosAPI = String(data: data!, encoding: .utf8){ // leer textualmente todo lo del json.
-            //        print(datosAPI)
-            //}
-            do{ // objeto de tipo post para hacer algo
-                let postItem = try jsonDecoder.decode(Post.self, from: data!) // le damos la estructura de datos que queremos utilizar
-                print("Id: \(postItem.id) - Titulo: \(postItem.title) ")
-            }catch{
-                print(error)
-            }
-        }
-    }
-    
-    task.resume()
-    print("******** Saliendo de la función.")
-    return
-}
-
-
-struct Post:Codable, Identifiable{ // Protocolo para convertir del JSON  a estructura de datos automáticamente, Identifiable para hacer una lista
-    var userId: Int
-    var id: Int
-    var title: String
-    var body: String
-}
-
-
-struct Usuario:Codable, Identifiable{
-    var ID: Int
-    var User: String
-    var email: String
+struct Donante:Codable, Identifiable{
+    var ID_DONANTES: Int
+    var A_PATERNO: String
+    var A_MATERNO: String
+    var NOMBRE: String
+    var FECHA_NAC: String
+    var EMAIL: String
+    var TEL_CASA: Int
+    var TEL_OFICINA: Int
+    var TEL_MOVIL: Int
+    var ULTIMO_DONATIVO: Int
+    var ID_GENERO: Int
     var id: Int {
-        return self.ID
-    }//porque el protocolo identifiable lo amerita en minusculas
+        return self.ID_DONANTES
+    }
 }
- */
+
+struct Empleado:Codable, Identifiable{ // Protocolo para convertir del JSON  a estructura de datos automáticamente, Identifiable para hacer una lista
+    var ID_EMPLEADO: Int
+    var A_PATERNO: String
+    var A_MATERNO: String
+    var NOMBRE: String
+    var FECHA_NAC: String
+    var EMAIL: String
+    var TEL_MOVIL: Int
+    var ID_GENERO: Int
+    var ROL: Bool
+    var id: Int {
+        return self.ID_EMPLEADO
+    }
+}
+
+struct Recibo:Codable, Identifiable{
+    var ID_RECIBO: Int
+    var ID_DONANTES: Int
+    var ID_EMPLEADO: Int
+    var FECHA_COBRO: String
+    var FECHA_PAGO: String
+    var FECHA_VISITA: String
+    var IMPORTE: Double
+    var ESTATUS_ORDEN_TMP: Int
+    var ESTATUS_ORDEN_FINAL: Int
+    var COMENTARIOS: String
+    var ID_DIRECCION_COBRO: Int
+    var FECHA_CONFIRMACION: String
+    var COMENTARIOS_CANCELACION: String
+    var COMENTARIOS_REPROGRAMACION: String
+    var FECHA_REPROGRAMACION: String
+    var REPROGRAMACION_TELEFONISTA: Bool
+    var id: Int {
+        return self.ID_RECIBO
+    }
+}
+
