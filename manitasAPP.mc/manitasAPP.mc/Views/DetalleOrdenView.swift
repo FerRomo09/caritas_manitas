@@ -23,7 +23,7 @@ struct DetalleOrdenView: View {
 
                 Image("Carusel")
             
-                Text("Orden #5148132")//REEMPLAZAR POR VARIABLE
+                Text("Recibo #5148132")//REEMPLAZAR POR VARIABLE
                     .font(.system(size: 25, weight: .bold))
                     .offset(x:-60, y:-200)
                 
@@ -33,7 +33,7 @@ struct DetalleOrdenView: View {
                     .offset(y:-130)
                 
                 
-                Text("Detalles de Orden")
+                Text("Detalles del Recibo")
                     .offset(x:-60, y:-130)
                     .font(.system(size: 20, weight: .medium))
                 
@@ -123,7 +123,7 @@ struct DetalleOrdenView: View {
     
             }
             Spacer()
-            Button("Orden Completada"){
+            Button("Cobrado"){
                 
             }
             .frame(width: 1000)//checar
@@ -132,7 +132,7 @@ struct DetalleOrdenView: View {
             .tint(.green)
         
             
-            Button("No se pudo completar la orden"){
+            Button("No cobrado"){
                 actionSheet = true
                 
             }
@@ -140,11 +140,9 @@ struct DetalleOrdenView: View {
                 ActionSheet(title: Text("No se completo la orden"), message: Text("Elige la razon por la que no se pudo completar"), buttons: [
                     
                     .default(Text("El donante no se encontraba en su domicilio")),
-                    .default(Text("El donante no disponía de la cantidad exacta para la donación")),
-                    .default(Text("El donante no tenía efectivo disponible")),
-                    .default(Text("El donante cambió de opinión en el último momento")),
-                    .default(Text("El donante decidió donar en otro momento")),
-                    .default(Text("No hubo tiempo suficiente para completar la orden")),
+                    .default(Text("El donante no disponía de la cantidad exacta")),
+                    .default(Text("El donante no tenía efectivo")),
+                    .default(Text("El donante reprogamo la fecha")),
                     .default(Text("Otra razon")){
                         mostrarTexto = true
                     },
