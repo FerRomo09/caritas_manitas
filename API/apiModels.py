@@ -11,7 +11,6 @@ class OrderConfirmation(BaseModel):
     newPagoFin: int
 
 class LoginResponse(BaseModel):
-    message: str
     id: int
     rol: int
 

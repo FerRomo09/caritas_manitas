@@ -51,7 +51,7 @@ async def check_login(login_data: am.LoginRequest):
                 token = create_jwt_token(user_data)
                 return {"message": "Login successful", "token": token, "id": user[0], "rol": user[5]}
                 '''
-                return {"message": "Login successful", "id": user[1], "rol": 1 if user[4] else 0}
+                return {"id": user[1], "rol": 1 if user[4] else 0}
             else:
                 raise HTTPException(status_code=401, detail="Incorrect password")#usar status
             
