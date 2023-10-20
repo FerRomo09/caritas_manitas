@@ -11,7 +11,7 @@ import SwiftUI
 struct manitasAPP_mcApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SplashView()
         }
     }
 }

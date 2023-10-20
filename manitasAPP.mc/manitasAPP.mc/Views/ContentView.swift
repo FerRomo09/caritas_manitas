@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  manitasAPP.mc
 //
-//  Created by Alumno on 18/10/23.
+//  Created by Romo on 17/10/23.
 //
 
 import SwiftUI
@@ -15,7 +15,7 @@ struct ContentView: View {
     @State private var navigationToMain: Bool = false
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 Color("manitasAzul")
                     .edgesIgnoringSafeArea(.all)
@@ -78,7 +78,9 @@ struct ContentView: View {
                             }.padding(.horizontal, 50)
                             Spacer().frame(height: 35)
                             
-                            Button(action: autenticarEjemplo) {
+                            Button(action: {
+                                navigationToMain = autenticarEjemplo()
+                                showAlert = !navigationToMain}){
                                 Text("INGRESAR")
                                     .fontWeight(.bold)
                                     .padding(.horizontal, 90)
@@ -89,11 +91,12 @@ struct ContentView: View {
                             .tint(Color("manitasMorado"))
                             .buttonStyle(.borderedProminent)
                             .navigationDestination(isPresented: $navigationToMain){
-                                DetalleOrdenView()
+                                    DetalleOrdenView()
                             }
                             .alert(isPresented: $showAlert) {
                                 Alert(title: Text("Error"), message: Text("Usuario o contraseña incorrectos"), dismissButton: .default(Text("Ok")))
                             }
+                            
 
                             Spacer().frame(height: 20)
                         }
@@ -104,28 +107,14 @@ struct ContentView: View {
         }
     }
 
-    func autenticarEjemplo() {
-        if username == "admin" && password == "password123" {
-            navigationToMain = true  // Activa la navegación programática a ContentView
-            print("Usuario autenticado correctamente")
+    func autenticarEjemplo() ->Bool {
+        if username == "admin" && password == "admin123" {
+            return true
         } else {
-            showAlert = true
+            return false
         }
     }
 }
-/*
-    var body: some View {
-        ZStack{
-            Color("manitasAzul")
-                .edgesIgnoringSafeArea(.all)
-            Image("logoCaritasBlanco")
-                .resizable(resizingMode: .stretch)
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 250)
-        }
-    }
-}
-*/
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
