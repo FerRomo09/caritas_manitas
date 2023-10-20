@@ -17,6 +17,7 @@
 		FB14915F2AE075C000C29C1E /* OrdenBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB14915E2AE075C000C29C1E /* OrdenBarView.swift */; };
 		FB1491612AE19FB100C29C1E /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491602AE19FB100C29C1E /* ProfileView.swift */; };
 		FB77A66C2AE20FDA0024B088 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB77A66B2AE20FDA0024B088 /* SplashView.swift */; };
+		FB77A66F2AE216840024B088 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB77A66E2AE216840024B088 /* ModelData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		FB14915E2AE075C000C29C1E /* OrdenBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdenBarView.swift; sourceTree = "<group>"; };
 		FB1491602AE19FB100C29C1E /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		FB77A66B2AE20FDA0024B088 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		FB77A66E2AE216840024B088 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 		FB1491432AE04F9900C29C1E /* manitasAPP.mc */ = {
 			isa = PBXGroup;
 			children = (
+				FB77A66D2AE2166A0024B088 /* Back-Views */,
 				FB1491562AE0533100C29C1E /* Views */,
 				FB1491442AE04F9900C29C1E /* manitasAPP_mcApp.swift */,
 				FB1491482AE04F9A00C29C1E /* Assets.xcassets */,
@@ -99,6 +102,14 @@
 				FB14915E2AE075C000C29C1E /* OrdenBarView.swift */,
 			);
 			path = "Landing Views";
+			sourceTree = "<group>";
+		};
+		FB77A66D2AE2166A0024B088 /* Back-Views */ = {
+			isa = PBXGroup;
+			children = (
+				FB77A66E2AE216840024B088 /* ModelData.swift */,
+			);
+			path = "Back-Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,6 +184,7 @@
 			files = (
 				FB1491612AE19FB100C29C1E /* ProfileView.swift in Sources */,
 				FB77A66C2AE20FDA0024B088 /* SplashView.swift in Sources */,
+				FB77A66F2AE216840024B088 /* ModelData.swift in Sources */,
 				FB1491532AE04FF000C29C1E /* LandingView.swift in Sources */,
 				FB1491472AE04F9900C29C1E /* ContentView.swift in Sources */,
 				FB14915A2AE0570B00C29C1E /* ProfileBarView.swift in Sources */,
