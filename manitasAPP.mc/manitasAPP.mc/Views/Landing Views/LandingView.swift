@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct LandingView: View {
+    @State private var textoStatus: String = "Completado"
+    @State private var colorStatus: Color = .green
+    @State private var iconStatus: Image = Image(systemName: "checkmark.circle.fill")
+    @State private var numStatus: Int = 3
+    
     var body: some View {
         NavigationStack(){
             //Main VStack
@@ -49,14 +54,30 @@ struct LandingView: View {
                 
                 ScrollView(.vertical, showsIndicators: true){
                     LazyVStack(){
-                        OrdenBarView()
-                        OrdenBarView()
-                        OrdenBarView()
-                        OrdenBarView()
-                        OrdenBarView()
-                        OrdenBarView()
-                        OrdenBarView()
-                        OrdenBarView()
+                        //Itera n veces
+                        ForEach(1...15, id: \.self) {
+                            i in
+                            let numStatus = Int.random(in: 1..<4)
+                            if (numStatus == 3){
+                                let textoStatus = "Completado"
+                                let colorStatus = Color.green
+                                let iconStatus = Image(systemName: "checkmark.circle.fill")
+                                OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
+                            } else if (numStatus == 2){
+                                let textoStatus = "En Proceso"
+                                let colorStatus = Color.yellow
+                                let iconStatus = Image(systemName: "exclamationmark.triangle.fill")
+                                OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
+                            }else if (numStatus == 1){
+                                let textoStatus = "Pendiente"
+                                let colorStatus = Color.red
+                                let iconStatus = Image(systemName: "xmark.circle.fill")
+                                OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
+                            }
+                        
+                        }
+                            //OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
+                    }
                 }
                
                 //Manda foto para arriba
@@ -64,7 +85,7 @@ struct LandingView: View {
             }
         }
     }
-}
+
 
 struct LandingView_Previews: PreviewProvider {
     static var previews: some View {
