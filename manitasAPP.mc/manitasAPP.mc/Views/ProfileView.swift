@@ -50,7 +50,7 @@ struct ProfileView: View {
                 .cornerRadius(10)
                 .shadow(radius: 5)
             }
-            .offset(y:-220)
+            .offset(y:-130)
             
             VStack{
                 VStack{
@@ -83,7 +83,9 @@ struct ProfileView: View {
                 .cornerRadius(10)
                 .shadow(radius: 5)
             }
-            .offset(y:-200)
+            .offset(y:-80)
+            
+            
             
             Button("Cerrar sesion"){
                 
