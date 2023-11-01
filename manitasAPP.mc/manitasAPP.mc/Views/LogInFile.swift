@@ -8,7 +8,7 @@ struct logInInfo{
 
 func checkLogIn(user: String, pass: String)->logInInfo {
     
-    let loginUrl = URL(string: "http://10.22.166.203:8037/check_login")!
+    let loginUrl = URL(string: "http://10.22.172.213:8037/check_login")!
     var logD = logInInfo(res:false, id:0, rol:0)
     
     let loginData: [String: Any] = [
