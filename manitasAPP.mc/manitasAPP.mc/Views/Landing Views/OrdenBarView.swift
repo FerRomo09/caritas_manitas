@@ -33,7 +33,7 @@ struct OrdenBarView: View {
                         .foregroundColor(Color("manitasNegro"))
                     + Text("Sr. Alberto Tamez V.")
                         .font(.system(size: 16))
-                        .fontWeight(.thin)
+                        .fontWeight(.light)
                         .foregroundColor(Color("manitasNegro"))
                     
                     //Colinia, municipio, codigo postal
@@ -43,7 +43,7 @@ struct OrdenBarView: View {
                         .foregroundColor(Color("manitasNegro"))
                     + Text("Prolongacion Chipinque")
                         .font(.system(size: 16))
-                        .fontWeight(.thin)
+                        .fontWeight(.light)
                         .foregroundColor(Color("manitasNegro"))
                     Text("Mun: ")
                         .font(.system(size: 16))
@@ -51,7 +51,7 @@ struct OrdenBarView: View {
                         .foregroundColor(Color("manitasNegro"))
                     + Text("Santa Catarina")
                         .font(.system(size: 16))
-                        .fontWeight(.thin)
+                        .fontWeight(.light)
                         .foregroundColor(Color("manitasNegro"))
                     Text("CP: ")
                         .font(.system(size: 16))
@@ -59,7 +59,7 @@ struct OrdenBarView: View {
                         .foregroundColor(Color("manitasNegro"))
                     + Text("66290")
                         .font(.system(size: 16))
-                        .fontWeight(.thin)
+                        .fontWeight(.light)
                         .foregroundColor(Color("manitasNegro"))
                     
                     HStack{Spacer()}

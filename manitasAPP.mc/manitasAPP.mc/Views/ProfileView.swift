@@ -56,27 +56,33 @@ struct ProfileView: View {
                 VStack{
                     VStack{
                         HStack{
-                            Text("Nombre(s)")
+                            Text("------")
                             Spacer()
-                            Text("Andrea Alejandra")
+                            Text("-------")
                             
                             
                         }
                         Divider()
                         
                         HStack{
-                            Text("Apellidos")
+                            Text("-----")
                             Spacer()
-                            Text("Espindola Gomez")
+                            Text("-------")
                         }
                         Divider()
                         
                         HStack{
-                            Text("Fecha de nacimiento")
+                            Text("-------")
                             Spacer()
-                            Text("02/02/2002")
+                            Text("-------")
                         }
                         Divider()
+                        
+                        HStack{
+                            Text("Agregar")
+                            Spacer()
+                            Text("agregar")
+                        }
 
                     }
                     .padding()
@@ -85,6 +91,8 @@ struct ProfileView: View {
                     .shadow(radius: 5)
                 }
                 .offset(y:-80)
+                
+                //REVISAR
                 
                 NavigationLink("Cerrar sesion"){
                     ContentView()
