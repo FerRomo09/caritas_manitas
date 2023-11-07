@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OrdenBarView: View {
-    @State var textoRecibido: String = "Completado"
+    @State var textoRecibido: String = "Recolectado"
     @State var colorRecibido: Color = .green
     @State var iconRecibido: Image = Image(systemName: "checkmark.circle.fill")
 
@@ -83,11 +83,13 @@ struct OrdenBarView: View {
                                 .aspectRatio(contentMode: .fill)
                                 .foregroundColor(.white)
                                 .frame(width: 40, height: 40, alignment: .center)
+                                .padding(.bottom, 5)
                             
                             Text(textoRecibido)
                                 .fontWeight(.semibold)
                                 .foregroundColor(Color.white)
                                 .font(.system(size: 14))
+                                .multilineTextAlignment(.center)
                         }
                     }
                 }
@@ -116,7 +118,7 @@ struct RoundedCorner: Shape {
 
 struct OrdenBarView_Previews: PreviewProvider {
     static var previews: some View {
-        @State var variableTempTexto: String = "Completado"
+        @State var variableTempTexto: String = "Recolectado"
         @State var variableTempColor: Color = .green
         @State var variableTempIcon: Image = Image(systemName: "checkmark.circle.fill")
         OrdenBarView(textoRecibido: variableTempTexto, colorRecibido: variableTempColor, iconRecibido: variableTempIcon)
