@@ -38,4 +38,6 @@ def get_current_user(token: str = Depends(validate_token)):
 async def protected_endpoint(current_user: dict = Depends(get_current_user)):
     return {"message": "This is a protected endpoint", "user": current_user}
 
+decoradores**
+
 '''
