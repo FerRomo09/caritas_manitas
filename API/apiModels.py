@@ -8,9 +8,6 @@ class LoginRequest(BaseModel):
     username: str
     password: str
 
-class OrderConfirmation(BaseModel):
-    newPagoTemp: int
-    newPagoFin: int
 
 class LoginResponse(BaseModel):
     id: int
