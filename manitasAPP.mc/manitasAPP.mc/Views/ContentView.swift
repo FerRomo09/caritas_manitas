@@ -14,7 +14,7 @@ struct ContentView: View {
     @State private var showAlert: Bool = false
     @State private var navigationToMain: Bool = false
     @State private var rolUser: Int = -1
-    @State private var Token: String = ""
+    @State private var Token: String = " "
 
     var body: some View {
         NavigationStack {
