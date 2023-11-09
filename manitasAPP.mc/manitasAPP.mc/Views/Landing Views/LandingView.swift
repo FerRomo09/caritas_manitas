@@ -9,7 +9,7 @@ import SwiftUI
 import Foundation
 
 struct LandingView: View {
-    @State private var textoStatus: String = "Completado"
+    @State private var textoStatus: String = "Recolectado"
     @State private var colorStatus: Color = .green
     @State private var iconStatus: Image = Image(systemName: "checkmark.circle.fill")
     @State private var numStatus: Int = 3
@@ -68,21 +68,24 @@ struct LandingView: View {
                         i in
                         let numStatus = Int.random(in: 1..<4)
                         if (numStatus == 3){
-                            let textoStatus = "Completado"
+                            let textoStatus = "Recolectado"
                             let colorStatus = Color.green
                             let iconStatus = Image(systemName: "checkmark.circle.fill")
                             NavigationLink(destination: (DetalleOrdenView())){
                                 OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
                             }
                         } else if (numStatus == 2){
-                            let textoStatus = "En Proceso"
+                            let textoStatus = "Pendiente"
                             let colorStatus = Color.yellow
                             let iconStatus = Image(systemName: "exclamationmark.triangle.fill")
                             NavigationLink(destination: (DetalleOrdenView())){
                                 OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
                             }
                         }else if (numStatus == 1){
-                            let textoStatus = "Pendiente"
+                            let textoStatus = """
+                            No
+                            recolectado
+                            """
                             let colorStatus = Color.red
                             let iconStatus = Image(systemName: "xmark.circle.fill")
                             NavigationLink(destination: (DetalleOrdenView())){

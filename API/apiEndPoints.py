@@ -139,7 +139,7 @@ def llamar_ordenes(ID_EMPLEADO: int):
             conn = get_db_connection()
             cursor = conn.cursor()
             cursor.execute(
-                "SELECT * FROM OPE_ORDENES WHERE ID_EMPLEADO = ?", (ID_EMPLEADO,))
+                "EXEC SelectOrderById @EmpleadoID = ?;", (ID_EMPLEADO,))
             resultados = cursor.fetchall()
             if len(resultados) != 0:
                 ordenes_list = []
@@ -153,6 +153,7 @@ def llamar_ordenes(ID_EMPLEADO: int):
                     data = modificar_clave(data, 'ID_ORDEN', 'id')
 
                     ordenes_list.append(data)
+            
 
                     # print(type(model_instance))
 
@@ -190,11 +191,6 @@ def reprogram_order(orderID: int,  info_body: am.Reprogramacion):
             conn = get_db_connection()
             cursor = conn.cursor()
 
-            print("hola4")
-            print(current_date)
-            print(type(current_date))
-
-           
 
 
             cursor.execute("UPDATE OPE_ORDENES SET FECHA_VISITA = ?, COMENTARIOS_REPROGRAMACION = ? WHERE ID_ORDEN = ?",
@@ -219,6 +215,7 @@ def reprogram_order(orderID: int,  info_body: am.Reprogramacion):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8037, reload=True)
+
 
 
 
