@@ -10,17 +10,15 @@ class LoginRequest(BaseModel):
 
 
 class LoginResponse(BaseModel):
-    id: int
     rol: int
+    token: str
 
 class UserResponse(BaseModel):
     id: int
-    a_paterno: str
-    a_materno: str
+    apellido: str
     nombre: str
-    fecha_nacimiento: datetime.date
     email: str
-    telefono: Decimal
+    telefono: str
     id_genero: int
 
 
