@@ -10,7 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     @State private var curretUser: User?
     @State private var isLoading = false
-    var token: String?
+    var token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiMSIsInVzZXJuYW1lIjoiZW1wSnVhblAifSwiZXhwIjoxNzAzODczODQ5fQ.PDsknvxTskMKGtEpHw8_pX4HFiv3cWoMqazNP6qUUlc"
     var body: some View {
         NavigationStack{
             VStack{
