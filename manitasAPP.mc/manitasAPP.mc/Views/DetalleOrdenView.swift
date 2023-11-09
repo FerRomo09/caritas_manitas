@@ -44,7 +44,7 @@ struct DetalleOrdenView: View {
                     Text("Donante:")
                         .font(.system(size: 18))
                     Text("Sr. Francisco Torres J.")//REEMPLAZAR POR VARIABLE
-                        .font(.system(size: 18, weight: .ultraLight))
+                        .font(.system(size: 18, weight: .light))
                 }
                 .offset(x:-15, y:-90)
             
@@ -52,7 +52,7 @@ struct DetalleOrdenView: View {
                     Text("Cantidad:")
                         .font(.system(size: 18))
                     Text("$2,500.00 pesos")//REEMPLAZAR POR VARIABLE
-                        .font(.system(size: 18, weight: .ultraLight))
+                        .font(.system(size: 18, weight: .light))
                         
                 }.offset(x:-31, y:-62)
                 
@@ -60,7 +60,7 @@ struct DetalleOrdenView: View {
                     Text("Forma de pago:")
                         .font(.system(size: 18))
                     Text("Efectivo")//REEMPLAZAR POR VARIABLE
-                        .font(.system(size: 18, weight: .ultraLight))
+                        .font(.system(size: 18, weight: .light))
                         
                 }.offset(x:-40, y:-35)
                 
@@ -79,7 +79,7 @@ struct DetalleOrdenView: View {
                         Text("Calle:")
                             .font(.system(size: 18))
                         Text("Avenida Revolucion")//REEMPLAZAR POR VARIABLE
-                            .font(.system(size: 18, weight: .ultraLight))
+                            .font(.system(size: 18, weight: .light))
                     }
                     .offset(x:-38, y:78)
                     
@@ -87,7 +87,7 @@ struct DetalleOrdenView: View {
                         Text("Numero Exterior:")
                             .font(.system(size: 18))
                         Text("123")//REEMPLAZAR POR VARIABLE
-                            .font(.system(size: 18, weight: .ultraLight))
+                            .font(.system(size: 18, weight: .light))
                     }
                     .offset(x:-52, y:101)
                     
@@ -95,7 +95,7 @@ struct DetalleOrdenView: View {
                         Text("Colonia:")
                             .font(.system(size: 18))
                         Text("Los Pinos")//REEMPLAZAR POR VARIABLE
-                            .font(.system(size: 18, weight: .ultraLight))
+                            .font(.system(size: 18, weight: .light))
                     }
                     .offset(x:-64, y:123)
                     
@@ -103,7 +103,7 @@ struct DetalleOrdenView: View {
                         Text("Codigo Postal:")
                             .font(.system(size: 18))
                         Text("64840")//REEMPLAZAR POR VARIABLE
-                            .font(.system(size: 18, weight: .ultraLight))
+                            .font(.system(size: 18, weight: .light))
                     }
                     .offset(x:-48, y:145)
                     
@@ -111,7 +111,7 @@ struct DetalleOrdenView: View {
                         Text("Municipio:")
                             .font(.system(size: 18))
                         Text("Monterrey")//REEMPLAZAR POR VARIABLE
-                            .font(.system(size: 18, weight: .ultraLight))
+                            .font(.system(size: 18, weight: .light))
                     }
                     .offset(x:-52, y:170)
                     
@@ -139,10 +139,11 @@ struct DetalleOrdenView: View {
             .actionSheet(isPresented: $actionSheet){
                 ActionSheet(title: Text("No se completo la orden"), message: Text("Elige la razon por la que no se pudo completar"), buttons: [
                     
-                    .default(Text("El donante no se encontraba en su domicilio")),
-                    .default(Text("El donante no disponía de la cantidad exacta")),
-                    .default(Text("El donante no tenía efectivo")),
-                    .default(Text("El donante reprogamo la fecha")),
+                    .default(Text("No se encontraba en casa")),
+                    .default(Text("Ya no vive ahi")),
+                    .default(Text("No desea continuar ayudando")),
+                    .default(Text("Indispuesto")),
+                    .default(Text("No se ubicó el domicilio")),
                     .default(Text("Otra razon")){
                         mostrarTexto = true
                     },

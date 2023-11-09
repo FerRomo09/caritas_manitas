@@ -3,29 +3,41 @@ import pyodbc
 import hashing as hs
 import apiModels as am
 import datetime
+import json
 
 
 # from jwtTokens import create_jwt_token, get_current_user
 
 app = FastAPI()
 
+#Read the config file
+
+with open("config.json", "r") as config_file:
+    config = json.load(config_file)
+    SERVER = str(config["SERVER"])
+    DATABASE = str(config["DATABASE"])
+    UID = str(config["UID"])
+    PWD = str(config["PWD"])
+    DRIVER = str(config["DRIVER"])
+
 # Define MSSQL database connection details
 conn_str = (
-    "DRIVER={ODBC Driver 18 for SQL Server};"
-    "SERVER=10.14.255.87;"  
-    "DATABASE=DB_CARITAS;"  
-    "UID=SA;"
-    "PWD=Shakira123.;"
-    "TrustServerCertificate=yes"  
-    
-)
+    "DRIVER={};"
+    "SERVER={};" 
+    "DATABASE={};" 
+    "UID={};"
+    "PWD={};"
+    "TrustServerCertificate=yes").format(DRIVER, SERVER, DATABASE, UID, PWD)  
 
 # Function to establish a database connection
 def get_db_connection():
     try:
+        print(conn_str)
         conn = pyodbc.connect(conn_str)
+        print("Connection successful")
         return conn
     except Exception as e:
+        print(e)
         return None
 
 # Function to check login credentials
@@ -44,7 +56,7 @@ async def check_login(login_data: am.LoginRequest):
         cursor.close()
         conn.close()
         if user is None:
-            raise HTTPException(status_code=404, detail="User not found")
+            raise HTTPException()
         else:
             if hs.check_password(password, user[3]):
                 
@@ -54,12 +66,9 @@ async def check_login(login_data: am.LoginRequest):
                 token = create_jwt_token(user_data)
                 return {"message": "Login successful", "token": token, "id": user[0], "rol": user[5]}
                 '''
-                return {"id": user[1], "rol": 1 if user[4] else 0}
+                return {"id": user[1], "rol": user[4]}
             else:
-                raise HTTPException(status_code=401, detail="Incorrect password")#usar status
-            
-    except HTTPException as e:
-        raise e
+                raise HTTPException()
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
@@ -99,18 +108,15 @@ async def get_user(ID_Empleado: str):
 
 
 # Function to confirm an order was completed
-@app.put("/confirm_order/{orderID}")
-async def confirm_order(orderID: int, order_data: am.OrderConfirmation):
-    newPagoTemp = order_data.newPagoTemp
-    newPagoFin = order_data.newPagoFin
+@app.put("/confirm_order/{orderID}/{newPagoFin}")
+async def confirm_order(orderID: int, newPagoFin: int):
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-        # ESTATUS_ORDEN_FINAL=0 1 2 ESTATUS_ORDEN_TEMPORAL=0 1 2
-        cursor.execute("UPDATE OPE_ORDENES SET ESTATUS_ORDEN_TEMPORAL = ?, ESTATUS_ORDEN_FINAL = ? WHERE ID_ORDEN = ?", (newPagoTemp, newPagoFin, orderID,))
+
+        cursor.execute("UPDATE OPE_ORDENES SET ESTATUS_ORDEN = ? WHERE ID_ORDEN = ?", (newPagoFin, orderID,))
         conn.commit()
         if cursor.rowcount == 0:
-            # No rows were affected, meaning the order with the specified ID does not exist
             raise HTTPException(status_code=404, detail="Order not found")
         cursor.close()
         conn.close()
@@ -122,10 +128,7 @@ async def confirm_order(orderID: int, order_data: am.OrderConfirmation):
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
-    
-    
-    
-    
+       
 
 #funcion para modificar unas de las llaves del diccionario  
 def modificar_clave(diccionario, vieja_clave, nueva_clave):
