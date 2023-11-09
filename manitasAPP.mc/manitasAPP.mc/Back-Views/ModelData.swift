@@ -7,6 +7,7 @@
 
 import Foundation
 
+/*
 struct Donante:Codable, Identifiable{
     var ID_DONANTES: Int
     var A_PATERNO: String
@@ -23,6 +24,7 @@ struct Donante:Codable, Identifiable{
         return self.ID_DONANTES
     }
 }
+*/
 
 struct Empleado:Codable, Identifiable{ // Protocolo para convertir del JSON  a estructura de datos automáticamente, Identifiable para hacer una lista
     var ID_EMPLEADO: Int
@@ -45,17 +47,11 @@ struct Recibo:Codable, Identifiable{
     var ID_EMPLEADO: Int
     var FECHA_COBRO: String
     var FECHA_PAGO: String
-    var FECHA_VISITA: String
     var IMPORTE: Double
-    var ESTATUS_ORDEN_TMP: Int
-    var ESTATUS_ORDEN_FINAL: Int
+    var ESTATUS_ORDEN: Int
     var COMENTARIOS: String
     var ID_DIRECCION_COBRO: Int
-    var FECHA_CONFIRMACION: String
-    var COMENTARIOS_CANCELACION: String
     var COMENTARIOS_REPROGRAMACION: String
-    var FECHA_REPROGRAMACION: String
-    var REPROGRAMACION_TELEFONISTA: Bool
     var id: Int {
         return self.ID_RECIBO
     }

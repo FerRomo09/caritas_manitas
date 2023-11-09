@@ -118,9 +118,18 @@ struct RoundedCorner: Shape {
 
 struct OrdenBarView_Previews: PreviewProvider {
     static var previews: some View {
+        // Directamente pasamos valores sin @State ya que no es necesario en previews.
+        OrdenBarView(textoRecibido: "Recolectado", colorRecibido: .green, iconRecibido: Image(systemName: "checkmark.circle.fill"))
+    }
+}
+
+/*
+struct OrdenBarView_Previews: PreviewProvider {
+    static var previews: some View {
         @State var variableTempTexto: String = "Recolectado"
         @State var variableTempColor: Color = .green
         @State var variableTempIcon: Image = Image(systemName: "checkmark.circle.fill")
         OrdenBarView(textoRecibido: variableTempTexto, colorRecibido: variableTempColor, iconRecibido: variableTempIcon)
     }
 }
+*/
