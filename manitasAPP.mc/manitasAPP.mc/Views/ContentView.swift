@@ -14,7 +14,7 @@ struct ContentView: View {
     @State private var showAlert: Bool = false
     @State private var navigationToMain: Bool = false
     @State private var rolUser: Int = -1
-    @State private var idEmpleado: Int = -1
+    @State private var Token: String = ""
 
     var body: some View {
         NavigationStack {
@@ -88,7 +88,6 @@ struct ContentView: View {
                                 logInRes=checkLogIn(user: username, pass: password)
                                 navigationToMain = logInRes.res
                                 rolUser=logInRes.rol!
-                                idEmpleado=logInRes.id!
                                 showAlert = !navigationToMain}){
                                     Text("INGRESAR")
                                         .fontWeight(.bold)

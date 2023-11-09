@@ -2,14 +2,14 @@ import Foundation
 
 struct logInInfo{
     var res: Bool
-    var id: Int?
     var rol: Int?
+    var token: String?
 }
 
 func checkLogIn(user: String, pass: String)->logInInfo {
     
     let loginUrl = URL(string: "http://10.22.172.213:8037/check_login")!
-    var logD = logInInfo(res:false, id:0, rol:0)
+    var logD = logInInfo(res:false, rol:0, token:"")
     
     let loginData: [String: Any] = [
         "username": user,
@@ -43,8 +43,8 @@ func checkLogIn(user: String, pass: String)->logInInfo {
                             
                             if let response = json as? [String: Any] {
                                 //hacer algo si fue exitoso
-                                logD.id = response["id"] as? Int
                                 logD.rol = response["rol"] as? Int
+                                logD.token = response["token"] as? String
                                 logD.res=true
                             }
                         } catch {
