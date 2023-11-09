@@ -17,6 +17,7 @@
 		FB14915F2AE075C000C29C1E /* OrdenBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB14915E2AE075C000C29C1E /* OrdenBarView.swift */; };
 		FB1491612AE19FB100C29C1E /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491602AE19FB100C29C1E /* ProfileView.swift */; };
 		FB1491632AE1B0E900C29C1E /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491622AE1B0E900C29C1E /* TabView.swift */; };
+		FB8772612AFD766400940F49 /* GetUserFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8772602AFD766400940F49 /* GetUserFile.swift */; };
 		FB8AC7332AE312CB005A8022 /* LogInFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8AC7322AE312CB005A8022 /* LogInFile.swift */; };
 		FBF6CEFB2AE2F06F00E3950A /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF6CEFA2AE2F06F00E3950A /* SplashView.swift */; };
 		FBF6CEFD2AE2F25400E3950A /* Back-Views in Resources */ = {isa = PBXBuildFile; fileRef = FBF6CEFC2AE2F25400E3950A /* Back-Views */; };
@@ -34,6 +35,7 @@
 		FB14915E2AE075C000C29C1E /* OrdenBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdenBarView.swift; sourceTree = "<group>"; };
 		FB1491602AE19FB100C29C1E /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		FB1491622AE1B0E900C29C1E /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		FB8772602AFD766400940F49 /* GetUserFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserFile.swift; sourceTree = "<group>"; };
 		FB8AC7322AE312CB005A8022 /* LogInFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInFile.swift; sourceTree = "<group>"; };
 		FBF6CEFA2AE2F06F00E3950A /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		FBF6CEFC2AE2F25400E3950A /* Back-Views */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Back-Views"; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				FB1491542AE04FFF00C29C1E /* DetalleOrdenView.swift */,
 				FB1491602AE19FB100C29C1E /* ProfileView.swift */,
 				FBF6CEFA2AE2F06F00E3950A /* SplashView.swift */,
+				FB8772602AFD766400940F49 /* GetUserFile.swift */,
 				FB14915D2AE075A000C29C1E /* Landing Views */,
 			);
 			path = Views;
@@ -187,6 +190,7 @@
 				FB8AC7332AE312CB005A8022 /* LogInFile.swift in Sources */,
 				FB14915A2AE0570B00C29C1E /* ProfileBarView.swift in Sources */,
 				FB14915F2AE075C000C29C1E /* OrdenBarView.swift in Sources */,
+				FB8772612AFD766400940F49 /* GetUserFile.swift in Sources */,
 				FB1491452AE04F9900C29C1E /* manitasAPP_mcApp.swift in Sources */,
 				FB1491632AE1B0E900C29C1E /* TabView.swift in Sources */,
 				FB1491552AE04FFF00C29C1E /* DetalleOrdenView.swift in Sources */,

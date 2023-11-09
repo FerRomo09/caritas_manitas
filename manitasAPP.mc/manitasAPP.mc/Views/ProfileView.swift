@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @State private var curretUser: User?
+    var token: String?
     var body: some View {
         NavigationStack{
             VStack{
@@ -114,6 +116,17 @@ struct ProfileView: View {
 
             }
             .padding()
+            
+            .onAppear{
+                getUser(token: token!){user in
+                    if let user = user {
+                        self.curretUser = user
+                    }
+                    else{
+                        print("no user data")
+                    }
+                }
+            }
             
         } 
     }
