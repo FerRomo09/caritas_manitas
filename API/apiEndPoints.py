@@ -1,12 +1,10 @@
-from fastapi import FastAPI, HTTPException, status
+from fastapi import FastAPI, HTTPException, status, Depends, Header
 import pyodbc
 import hashing as hs
 import apiModels as am
 import datetime
 import json
-
-
-# from jwtTokens import create_jwt_token, get_current_user
+from jwtTokens import create_jwt_token, get_current_user
 
 app = FastAPI()
 
@@ -20,6 +18,7 @@ with open("config.json", "r") as config_file:
     PWD = str(config["PWD"])
     DRIVER = str(config["DRIVER"])
 
+
 # Define MSSQL database connection details
 conn_str = (
     "DRIVER={};"
@@ -32,9 +31,7 @@ conn_str = (
 # Function to establish a database connection
 def get_db_connection():
     try:
-        print(conn_str)
         conn = pyodbc.connect(conn_str)
-        print("Connection successful")
         return conn
     except Exception as e:
         print(e)
@@ -50,7 +47,7 @@ async def check_login(login_data: am.LoginRequest):
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        cursor.execute("SELECT O.*, E.ROL FROM DB_CARITAS.dbo.OPE_INGRESO AS O INNER JOIN DB_CARITAS.dbo.EMPLEADOS AS E ON O.ID_EMPLEADO = E.ID_EMPLEADO WHERE O.USUARIO = ?", (username,))
+        cursor.execute("EXEC GetIngresoDetails @Usuario = ?", (username,))
         user = cursor.fetchone()
 
         cursor.close()
@@ -59,24 +56,22 @@ async def check_login(login_data: am.LoginRequest):
             raise HTTPException()
         else:
             if hs.check_password(password, user[3]):
-                
-                '''
+                 
                 # Create JWT token
-                user_data = {"id": user[0], "username": username} 
+                user_data = {"id": str(user[1]), "username": username} 
                 token = create_jwt_token(user_data)
-                return {"message": "Login successful", "token": token, "id": user[0], "rol": user[5]}
-                '''
-                return {"id": user[1], "rol": user[4]}
+
+                return {"rol": user[4], "token": token}
             else:
                 raise HTTPException()
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
-
 # Function to retrieve user data
-@app.get("/get_user/{ID_Empleado}", response_model= am.UserResponse)
-async def get_user(ID_Empleado: str):
+@app.get("/get_user" )
+async def get_user(current_user: dict = Depends(get_current_user)):
+    ID_Empleado = current_user["id"]
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -90,15 +85,15 @@ async def get_user(ID_Empleado: str):
         if user is None:
             raise HTTPException(status_code=404, detail="User not found")
         else:
-            return {
+            return {'res':"helooooo"
+                """
                 'id': user[0],
-                'a_paterno': user[1],
-                'a_materno': user[2],
+                'apellido': user[1] + " " + user[2],
                 'nombre': user[3],
-                'fecha_nacimiento': user[4],
                 'email': user[5],
                 'telefono': user[6],
                 'id_genero': user[7]
+                """
             }
     except HTTPException as e:
         raise e
