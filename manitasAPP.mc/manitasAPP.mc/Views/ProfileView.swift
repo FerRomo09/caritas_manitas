@@ -9,111 +9,117 @@ import SwiftUI
 
 struct ProfileView: View {
     @State private var curretUser: User?
+    @State private var isLoading = false
     var token: String?
     var body: some View {
         NavigationStack{
             VStack{
-                Image("Avatar")
-                    .resizable()
-                     .aspectRatio(contentMode: .fill)
-                     .frame(width: 150, height: 150)
-                     .clipShape(Circle())
-                     .overlay(Circle().stroke(Color("manitasAzul"), lineWidth: 2))
-                     .shadow(radius: 5)
-                
-                Spacer()
-                
-                VStack{
+                if isLoading{
+                    Text("Cargando...")
+                }
+                else if let user=curretUser{
+                    Image("Avatar")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 150, height: 150)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Color("manitasAzul"), lineWidth: 2))
+                        .shadow(radius: 5)
+                    
+                    Spacer()
+                    
                     VStack{
-                        HStack{
-                            Text("Nombre(s)")
-                            Spacer()
-                            Text("Andrea Alejandra")
+                        VStack{
+                                HStack{
+                                Text("Nombre(s)")
+                                Spacer()
+                                    Text(user.name)
+                                
+                                
+                            }
+                            Divider()
                             
+                            HStack{
+                                Text("Apellidos")
+                                Spacer()
+                                Text(user.lastName)
+                            }
+                            Divider()
+                            
+                            HStack{
+                                Text("Email")
+                                Spacer()
+                                Text(user.email)
+                            }
                             
                         }
-                        Divider()
-                        
-                        HStack{
-                            Text("Apellidos")
-                            Spacer()
-                            Text("Espindola Gomez")
-                        }
-                        Divider()
-                        
-                        HStack{
-                            Text("Fecha de nacimiento")
-                            Spacer()
-                            Text("02/02/2002")
-                        }
-
+                        .padding()
+                        .background(.white)
+                        .cornerRadius(10)
+                        .shadow(radius: 5)
                     }
-                    .padding()
-                    .background(.white)
-                    .cornerRadius(10)
-                    .shadow(radius: 5)
-                }
-                .offset(y:-130)
-                
-                VStack{
+                    .offset(y:-130)
+                    
                     VStack{
-                        HStack{
-                            Text("------")
-                            Spacer()
-                            Text("-------")
+                        VStack{
+                            HStack{
+                                Text("Telefono")
+                                Spacer()
+                                Text(user.tel)
+                                
+                                
+                            }
+                            Divider()
                             
+                            HStack{
+                                Text("Genero")
+                                Spacer()
+                                Text("-----")
+                            }
+                            Divider()
+                            
+                            HStack{
+                                Text("-------")
+                                Spacer()
+                                Text("-------")
+                            }
+                            Divider()
+                            
+                            HStack{
+                                Text("Agregar")
+                                Spacer()
+                                Text("agregar")
+                            }
                             
                         }
-                        Divider()
-                        
-                        HStack{
-                            Text("-----")
-                            Spacer()
-                            Text("-------")
-                        }
-                        Divider()
-                        
-                        HStack{
-                            Text("-------")
-                            Spacer()
-                            Text("-------")
-                        }
-                        Divider()
-                        
-                        HStack{
-                            Text("Agregar")
-                            Spacer()
-                            Text("agregar")
-                        }
-
+                        .padding()
+                        .background(.white)
+                        .cornerRadius(10)
+                        .shadow(radius: 5)
                     }
-                    .padding()
-                    .background(.white)
-                    .cornerRadius(10)
-                    .shadow(radius: 5)
-                }
-                .offset(y:-80)
-                
-                //REVISAR
-                
-                NavigationLink("Cerrar sesion"){
-                    ContentView()
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.red)
-                .padding(.top,10)
-                .navigationBarBackButtonHidden(true)
-                
-                
-                
-                /*
-                Button("Cerrar sesion"){
+                    .offset(y:-80)
+                    
+                    //REVISAR
+                    
+                    NavigationLink("Cerrar sesion"){
+                        ContentView()
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.red)
+                    .padding(.top,10)
+                    .navigationBarBackButtonHidden(true)
+                    
+                    
+                    
+                    /*
+                     Button("Cerrar sesion"){
+                     
+                     }
+                     .buttonStyle(.borderedProminent)
+                     .tint(.red)
+                     */
                     
                 }
-                .buttonStyle(.borderedProminent)
-                .tint(.red)
-                */
-
             }
             .padding()
             
