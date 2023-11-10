@@ -1,11 +1,7 @@
 import Foundation
 
-struct OrderConfirmationResponse: Decodable {
-    let message: String
-}
-
-func confirmOrder(orderID: Int, token: String, completion: @escaping (Result<OrderConfirmationResponse, Error>) -> Void) {
-    let confirmOrderUrl = URL(string: "http://10.22.226.64:8037/confirm_order/\(orderID)")!
+func confirmOrder(orderID: Int, newPagoFin: Int, token: String) {
+    let confirmOrderUrl = URL(string: "http://10.22.226.64:8037/confirm_order/\(orderID)/\(newPagoFin)")!
 
     var request = URLRequest(url: confirmOrderUrl)
     request.httpMethod = "PUT"
@@ -15,9 +11,7 @@ func confirmOrder(orderID: Int, token: String, completion: @escaping (Result<Ord
 
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
         if let error = error {
-            DispatchQueue.main.async {
-                completion(.failure(error))
-            }
+            print("Error: \(error)")
             return
         }
 
@@ -26,31 +20,11 @@ func confirmOrder(orderID: Int, token: String, completion: @escaping (Result<Ord
             print("HTTP Status Code: \(statusCode)")
 
             if statusCode == 200 {
-                if let data = data {
-                    do {
-                        let decoder = JSONDecoder()
-                        let response = try decoder.decode(OrderConfirmationResponse.self, from: data)
-
-                        DispatchQueue.main.async {
-                            completion(.success(response))
-                        }
-                    } catch {
-                        print("Error parsing JSON: \(error)")
-                        DispatchQueue.main.async {
-                            completion(.failure(error))
-                        }
-                    }
-                }
+                print("Order confirmed successfully")
             } else if statusCode == 404 {
                 print("Order not found")
-                DispatchQueue.main.async {
-                    completion(.failure(NSError(domain: "Order not found", code: statusCode, userInfo: nil)))
-                }
             } else {
                 print("Error")
-                DispatchQueue.main.async {
-                    completion(.failure(NSError(domain: "Unknown error", code: statusCode, userInfo: nil)))
-                }
             }
         }
     }
