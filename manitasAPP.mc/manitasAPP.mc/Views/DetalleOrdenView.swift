@@ -11,6 +11,8 @@ struct DetalleOrdenView: View {
     //Para mostrar las opciones del boton rojo
     @State private var actionSheet = false
     //Booleano para
+    @State var token = ""
+    @State var orderID = 1
     @State private var mostrarTexto = false
     @State private var razonUsuario = ""
     
@@ -124,6 +126,7 @@ struct DetalleOrdenView: View {
             }
             Spacer()
             Button("Cobrado"){
+                confirmOrder(orderID: orderID, token: token)
                 
             }
             .frame(width: 1000)//checar
