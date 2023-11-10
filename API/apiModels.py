@@ -14,24 +14,13 @@ class LoginResponse(BaseModel):
     token: str
 
 class UserResponse(BaseModel):
-    id: int
     apellido: str
     nombre: str
     email: str
     telefono: str
     id_genero: int
-
-
-class UserResponse(BaseModel):
-    id: int
-    a_paterno: str
-    a_materno: str
-    nombre: str
-    fecha_nacimiento: datetime.date
-    email: str
-    telefono: Decimal
-    id_genero: int
-    
+    fecha_nacimiento: str
+  
 
 class Reprogramacion(BaseModel):
     comentarios : str

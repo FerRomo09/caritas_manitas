@@ -37,7 +37,7 @@ def get_db_connection():
         print(e)
         return None
 
-# Function to check login credentials
+# Function to check login credentials -> funcional con JWT y conexion a swift
 @app.post("/check_login", response_model= am.LoginResponse)
 async def check_login(login_data: am.LoginRequest):
     username = login_data.username
@@ -68,15 +68,15 @@ async def check_login(login_data: am.LoginRequest):
         print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
-# Function to retrieve user data
-@app.get("/get_user" )
+# Function to retrieve user data -> funcional con JWT y conexion a swift
+@app.get("/get_user", response_model=am.UserResponse )
 async def get_user(current_user: dict = Depends(get_current_user)):
     ID_Empleado = current_user["id"]
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        cursor.execute("SELECT * FROM EMPLEADOS WHERE ID_EMPLEADO = ?", (ID_Empleado,))
+        cursor.execute("EXEC GetEmpleadoDetails @ID_EMPLEADO = ?", (ID_Empleado,))
         user = cursor.fetchone()
 
         cursor.close()
@@ -101,13 +101,15 @@ async def get_user(current_user: dict = Depends(get_current_user)):
 
 
 # Function to confirm an order was completed
-@app.put("/confirm_order/{orderID}/{newPagoFin}")
-async def confirm_order(orderID: int, newPagoFin: int):
+@app.put("/confirm_order/{orderID}")
+async def confirm_order(orderID: int, current_user: dict = Depends(get_current_user)):
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-
-        cursor.execute("UPDATE OPE_ORDENES SET ESTATUS_ORDEN = ? WHERE ID_ORDEN = ?", (newPagoFin, orderID,))
+        #EstatusOrden = 1 es el estatus de orden completada
+        #EstatusOrden = 2 es el estatus de orden no completada
+        #EstatusOrden = 0 es el estatus de orden pendiente
+        cursor.execute("EXEC UpdateOrdenEstatus @EstatusOrden = 1, @ID_ORDEN = ?; ", (orderID,))
         conn.commit()
         if cursor.rowcount == 0:
             raise HTTPException(status_code=404, detail="Order not found")
