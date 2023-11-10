@@ -9,6 +9,8 @@ import SwiftUI
 import Foundation
 
 struct LandingView: View {
+    @State var nombreRecibido: String=""
+    @State var tokenRecibido: String=""
     @State private var textoStatus: String = "Recolectado"
     @State private var colorStatus: Color = .green
     @State private var iconStatus: Image = Image(systemName: "checkmark.circle.fill")
@@ -26,8 +28,8 @@ struct LandingView: View {
                 
                 //Profile Bar, link a profile view
                 VStack(){
-                    NavigationLink(destination: (ProfileView())){
-                        ProfileBarView()
+                    NavigationLink(destination: (ProfileView(token: tokenRecibido))){
+                        ProfileBarView(nombreRecibidoPB: nombreRecibido)
                     }
                     .padding(.top, 10)
                     .padding(.bottom, 5)

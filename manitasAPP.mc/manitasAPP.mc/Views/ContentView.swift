@@ -14,7 +14,7 @@ struct ContentView: View {
     @State private var showAlert: Bool = false
     @State private var navigationToMain: Bool = false
     @State private var rolUser: Int = -1
-    @State private var Token: String = " "
+    @State private var token: String = ""
 
     var body: some View {
         NavigationStack {
@@ -88,6 +88,7 @@ struct ContentView: View {
                                 logInRes=checkLogIn(user: username, pass: password)
                                 navigationToMain = logInRes.res
                                 rolUser=logInRes.rol!
+                                token=logInRes.token!
                                 showAlert = !navigationToMain}){
                                     Text("INGRESAR")
                                         .fontWeight(.bold)
@@ -99,7 +100,7 @@ struct ContentView: View {
                             .tint(Color("manitasMorado"))
                             .buttonStyle(.borderedProminent)
                             .navigationDestination(isPresented: $navigationToMain){
-                                    LandingView()
+                                    LandingView(nombreRecibido: username, tokenRecibido: token)
                             .navigationBarBackButtonHidden(true)
                             }
                             .alert(isPresented: $showAlert) {

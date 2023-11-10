@@ -12,7 +12,7 @@ struct DetalleOrdenView: View {
     @State private var actionSheet = false
     //Booleano para
     @State private var mostrarTexto = false
-    @State private var razonUsuario = " "
+    @State private var razonUsuario = ""
     
     var body: some View {
         VStack{
