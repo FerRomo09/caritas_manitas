@@ -10,7 +10,8 @@ import SwiftUI
 struct ProfileView: View {
     @State private var curretUser: User?
     @State private var isLoading = false
-    var token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiMSIsInVzZXJuYW1lIjoiZW1wSnVhblAifSwiZXhwIjoxNzAzODczODQ5fQ.PDsknvxTskMKGtEpHw8_pX4HFiv3cWoMqazNP6qUUlc"
+    var token: String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiMSIsInVzZXJuYW1lIjoiZW1wSnVhblAifSwiZXhwIjoxNzAzODczODQ5fQ.PDsknvxTskMKGtEpHw8_pX4HFiv3cWoMqazNP6qUUlc"
+    
     var body: some View {
         NavigationStack{
             VStack{
@@ -30,10 +31,10 @@ struct ProfileView: View {
                     
                     VStack{
                         VStack{
-                                HStack{
+                            HStack{
                                 Text("Nombre(s)")
                                 Spacer()
-                                    Text(user.name)
+                                Text(user.name)
                                 
                                 
                             }
@@ -66,30 +67,28 @@ struct ProfileView: View {
                                 Text("Telefono")
                                 Spacer()
                                 Text(user.tel)
-                                
-                                
                             }
                             Divider()
                             
                             HStack{
                                 Text("Genero")
                                 Spacer()
-                                Text("-----")
+                                if user.gen==1{
+                                    Text("Masculino")
+                                }
+                                else{
+                                    Text("Femenino")
+                                }
+                                    
                             }
                             Divider()
                             
                             HStack{
-                                Text("-------")
+                                Text("Fecha Nacimiento")
                                 Spacer()
-                                Text("-------")
+                                Text(user.fechaNacimiento)
                             }
                             Divider()
-                            
-                            HStack{
-                                Text("Agregar")
-                                Spacer()
-                                Text("agregar")
-                            }
                             
                         }
                         .padding()
@@ -120,11 +119,17 @@ struct ProfileView: View {
                      */
                     
                 }
+                else {
+                    Text("Error cargando datos")
+                }
             }
+
             .padding()
             
             .onAppear{
-                getUser(token: token!){user in
+                isLoading=true
+                getUser(token: token){user in
+                    isLoading=false
                     if let user = user {
                         self.curretUser = user
                     }

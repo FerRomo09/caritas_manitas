@@ -2,16 +2,16 @@ import Foundation
 import Dispatch
 
 struct User {
-    let id: Int
     let name: String
     let lastName: String
     let email: String
     let tel: String
-    let gen: Bool
+    let gen: Int
+    let fechaNacimiento: String
 }
 
 func getUser(token: String, completion: @escaping (User?) -> Void) {
-    let getUserUrl = URL(string: "http://10.22.137.222:8037/get_user")!
+    let getUserUrl = URL(string: "http://10.22.226.64:8037/get_user")!
     
     var request = URLRequest(url: getUserUrl)
     request.httpMethod = "GET"
@@ -44,14 +44,13 @@ func getUser(token: String, completion: @escaping (User?) -> Void) {
                         
                         if let userDict = json as? [String: Any] {
 
-                            if let id = userDict["id"] as? Int,
-                               let name = userDict["nombre"] as? String,
+                            if let name = userDict["nombre"] as? String,
                                let lastName = userDict["apellido"] as? String,
                                let email = userDict["email"] as? String,
                                let tel = userDict["telefono"] as? String,
-                               let gen = userDict["genero"] as? Bool {
-                                
-                                let user = User(id: id, name: name, lastName: lastName, email: email, tel: tel, gen: gen)
+                               let fechaNacimiento = userDict["fecha_nacimiento"] as? String,
+                               let gen = userDict["id_genero"] as? Int{
+                                let user = User(name: name, lastName: lastName, email: email, tel: tel, gen: gen, fechaNacimiento: fechaNacimiento)
                                 completion(user)
                             } else {
                                 print("Error parsing user data")
