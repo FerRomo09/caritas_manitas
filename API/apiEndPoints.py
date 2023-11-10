@@ -8,8 +8,7 @@ from jwtTokens import create_jwt_token, get_current_user
 
 app = FastAPI()
 
-#Read the config file
-
+# Read the config file
 with open("config.json", "r") as config_file:
     config = json.load(config_file)
     SERVER = str(config["SERVER"])
@@ -18,15 +17,14 @@ with open("config.json", "r") as config_file:
     PWD = str(config["PWD"])
     DRIVER = str(config["DRIVER"])
 
-
 # Define MSSQL database connection details
 conn_str = (
     "DRIVER={};"
-    "SERVER={};" 
-    "DATABASE={};" 
+    "SERVER={};"
+    "DATABASE={};"
     "UID={};"
     "PWD={};"
-    "TrustServerCertificate=yes").format(DRIVER, SERVER, DATABASE, UID, PWD)  
+    "TrustServerCertificate=yes").format(DRIVER, SERVER, DATABASE, UID, PWD)
 
 # Function to establish a database connection
 def get_db_connection():
@@ -37,56 +35,56 @@ def get_db_connection():
         print(e)
         return None
 
-# Función para verificar las credenciales de inicio de sesión
-# Esta función toma los datos de inicio de sesión proporcionados por el usuario
-# y verifica si el usuario existe en la base de datos y si la contraseña proporcionada es correcta.
+# Function to verify login credentials
+# This function takes the login data provided by the user
+# and verifies if the user exists in the database and if the provided password is correct.
 @app.post("/check_login", response_model= am.LoginResponse)
 async def check_login(login_data: am.LoginRequest):
     username = login_data.username
     password = login_data.password
 
     try:
-        # Establecer conexión con la base de datos
+        # Establish connection with the database
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Ejecutar stored procedure para obtener detalles del usuario
+        # Execute stored procedure to get user details
         cursor.execute("EXEC GetIngresoDetails @Usuario = ?", (username,))
         user = cursor.fetchone()
 
         cursor.close()
         conn.close()
         if user is None:
-            # Si el usuario no existe, se lanza una excepción
+            # If the user does not exist, an exception is thrown
             raise HTTPException()
         else:
-            # Si el usuario existe, se verifica la contraseña
+            # If the user exists, the password is verified
             if hs.check_password(password, user[3]):
-                 
-                # Si la contraseña es correcta, se crea un token JWT
-                user_data = {"id": str(user[1]), "username": username} 
+
+                # If the password is correct, a JWT token is created
+                user_data = {"id": str(user[1]), "username": username}
                 token = create_jwt_token(user_data)
 
-                # Se devuelve el rol del usuario y el token
+                # The user's role and token are returned
                 return {"rol": user[4], "token": token}
             else:
-                # Si la contraseña es incorrecta, se lanza una excepción
+                # If the password is incorrect, an exception is thrown
                 raise HTTPException()
     except Exception as e:
         print(e)
-        raise HTTPException(status_code=500, detail="Error interno del servidor")
+        raise HTTPException(status_code=500, detail="Internal server error")
 
-# Función para recuperar los datos del usuario
-# Esta función toma el ID del usuario y devuelve los detalles del usuario de la base de datos.
+# Function to retrieve user data
+# This function takes the user ID and returns the user details from the database.
 @app.get("/get_user", response_model=am.UserResponse )
 async def get_user(current_user: dict = Depends(get_current_user)):
     ID_Empleado = current_user["id"]
     try:
-        # Establecer conexión con la base de datos
+        # Establish connection with the database
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Ejecutar stored procedure para obtener detalles del usuario
+        # Execute stored procedure to get user details
         cursor.execute("EXEC GetEmpleadoDetails @ID_EMPLEADO = ?", (ID_Empleado,))
         user = cursor.fetchone()
 
@@ -94,10 +92,10 @@ async def get_user(current_user: dict = Depends(get_current_user)):
         conn.close()
 
         if user is None:
-            # Si el usuario no existe, se lanza una excepción
-            raise HTTPException(status_code=404, detail="Usuario no encontrado")
+            # If the user does not exist, an exception is thrown
+            raise HTTPException(status_code=404, detail="User not found")
         else:
-            # Si el usuario existe, se devuelven los detalles del usuario
+            # If the user exists, the user details are returned
             return {
                 'apellido': user[1] + " " + user[2],
                 'nombre': user[3],
@@ -110,39 +108,38 @@ async def get_user(current_user: dict = Depends(get_current_user)):
         raise e
     except Exception as e:
         print(e)
-        raise HTTPException(status_code=500, detail="Error interno del servidor")
+        raise HTTPException(status_code=500, detail="Internal server error")
 
-# Función para confirmar que se completó un pedido
-# Esta función toma el ID de un pedido y actualiza su estado a "completado" en la base de datos.
+# Function to confirm that an order was completed
+# This function takes the ID of an order and updates its status to "completed" in the database.
 @app.put("/confirm_order/{orderID}")
 async def confirm_order(orderID: int, current_user: dict = Depends(get_current_user)):
     try:
-        # Establecer conexión con la base de datos
+        # Establish connection with the database
         conn = get_db_connection()
         cursor = conn.cursor()
-        
-    #EstatusOrden = 1 es el estatus de orden completada
-    #EstatusOrden = 2 es el estatus de orden no completada
-    #EstatusOrden = 0 es el estatus de orden pendiente
-    
-        # Ejecutar stored procedure para actualizar el estado del pedido
+
+    #EstatusOrden = 1 is the status of completed order
+    #EstatusOrden = 2 is the status of uncompleted order
+    #EstatusOrden = 0 is the status of pending order
+
+        # Execute stored procedure to update the order status
         cursor.execute("EXEC UpdateOrdenEstatus @EstatusOrden = 1, @ID_ORDEN = ?; ", (orderID,))
         conn.commit()
         if cursor.rowcount == 0:
-            # Si el pedido no existe, se lanza una excepción
-            raise HTTPException(status_code=404, detail="Pedido no encontrado")
+            # If the order does not exist, an exception is thrown
+            raise HTTPException(status_code=404, detail="Order not found")
         cursor.close()
         conn.close()
 
-        # Si el pedido existe y se actualiza correctamente, se devuelve un mensaje de confirmación
-        return {"message": "Pedido confirmado"}
-    
+        # If the order exists and is updated correctly, a confirmation message is returned
+        return {"message": "Order confirmed"}
+
     except HTTPException as e:
         raise e
     except Exception as e:
         print(e)
-        raise HTTPException(status_code=500, detail="Error interno del servidor")
-       
+        raise HTTPException(status_code=500, detail="Internal server error")       
 
 #funcion para modificar unas de las llaves del diccionario  
 def modificar_clave(diccionario, vieja_clave, nueva_clave):
