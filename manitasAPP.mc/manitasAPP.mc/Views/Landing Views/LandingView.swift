@@ -73,7 +73,7 @@ struct LandingView: View {
                             let textoStatus = "Recolectado"
                             let colorStatus = Color.green
                             let iconStatus = Image(systemName: "checkmark.circle.fill")
-                            NavigationLink(destination: (DetalleOrdenView())){
+                            NavigationLink(destination: (DetalleOrdenView(token: tokenRecibido))){
                                 OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
                             }
                         } else if (numStatus == 2){
