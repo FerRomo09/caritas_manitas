@@ -37,45 +37,56 @@ def get_db_connection():
         print(e)
         return None
 
-# Function to check login credentials -> funcional con JWT y conexion a swift
+# Función para verificar las credenciales de inicio de sesión
+# Esta función toma los datos de inicio de sesión proporcionados por el usuario
+# y verifica si el usuario existe en la base de datos y si la contraseña proporcionada es correcta.
 @app.post("/check_login", response_model= am.LoginResponse)
 async def check_login(login_data: am.LoginRequest):
     username = login_data.username
     password = login_data.password
 
     try:
+        # Establecer conexión con la base de datos
         conn = get_db_connection()
         cursor = conn.cursor()
 
+        # Ejecutar stored procedure para obtener detalles del usuario
         cursor.execute("EXEC GetIngresoDetails @Usuario = ?", (username,))
         user = cursor.fetchone()
 
         cursor.close()
         conn.close()
         if user is None:
+            # Si el usuario no existe, se lanza una excepción
             raise HTTPException()
         else:
+            # Si el usuario existe, se verifica la contraseña
             if hs.check_password(password, user[3]):
                  
-                # Create JWT token
+                # Si la contraseña es correcta, se crea un token JWT
                 user_data = {"id": str(user[1]), "username": username} 
                 token = create_jwt_token(user_data)
 
+                # Se devuelve el rol del usuario y el token
                 return {"rol": user[4], "token": token}
             else:
+                # Si la contraseña es incorrecta, se lanza una excepción
                 raise HTTPException()
     except Exception as e:
         print(e)
-        raise HTTPException(status_code=500, detail="Internal Server Error")
+        raise HTTPException(status_code=500, detail="Error interno del servidor")
 
-# Function to retrieve user data -> funcional con JWT y conexion a swift
+# Función para recuperar los datos del usuario
+# Esta función toma el ID del usuario y devuelve los detalles del usuario de la base de datos.
 @app.get("/get_user", response_model=am.UserResponse )
 async def get_user(current_user: dict = Depends(get_current_user)):
     ID_Empleado = current_user["id"]
     try:
+        # Establecer conexión con la base de datos
         conn = get_db_connection()
         cursor = conn.cursor()
 
+        # Ejecutar stored procedure para obtener detalles del usuario
         cursor.execute("EXEC GetEmpleadoDetails @ID_EMPLEADO = ?", (ID_Empleado,))
         user = cursor.fetchone()
 
@@ -83,8 +94,10 @@ async def get_user(current_user: dict = Depends(get_current_user)):
         conn.close()
 
         if user is None:
-            raise HTTPException(status_code=404, detail="User not found")
+            # Si el usuario no existe, se lanza una excepción
+            raise HTTPException(status_code=404, detail="Usuario no encontrado")
         else:
+            # Si el usuario existe, se devuelven los detalles del usuario
             return {
                 'apellido': user[1] + " " + user[2],
                 'nombre': user[3],
@@ -97,32 +110,38 @@ async def get_user(current_user: dict = Depends(get_current_user)):
         raise e
     except Exception as e:
         print(e)
-        raise HTTPException(status_code=500, detail="Internal Server Error")
+        raise HTTPException(status_code=500, detail="Error interno del servidor")
 
-
-# Function to confirm an order was completed
+# Función para confirmar que se completó un pedido
+# Esta función toma el ID de un pedido y actualiza su estado a "completado" en la base de datos.
 @app.put("/confirm_order/{orderID}")
 async def confirm_order(orderID: int, current_user: dict = Depends(get_current_user)):
     try:
+        # Establecer conexión con la base de datos
         conn = get_db_connection()
         cursor = conn.cursor()
-        #EstatusOrden = 1 es el estatus de orden completada
-        #EstatusOrden = 2 es el estatus de orden no completada
-        #EstatusOrden = 0 es el estatus de orden pendiente
+        
+    #EstatusOrden = 1 es el estatus de orden completada
+    #EstatusOrden = 2 es el estatus de orden no completada
+    #EstatusOrden = 0 es el estatus de orden pendiente
+    
+        # Ejecutar stored procedure para actualizar el estado del pedido
         cursor.execute("EXEC UpdateOrdenEstatus @EstatusOrden = 1, @ID_ORDEN = ?; ", (orderID,))
         conn.commit()
         if cursor.rowcount == 0:
-            raise HTTPException(status_code=404, detail="Order not found")
+            # Si el pedido no existe, se lanza una excepción
+            raise HTTPException(status_code=404, detail="Pedido no encontrado")
         cursor.close()
         conn.close()
 
-        return {"message": "Order confirmed"}
+        # Si el pedido existe y se actualiza correctamente, se devuelve un mensaje de confirmación
+        return {"message": "Pedido confirmado"}
     
     except HTTPException as e:
         raise e
     except Exception as e:
         print(e)
-        raise HTTPException(status_code=500, detail="Internal Server Error")
+        raise HTTPException(status_code=500, detail="Error interno del servidor")
        
 
 #funcion para modificar unas de las llaves del diccionario  
