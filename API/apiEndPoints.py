@@ -85,15 +85,13 @@ async def get_user(current_user: dict = Depends(get_current_user)):
         if user is None:
             raise HTTPException(status_code=404, detail="User not found")
         else:
-            return {'res':"helooooo"
-                """
-                'id': user[0],
+            return {
                 'apellido': user[1] + " " + user[2],
                 'nombre': user[3],
                 'email': user[5],
-                'telefono': user[6],
-                'id_genero': user[7]
-                """
+                'telefono': str(user[6]),
+                'id_genero': int(user[7]),
+                'fecha_nacimiento': str(user[4])
             }
     except HTTPException as e:
         raise e
