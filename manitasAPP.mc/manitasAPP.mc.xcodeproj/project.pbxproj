@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		539C60C12AFEF9EF00AB10F2 /* OrdenManagerBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539C60C02AFEF9EF00AB10F2 /* OrdenManagerBarView.swift */; };
+		539C60C32AFF042500AB10F2 /* ProfileManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539C60C22AFF042500AB10F2 /* ProfileManagerView.swift */; };
 		FB1491452AE04F9900C29C1E /* manitasAPP_mcApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491442AE04F9900C29C1E /* manitasAPP_mcApp.swift */; };
 		FB1491472AE04F9900C29C1E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491462AE04F9900C29C1E /* ContentView.swift */; };
 		FB1491492AE04F9A00C29C1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB1491482AE04F9A00C29C1E /* Assets.xcassets */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		539C60C02AFEF9EF00AB10F2 /* OrdenManagerBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdenManagerBarView.swift; sourceTree = "<group>"; };
+		539C60C22AFF042500AB10F2 /* ProfileManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManagerView.swift; sourceTree = "<group>"; };
 		FB1491412AE04F9900C29C1E /* manitasAPP.mc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = manitasAPP.mc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB1491442AE04F9900C29C1E /* manitasAPP_mcApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = manitasAPP_mcApp.swift; sourceTree = "<group>"; };
 		FB1491462AE04F9900C29C1E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -109,8 +113,10 @@
 			isa = PBXGroup;
 			children = (
 				FB1491522AE04FF000C29C1E /* LandingView.swift */,
+				539C60C22AFF042500AB10F2 /* ProfileManagerView.swift */,
 				FB1491592AE0570B00C29C1E /* ProfileBarView.swift */,
 				FB14915E2AE075C000C29C1E /* OrdenBarView.swift */,
+				539C60C02AFEF9EF00AB10F2 /* OrdenManagerBarView.swift */,
 				FB1491622AE1B0E900C29C1E /* TabView.swift */,
 			);
 			path = "Landing Views";
@@ -193,9 +199,11 @@
 				FB8AC7332AE312CB005A8022 /* LogInFile.swift in Sources */,
 				FB14915A2AE0570B00C29C1E /* ProfileBarView.swift in Sources */,
 				FB14915F2AE075C000C29C1E /* OrdenBarView.swift in Sources */,
+				539C60C12AFEF9EF00AB10F2 /* OrdenManagerBarView.swift in Sources */,
 				FB8772612AFD766400940F49 /* GetUserFile.swift in Sources */,
 				FB1491452AE04F9900C29C1E /* manitasAPP_mcApp.swift in Sources */,
 				FB1491632AE1B0E900C29C1E /* TabView.swift in Sources */,
+				539C60C32AFF042500AB10F2 /* ProfileManagerView.swift in Sources */,
 				FB1491552AE04FFF00C29C1E /* DetalleOrdenView.swift in Sources */,
 				FBF6CEFB2AE2F06F00E3950A /* SplashView.swift in Sources */,
 				FB98A7E92AFEADF500D0CAB5 /* ConfirmOrderFile.swift in Sources */,

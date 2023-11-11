@@ -1,17 +1,17 @@
 //
-//  profileBarView.swift
+//  ProfileManagerView.swift
 //  manitasAPP.mc
 //
-//  Created by Alumno on 18/10/23.
+//  Created by Jacobo Hirsch on 10/11/23.
 //
 
 import SwiftUI
 
-struct ProfileBarView: View {
-    @State var nombreRecibidoPB: String = "Repartidor"
+struct ProfileManagerView: View {
+    @State var nombreRecibidoPB: String = "Manager"
     var body: some View {
         ZStack(){
-            Image("bar")
+            Image("barManager")
                 .cornerRadius(24)
             
             HStack{
@@ -37,8 +37,8 @@ struct ProfileBarView: View {
     }
 }
 
-struct ProfileBarView_Previews: PreviewProvider {
+struct ProfileManagerView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileBarView()
+        ProfileManagerView()
     }
 }
