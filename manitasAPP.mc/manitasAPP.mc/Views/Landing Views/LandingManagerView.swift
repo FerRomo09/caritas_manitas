@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct LandingManagerView: View {
-    @State var nombreRecibido: String=""
-    @State var tokenRecibido: String=""
+    @State var nombreRecibido: String="Manager"
     @State private var textoStatus: String = "Recolectado"
     @State private var colorStatus: Color = .green
     @State private var iconStatus: Image = Image(systemName: "checkmark.circle.fill")
@@ -22,13 +21,15 @@ struct LandingManagerView: View {
         NavigationStack(){
             //Main VStack
             VStack(){
-                
-                
-                //Profile Bar, link a profile view
                 VStack(){
-                    ProfileManagerView()
+                    //Profile Bar, link a profile view
+                    NavigationLink(destination: (ManagerProfileView())){
+                        ProfileManagerView()
+                    }
+                    .padding(.top, 10)
+                    .padding(.bottom, 5)
                 }
-                
+ 
                 //Stack ordenes del dia
                 VStack(alignment: .leading){
                     
@@ -58,8 +59,6 @@ struct LandingManagerView: View {
             ScrollView(.vertical, showsIndicators: true){
                 
                 LazyVStack(){
-                    //Itera n veces
-                        
                     ForEach(1...15, id: \.self) {
                         i in
                         let numStatus = Int.random(in: 1..<4)
@@ -67,14 +66,14 @@ struct LandingManagerView: View {
                             let textoStatus = "Recolectado"
                             let colorStatus = Color.green
                             let iconStatus = Image(systemName: "checkmark.circle.fill")
-                            NavigationLink(destination: (DetalleOrdenView(token: tokenRecibido))){
+                            NavigationLink(destination: (DetalleOrdenManagerView())){
                                 OrdenManagerBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
                             }
                         } else if (numStatus == 2){
                             let textoStatus = "Pendiente"
                             let colorStatus = Color.yellow
                             let iconStatus = Image(systemName: "exclamationmark.triangle.fill")
-                            NavigationLink(destination: (DetalleOrdenView())){
+                            NavigationLink(destination: (DetalleOrdenManagerView())){
                                 OrdenManagerBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
                             }
                         }else if (numStatus == 1){
@@ -84,18 +83,14 @@ struct LandingManagerView: View {
                             """
                             let colorStatus = Color.red
                             let iconStatus = Image(systemName: "xmark.circle.fill")
-                            NavigationLink(destination: (DetalleOrdenView())){
+                            NavigationLink(destination: (DetalleOrdenManagerView())){
                                 OrdenManagerBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
                             }
                         }
                     }
-                         
-                    
-                    //OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
                 }
             }
-            
-            //Manda foto para arriba
+
             Spacer()
         }
     }
