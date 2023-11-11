@@ -17,7 +17,7 @@ struct OrdenManagerBarView: View {
             Image("barGris")
                 .resizable(resizingMode: .stretch)
                 .cornerRadius(24)
-                .frame(width:368, height: 120.0)
+                .frame(width:368, height: 100.0)
             
             HStack{
                 VStack(alignment: .leading, spacing: 1.5){
@@ -52,7 +52,7 @@ struct OrdenManagerBarView: View {
                 VStack(alignment: .trailing){
                     ZStack(){
                         Rectangle()
-                            .frame(width: 104.0, height: 120.0)
+                            .frame(width: 104.0, height: 100.0)
                             .opacity(0.8)
                             .foregroundColor(colorRecibido)
                             .cornerRadius(0, corners: .topLeft)
