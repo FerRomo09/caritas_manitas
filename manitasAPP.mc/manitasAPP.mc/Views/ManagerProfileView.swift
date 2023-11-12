@@ -99,17 +99,6 @@ struct ManagerProfileView: View {
                 .buttonStyle(.borderedProminent)
                 .tint(.red)
                 .padding(.top,10)
-                //.navigationBarBackButtonHidden(true)
-                
-                
-                
-                /*
-                 Button("Cerrar sesion"){
-                 
-                 }
-                 .buttonStyle(.borderedProminent)
-                 .tint(.red)
-                 */
                     
                 }
  
