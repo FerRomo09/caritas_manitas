@@ -99,7 +99,7 @@ struct ManagerProfileView: View {
                 .buttonStyle(.borderedProminent)
                 .tint(.red)
                 .padding(.top,10)
-                .navigationBarBackButtonHidden(true)
+                //.navigationBarBackButtonHidden(true)
                 
                 
                 

@@ -97,6 +97,7 @@ struct ContentView: View {
                                         .foregroundColor(Color("manitasBlanco"))
                                         .cornerRadius(10)
                                 }
+                                
                             .tint(Color("manitasMorado"))
                             .buttonStyle(.borderedProminent)
                             .navigationDestination(isPresented: $navigationToMain){
@@ -106,9 +107,8 @@ struct ContentView: View {
                             .alert(isPresented: $showAlert) {
                                 Alert(title: Text("Error"), message: Text("Usuario o contraseña incorrectos"), dismissButton: .default(Text("Ok")))
                             }
-                            
-
-                            
+                            .navigationBarBackButtonHidden(true)
+  
                         }
                     }
                     .padding(.horizontal, 20)
