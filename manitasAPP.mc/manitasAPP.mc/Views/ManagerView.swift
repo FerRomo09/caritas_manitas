@@ -22,24 +22,31 @@ struct ManagerView: View {
                     .fontWeight(.bold)
                     .foregroundColor(Color("manitasNegro"))
                 
-                HStack{
-                    ManagerOrderView()
-                    ManagerOrderView()
+                ScrollView(.vertical, showsIndicators: true){
+                    HStack{
+                        ManagerOrderView()
+                        ManagerOrderView()
+                    }
+                    
+                    HStack{
+                        ManagerOrderView()
+                        ManagerOrderView()
+                    }
+                    HStack{
+                        ManagerOrderView()
+                        ManagerOrderView()
+                    }
+                    HStack{
+                        ManagerOrderView()
+                        ManagerOrderView()
+                    }
+                    HStack{
+                        ManagerOrderView()
+                        ManagerOrderView()
+                    }
+                   
                 }
-                
-                HStack{
-                    ManagerOrderView()
-                    ManagerOrderView()
-                }
-                HStack{
-                    ManagerOrderView()
-                    ManagerOrderView()
-                }
-               
-                
-                
-                
-                
+
                 Spacer()
                 
             }
