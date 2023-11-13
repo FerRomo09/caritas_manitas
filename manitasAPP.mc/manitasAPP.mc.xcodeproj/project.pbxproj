@@ -15,6 +15,7 @@
 		539C60CD2AFF3D8100AB10F2 /* ManagerProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539C60CC2AFF3D8100AB10F2 /* ManagerProfileView.swift */; };
 		539C60CF2B01647300AB10F2 /* ManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539C60CE2B01647300AB10F2 /* ManagerView.swift */; };
 		539C60D12B01705E00AB10F2 /* ManagerOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539C60D02B01705E00AB10F2 /* ManagerOrderView.swift */; };
+		812F244D2B01C979006BC7C8 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F244C2B01C979006BC7C8 /* test.swift */; };
 		FB1491452AE04F9900C29C1E /* manitasAPP_mcApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491442AE04F9900C29C1E /* manitasAPP_mcApp.swift */; };
 		FB1491472AE04F9900C29C1E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491462AE04F9900C29C1E /* ContentView.swift */; };
 		FB1491492AE04F9A00C29C1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB1491482AE04F9A00C29C1E /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 		539C60CC2AFF3D8100AB10F2 /* ManagerProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerProfileView.swift; sourceTree = "<group>"; };
 		539C60CE2B01647300AB10F2 /* ManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerView.swift; sourceTree = "<group>"; };
 		539C60D02B01705E00AB10F2 /* ManagerOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerOrderView.swift; sourceTree = "<group>"; };
+		812F244C2B01C979006BC7C8 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		FB1491412AE04F9900C29C1E /* manitasAPP.mc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = manitasAPP.mc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB1491442AE04F9900C29C1E /* manitasAPP_mcApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = manitasAPP_mcApp.swift; sourceTree = "<group>"; };
 		FB1491462AE04F9900C29C1E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				FB1491602AE19FB100C29C1E /* ProfileView.swift */,
 				539C60CC2AFF3D8100AB10F2 /* ManagerProfileView.swift */,
 				539C60CE2B01647300AB10F2 /* ManagerView.swift */,
+				812F244C2B01C979006BC7C8 /* test.swift */,
 				FB94FEE62B01AB4D0066A98F /* CambioRepartidor.swift */,
 				FBF6CEFA2AE2F06F00E3950A /* SplashView.swift */,
 				FB8772602AFD766400940F49 /* GetUserFile.swift */,
@@ -235,6 +238,7 @@
 				FBF6CEFB2AE2F06F00E3950A /* SplashView.swift in Sources */,
 				FB98A7E92AFEADF500D0CAB5 /* ConfirmOrderFile.swift in Sources */,
 				539C60CF2B01647300AB10F2 /* ManagerView.swift in Sources */,
+				812F244D2B01C979006BC7C8 /* test.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

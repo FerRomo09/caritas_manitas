@@ -17,6 +17,7 @@ struct ContentView: View {
     @State private var token: String = ""
 
     var body: some View {
+    
         NavigationStack {
             ZStack {
                 Color("manitasAzul")

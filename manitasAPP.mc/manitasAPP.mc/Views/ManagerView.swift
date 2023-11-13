@@ -24,25 +24,45 @@ struct ManagerView: View {
                 
                 ScrollView(.vertical, showsIndicators: true){
                     HStack{
-                        ManagerOrderView()
-                        ManagerOrderView()
+                        NavigationLink(destination: LandingManagerView()){
+                            ManagerOrderView()
+                        }
+                        NavigationLink(destination: LandingManagerView()){
+                            ManagerOrderView()
+                        }
                     }
                     
                     HStack{
-                        ManagerOrderView()
-                        ManagerOrderView()
+                        NavigationLink(destination: LandingManagerView()){
+                            ManagerOrderView()
+                        }
+                        NavigationLink(destination: LandingManagerView()){
+                            ManagerOrderView()
+                        }
                     }
                     HStack{
-                        ManagerOrderView()
-                        ManagerOrderView()
+                        NavigationLink(destination: LandingManagerView()){
+                            ManagerOrderView()
+                        }
+                        NavigationLink(destination: LandingManagerView()){
+                            ManagerOrderView()
+                        }
                     }
                     HStack{
-                        ManagerOrderView()
-                        ManagerOrderView()
+                        NavigationLink(destination: LandingManagerView()){
+                            ManagerOrderView()
+                        }
+                        NavigationLink(destination: LandingManagerView()){
+                            ManagerOrderView()
+                        }
                     }
                     HStack{
-                        ManagerOrderView()
-                        ManagerOrderView()
+                        NavigationLink(destination: LandingManagerView()){
+                            ManagerOrderView()
+                        }
+                        NavigationLink(destination: LandingManagerView()){
+                            ManagerOrderView()
+                        }
                     }
                    
                 }

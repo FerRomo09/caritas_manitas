@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CambioRepartidor: View {
+    @Environment(\.presentationMode) var presentationMode
     let orderID = "#5148132"
     let deliveryPeople = ["Hernan Ramirez", "Enrique Torres", "Guillermo Alarcon", "Pablo Zubiria", "Gaston Belden"]
     @State private var repartidorSelect = "Hernan Ramirez"
@@ -40,16 +41,13 @@ struct CambioRepartidor: View {
                
                
 
-               Button(action: {
-                   // Falta
-               }) {
-                   Text("Confirmar Reasignación")
-                       .foregroundColor(.white)
-                       .frame(maxWidth: .infinity)
-                       .padding()
-                       .background(Color.green)
-                       .cornerRadius(10)
-               }
+               Button("Confirmar reasignacion") {
+                               presentationMode.wrappedValue.dismiss()
+                           }
+                           .padding()
+                           .background(Color.green)
+                           .foregroundColor(.white)
+                           .cornerRadius(10)
                Spacer()
            }
            .padding(.all, 20)

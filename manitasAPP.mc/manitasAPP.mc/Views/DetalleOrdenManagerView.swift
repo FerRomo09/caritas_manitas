@@ -118,11 +118,19 @@ struct DetalleOrdenManagerView: View {
             }
             Spacer()
             
-            Button("Reasignar repartidor"){
-                
-            }
-            .buttonStyle(.borderedProminent)
-            .tint(.green)
+            
+            NavigationView{
+                VStack{
+                    NavigationLink(destination: CambioRepartidor()) {
+                        Text("Reasignar Repartidor")
+                            .padding()
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                        }
+                    }
+                }
+
 
         }
     }
