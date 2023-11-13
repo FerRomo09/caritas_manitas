@@ -101,8 +101,13 @@ struct ContentView: View {
                             .tint(Color("manitasMorado"))
                             .buttonStyle(.borderedProminent)
                             .navigationDestination(isPresented: $navigationToMain){
+                                if (rolUser == 1){
+                                    ManagerView()
+                                        .navigationBarBackButtonHidden(true)
+                                } else {
                                     LandingView(nombreRecibido: username, tokenRecibido: token)
-                            .navigationBarBackButtonHidden(true)
+                                        .navigationBarBackButtonHidden(true)
+                                }
                             }
                             .alert(isPresented: $showAlert) {
                                 Alert(title: Text("Error"), message: Text("Usuario o contraseña incorrectos"), dismissButton: .default(Text("Ok")))
