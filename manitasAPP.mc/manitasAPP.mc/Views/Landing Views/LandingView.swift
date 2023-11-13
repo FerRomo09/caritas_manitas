@@ -33,6 +33,7 @@ struct LandingView: View {
                     }
                     .padding(.top, 10)
                     .padding(.bottom, 5)
+                    .navigationBarBackButtonHidden(true)
                 }
                 
                 //Stack ordenes del dia

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DetalleOrdenManagerView: View {
+    @State private var isActive = false
     
     var body: some View {
         VStack{

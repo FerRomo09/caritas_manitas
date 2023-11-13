@@ -11,8 +11,11 @@ struct ManagerView: View {
     var body: some View {
         NavigationStack{
             VStack{
-                ProfileManagerView()
-                Text("Ordenes asignadas")
+                
+                NavigationLink(destination: ProfileView().navigationBarBackButtonHidden(true)){
+                    ProfileManagerView()
+                }
+                Text("Ordenes Asignadas")
                     .font(.system(size: 20))
                     .fontWeight(.semibold)
                     .foregroundColor(.orange)
@@ -24,43 +27,31 @@ struct ManagerView: View {
                 
                 ScrollView(.vertical, showsIndicators: true){
                     HStack{
-                        NavigationLink(destination: LandingManagerView()){
+                        NavigationLink(destination: LandingManagerView().navigationBarBackButtonHidden(true)){
                             ManagerOrderView()
                         }
-                        NavigationLink(destination: LandingManagerView()){
+                        
+                        
+                        NavigationLink(destination: LandingManagerView().navigationBarBackButtonHidden(true)){
                             ManagerOrderView()
+                                .navigationBarBackButtonHidden(true)
                         }
                     }
                     
+                    
                     HStack{
-                        NavigationLink(destination: LandingManagerView()){
+                        NavigationLink(destination: LandingManagerView().navigationBarBackButtonHidden(true)){
                             ManagerOrderView()
                         }
-                        NavigationLink(destination: LandingManagerView()){
+                        NavigationLink(destination: LandingManagerView().navigationBarBackButtonHidden(true)){
                             ManagerOrderView()
                         }
                     }
                     HStack{
-                        NavigationLink(destination: LandingManagerView()){
+                        NavigationLink(destination: LandingManagerView().navigationBarBackButtonHidden(true)){
                             ManagerOrderView()
                         }
-                        NavigationLink(destination: LandingManagerView()){
-                            ManagerOrderView()
-                        }
-                    }
-                    HStack{
-                        NavigationLink(destination: LandingManagerView()){
-                            ManagerOrderView()
-                        }
-                        NavigationLink(destination: LandingManagerView()){
-                            ManagerOrderView()
-                        }
-                    }
-                    HStack{
-                        NavigationLink(destination: LandingManagerView()){
-                            ManagerOrderView()
-                        }
-                        NavigationLink(destination: LandingManagerView()){
+                        NavigationLink(destination: LandingManagerView().navigationBarBackButtonHidden(true)){
                             ManagerOrderView()
                         }
                     }

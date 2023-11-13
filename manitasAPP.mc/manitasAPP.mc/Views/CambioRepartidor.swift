@@ -12,6 +12,8 @@ struct CambioRepartidor: View {
     let orderID = "#5148132"
     let deliveryPeople = ["Hernan Ramirez", "Enrique Torres", "Guillermo Alarcon", "Pablo Zubiria", "Gaston Belden"]
     @State private var repartidorSelect = "Hernan Ramirez"
+    @State private var isActive = false
+    
     var body: some View {
         
            VStack {
