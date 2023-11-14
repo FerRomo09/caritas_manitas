@@ -17,6 +17,7 @@ struct ContentView: View {
     @State private var token: String = ""
 
     var body: some View {
+    
         NavigationStack {
             ZStack {
                 Color("manitasAzul")
@@ -97,18 +98,23 @@ struct ContentView: View {
                                         .foregroundColor(Color("manitasBlanco"))
                                         .cornerRadius(10)
                                 }
+                                
                             .tint(Color("manitasMorado"))
                             .buttonStyle(.borderedProminent)
                             .navigationDestination(isPresented: $navigationToMain){
+                                if (rolUser == 1){
+                                    ManagerView()
+                                        .navigationBarBackButtonHidden(true)
+                                } else {
                                     LandingView(nombreRecibido: username, tokenRecibido: token)
-                            .navigationBarBackButtonHidden(true)
+                                        .navigationBarBackButtonHidden(true)
+                                }
                             }
                             .alert(isPresented: $showAlert) {
                                 Alert(title: Text("Error"), message: Text("Usuario o contraseña incorrectos"), dismissButton: .default(Text("Ok")))
                             }
-                            
-
-                            
+                            .navigationBarBackButtonHidden(true)
+  
                         }
                     }
                     .padding(.horizontal, 20)

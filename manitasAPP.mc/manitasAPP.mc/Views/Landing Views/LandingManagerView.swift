@@ -1,41 +1,46 @@
 //
-//  LandingView.swift
+//  LandingManagerView.swift
 //  manitasAPP.mc
 //
-//  Created by Alumno on 18/10/23.
+//  Created by Jacobo Hirsch on 10/11/23.
 //
 
 import SwiftUI
-import Foundation
 
-struct LandingView: View {
-    @State var nombreRecibido: String=""
-    @State var tokenRecibido: String=""
+struct LandingManagerView: View {
+    @State var nombreRecibido: String="Manager"
     @State private var textoStatus: String = "Recolectado"
     @State private var colorStatus: Color = .green
     @State private var iconStatus: Image = Image(systemName: "checkmark.circle.fill")
     @State private var numStatus: Int = 3
     @State private var numRecibos: Int = 15
     @State private var arrayNumStatus: [Int] = [1,2,3]
-
+    @State private var isActive = false
     
     var body: some View {
-        
         NavigationStack(){
             //Main VStack
             VStack(){
-                
-                
-                //Profile Bar, link a profile view
+                HStack {
+                    NavigationLink(destination: ManagerView(), isActive: $isActive) {
+                                        EmptyView()
+                                    }
+                    Button("Regresar") {
+                        self.isActive = true
+                    }
+                    Spacer()
+                    Spacer()
+                    .padding()
+                }.padding(.horizontal, 30)
                 VStack(){
-                    NavigationLink(destination: (ProfileView(token: tokenRecibido))){
-                        ProfileBarView(nombreRecibidoPB: nombreRecibido)
+                    //Profile Bar, link a profile view
+                    NavigationLink(destination: (ManagerProfileView())){
+                        ProfileManagerView()
                     }
                     .padding(.top, 10)
                     .padding(.bottom, 5)
-                    .navigationBarBackButtonHidden(true)
                 }
-                
+ 
                 //Stack ordenes del dia
                 VStack(alignment: .leading){
                     
@@ -65,8 +70,6 @@ struct LandingView: View {
             ScrollView(.vertical, showsIndicators: true){
                 
                 LazyVStack(){
-                    //Itera n veces
-                        
                     ForEach(1...15, id: \.self) {
                         i in
                         let numStatus = Int.random(in: 1..<4)
@@ -74,15 +77,15 @@ struct LandingView: View {
                             let textoStatus = "Recolectado"
                             let colorStatus = Color.green
                             let iconStatus = Image(systemName: "checkmark.circle.fill")
-                            NavigationLink(destination: (DetalleOrdenView(token: tokenRecibido))){
-                                OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
+                            NavigationLink(destination: (DetalleOrdenManagerView())){
+                                OrdenManagerBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
                             }
                         } else if (numStatus == 2){
                             let textoStatus = "Pendiente"
                             let colorStatus = Color.yellow
                             let iconStatus = Image(systemName: "exclamationmark.triangle.fill")
-                            NavigationLink(destination: (DetalleOrdenView())){
-                                OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
+                            NavigationLink(destination: (DetalleOrdenManagerView())){
+                                OrdenManagerBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
                             }
                         }else if (numStatus == 1){
                             let textoStatus = """
@@ -91,36 +94,21 @@ struct LandingView: View {
                             """
                             let colorStatus = Color.red
                             let iconStatus = Image(systemName: "xmark.circle.fill")
-                            NavigationLink(destination: (DetalleOrdenView())){
-                                OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
+                            NavigationLink(destination: (DetalleOrdenManagerView())){
+                                OrdenManagerBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
                             }
                         }
-                         }
-                         
-                    
-                    //OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
+                    }
                 }
             }
-            
-            //Manda foto para arriba
+
             Spacer()
         }
-        /*Array numberos del 1 -3
-         //var arrayNumStatus: [Int] = [0]
-         ForEach (1...numRecibos, id: \.self){
-         i in
-         let numRandom = Int.random(in: 1..<4)
-         arrayNumStatus.append(numRandom)
-         }
-         */
-        
-        
     }
 }
 
-
-struct LandingView_Previews: PreviewProvider {
+struct LandingManagerView_Previews: PreviewProvider {
     static var previews: some View {
-        LandingView()
+        LandingManagerView()
     }
 }
