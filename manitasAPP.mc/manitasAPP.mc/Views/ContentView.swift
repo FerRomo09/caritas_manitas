@@ -9,6 +9,7 @@ import SwiftUI
 
 var apiUrl = "http://10.22.137.191:8037"
 
+
 struct ContentView: View {
     
     @State private var username: String = ""

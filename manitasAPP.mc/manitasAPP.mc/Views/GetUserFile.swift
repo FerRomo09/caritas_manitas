@@ -11,7 +11,7 @@ struct User {
 }
 
 func getUser(token: String, completion: @escaping (User?) -> Void) {
-    let getUserUrl = URL(string: "http://10.22.128.92:8037/get_user")!
+    let getUserUrl = URL(string: "\(apiUrl)/get_user")!
     
     var request = URLRequest(url: getUserUrl)
     request.httpMethod = "GET"
