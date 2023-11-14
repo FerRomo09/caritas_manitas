@@ -8,6 +8,7 @@
 import SwiftUI
 
 var apiUrl = "http://10.22.137.191:8037"
+var curretUser = User(id: 0, name: "", lastName: "", email: "", password: "", rol: 0, token: "")
 
 
 struct ContentView: View {
@@ -93,7 +94,17 @@ struct ContentView: View {
                                 logInRes=checkLogIn(user: username, pass: password)
                                 navigationToMain = logInRes.res
                                 rolUser=logInRes.rol!
-                                token=logInRes.token!
+                                UserDefaults.standard.set(logInRes.token, forKey: "token")
+                                if logInRes.res{
+                                    getUser(token: UserDefaults.standard.string(forKey: "token")){user in
+                                        if let user = user {
+                                            self.curretUser = user
+                                        }
+                                        else{
+                                            print("no user data")
+                                        }
+                                    }
+                                }                               
                                 showAlert = !navigationToMain}){
                                     Text("INGRESAR")
                                         .fontWeight(.bold)
@@ -122,98 +133,32 @@ struct ContentView: View {
                         }
                     }
                     .padding(.horizontal, 20)
-                    /*
-                    ZStack {
-                        Image("Cuadro")
-                            .resizable(resizingMode: .stretch)
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 350, height: 500)
-                            .shadow(color: Color("manitasAzulFuerte"), radius: 10, x: 2, y: 10)
-                        
-                        VStack {
-                            Text("INICIA SESIÓN")
-                                .font(.title)
-                                .fontWeight(.heavy)
-                                .foregroundColor(Color("manitasAzulFuerte"))
-                            Text("¡Bienvenid@! Ingresa tu usuario y contraseña para ingresar a tu cuenta.")
-                                .font(.footnote)
-                                .fontWeight(.thin)
-                                .foregroundColor(Color("manitasAzulFuerte"))
-                                .multilineTextAlignment(.center)
-                                .padding(.horizontal, 70)
-                            Spacer().frame(height: 40)
-                            
-                            VStack(alignment: .leading) {
-                                Text("Usuario:")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color("manitasNegro"))
-                                TextField("Escribe Aquí", text: $username)
-                                    .textFieldStyle(.roundedBorder)
-                                    .autocapitalization(.none)
-                                Spacer().frame(height: 25)
-                                Text("Contraseña:")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color("manitasNegro"))
-                                if showPassword {
-                                    TextField("Escribe Aquí", text: $password)
-                                        .textFieldStyle(.roundedBorder)
-                                        .autocapitalization(.none)
-                                } else {
-                                    SecureField("Escribe Aquí", text: $password)
-                                        .textFieldStyle(.roundedBorder)
-                                        .autocapitalization(.none)
-                                }
-                                Spacer().frame(height: 10)
-                                Button(action: {
-                                    showPassword.toggle()
-                                }) {
-                                    Image(systemName: showPassword ? "eye.slash" : "eye")
-                                }.foregroundColor(Color("manitasMorado"))
-                            }.padding(.horizontal, 50)
-                            Spacer().frame(height: 35)
-                            
-                            Button(action: {
-                                var logInRes: logInInfo
-                                logInRes=checkLogIn(user: username, pass: password)
-                                navigationToMain = logInRes.res
-                                rolUser=logInRes.rol!
-                                idEmpleado=logInRes.id!
-                                showAlert = !navigationToMain}){
-                                    Text("INGRESAR")
-                                        .fontWeight(.bold)
-                                        .padding(.horizontal, 90)
-                                        .padding(.vertical, 8)
-                                        .foregroundColor(Color("manitasBlanco"))
-                                        .cornerRadius(10)
-                                }
-                            .tint(Color("manitasMorado"))
-                            .buttonStyle(.borderedProminent)
-                            .navigationDestination(isPresented: $navigationToMain){
-                                    LandingView()
-                            .navigationBarBackButtonHidden(true)
-                            }
-                            .alert(isPresented: $showAlert) {
-                                Alert(title: Text("Error"), message: Text("Usuario o contraseña incorrectos"), dismissButton: .default(Text("Ok")))
-                            }
-                            
-
-                            Spacer().frame(height: 20)
-                        }
-                    }*/
                     Spacer()
                     Image("FotoManos")
                     
                 }
                 .edgesIgnoringSafeArea(.all)
             }
-        }
-    }
-
-    func autenticarEjemplo() ->Bool {
-        if username == "admin" && password == "admin123" {
-            return true
-        } else {
-            return false
+            .onAppear {
+                // Check if the user token is valid
+                let token = UserDefaults.standard.string(forKey: "token") ?? ""
+                try getUser(token: token) { user in
+                    if let user = user {
+                        self.curretUser = user
+                        // If the user is logged in, go to the main view
+                        navigationToMain = true
+                        self.token = token
+                    }
+                } catch {
+                    // If the user is not logged in, go to the login view
+                    navigationToMain = false
+                }
+                if  {
+                    // If the user is logged in, go to the main view
+                    navigationToMain = true
+                    self.token = token
+                }
+            }
         }
     }
 }
