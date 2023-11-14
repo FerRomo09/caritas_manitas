@@ -7,7 +7,10 @@
 
 import SwiftUI
 
+var apiUrl = "http://10.22.137.191:8037"
+
 struct ContentView: View {
+    
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var showPassword: Bool = false
