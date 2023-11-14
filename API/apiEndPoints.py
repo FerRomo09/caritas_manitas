@@ -56,7 +56,7 @@ async def check_login(login_data: am.LoginRequest):
         conn.close()
         if user is None:
             # If the user does not exist, an exception is thrown
-            raise HTTPException()
+            raise HTTPException(status_code=500)
         else:
             # If the user exists, the password is verified
             if hs.check_password(password, user[3]):
@@ -69,7 +69,7 @@ async def check_login(login_data: am.LoginRequest):
                 return {"rol": user[4], "token": token}
             else:
                 # If the password is incorrect, an exception is thrown
-                raise HTTPException()
+                raise HTTPException(status_code=500)
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Internal server error")
