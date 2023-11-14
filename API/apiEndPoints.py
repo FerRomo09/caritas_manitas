@@ -27,6 +27,8 @@ conn_str = (
     "TrustServerCertificate=yes").format(DRIVER, SERVER, DATABASE, UID, PWD)
 
 # Function to establish a database connection
+
+
 def get_db_connection():
     try:
         conn = pyodbc.connect(conn_str)
@@ -38,7 +40,9 @@ def get_db_connection():
 # Function to verify login credentials
 # This function takes the login data provided by the user
 # and verifies if the user exists in the database and if the provided password is correct.
-@app.post("/check_login", response_model= am.LoginResponse)
+
+
+@app.post("/check_login", response_model=am.LoginResponse)
 async def check_login(login_data: am.LoginRequest):
     username = login_data.username
     password = login_data.password
@@ -76,7 +80,9 @@ async def check_login(login_data: am.LoginRequest):
 
 # Function to retrieve user data
 # This function takes the user ID and returns the user details from the database.
-@app.get("/get_user", response_model=am.UserResponse )
+
+
+@app.get("/get_user", response_model=am.UserResponse)
 async def get_user(current_user: dict = Depends(get_current_user)):
     ID_Empleado = current_user["id"]
     try:
@@ -85,7 +91,8 @@ async def get_user(current_user: dict = Depends(get_current_user)):
         cursor = conn.cursor()
 
         # Execute stored procedure to get user details
-        cursor.execute("EXEC GetEmpleadoDetails @ID_EMPLEADO = ?", (ID_Empleado,))
+        cursor.execute(
+            "EXEC GetEmpleadoDetails @ID_EMPLEADO = ?", (ID_Empleado,))
         user = cursor.fetchone()
 
         cursor.close()
@@ -112,6 +119,8 @@ async def get_user(current_user: dict = Depends(get_current_user)):
 
 # Function to confirm that an order was completed
 # This function takes the ID of an order and updates its status to "completed" in the database.
+
+
 @app.put("/confirm_order/{orderID}")
 async def confirm_order(orderID: int, current_user: dict = Depends(get_current_user)):
     try:
@@ -119,12 +128,13 @@ async def confirm_order(orderID: int, current_user: dict = Depends(get_current_u
         conn = get_db_connection()
         cursor = conn.cursor()
 
-    #EstatusOrden = 1 is the status of completed order
-    #EstatusOrden = 2 is the status of uncompleted order
-    #EstatusOrden = 0 is the status of pending order
+    # EstatusOrden = 1 is the status of completed order
+    # EstatusOrden = 2 is the status of uncompleted order
+    # EstatusOrden = 0 is the status of pending order
 
         # Execute stored procedure to update the order status
-        cursor.execute("EXEC UpdateOrdenEstatus @EstatusOrden = 1, @ID_ORDEN = ?; ", (orderID,))
+        cursor.execute(
+            "EXEC UpdateOrdenEstatus @EstatusOrden = 1, @ID_ORDEN = ?; ", (orderID,))
         conn.commit()
         if cursor.rowcount == 0:
             # If the order does not exist, an exception is thrown
@@ -139,23 +149,24 @@ async def confirm_order(orderID: int, current_user: dict = Depends(get_current_u
         raise e
     except Exception as e:
         print(e)
-        raise HTTPException(status_code=500, detail="Internal server error")       
+        raise HTTPException(status_code=500, detail="Internal server error")
 
-#funcion para modificar unas de las llaves del diccionario  
+# funcion para modificar unas de las llaves del diccionario
+
+
 def modificar_clave(diccionario, vieja_clave, nueva_clave):
     return {clave if clave != vieja_clave else nueva_clave: valor for clave, valor in diccionario.items()}
 
 
-
-#endpoint que regresa en formato json las ordenes filtradas por el id del empleado  
-@app.get("/ordenes/{ID_EMPLEADO}")
-def llamar_ordenes(ID_EMPLEADO: int):
+# endpoint que regresa en formato json las ordenes filtradas por el id del empleado
+@app.get("/ordenes/{ID_EMPLEADO}/{ESTATUS_ORDEN}")
+def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int):
     try:
         with get_db_connection() as conn:
             conn = get_db_connection()
             cursor = conn.cursor()
             cursor.execute(
-                "EXEC SelectOrderById @EmpleadoID = ?;", (ID_EMPLEADO,))
+                "EXEC SelectOrderById @EmpleadoID = ? , @EstatusOrden = ? ,;", (ID_EMPLEADO, ESTATUS_ORDEN,))
             resultados = cursor.fetchall()
             if len(resultados) != 0:
                 ordenes_list = []
@@ -169,7 +180,6 @@ def llamar_ordenes(ID_EMPLEADO: int):
                     data = modificar_clave(data, 'ID_ORDEN', 'id')
 
                     ordenes_list.append(data)
-            
 
                     # print(type(model_instance))
 
@@ -191,9 +201,7 @@ def llamar_ordenes(ID_EMPLEADO: int):
         raise HTTPException(status_code=500, detail=str(error_name))
 
 
-
-
-# Endpoint para cambiar la informacion de las ordenes reprogramadas 
+# Endpoint para cambiar la informacion de las ordenes reprogramadas
 @app.put("/reprogram_order/{orderID}")
 def reprogram_order(orderID: int,  info_body: am.Reprogramacion):
 
@@ -201,18 +209,15 @@ def reprogram_order(orderID: int,  info_body: am.Reprogramacion):
 
     try:
         with get_db_connection() as conn:
-            
+
             current_date = datetime.date.today()
             current_date = current_date.strftime("%Y-%m-%d")
             conn = get_db_connection()
             cursor = conn.cursor()
 
-
-
             cursor.execute("UPDATE OPE_ORDENES SET FECHA_VISITA = ?, COMENTARIOS_REPROGRAMACION = ? WHERE ID_ORDEN = ?",
                            (current_date, comentarios, orderID))
             conn.commit()
-
 
         cursor.close()
         conn.close()
@@ -227,11 +232,6 @@ def reprogram_order(orderID: int,  info_body: am.Reprogramacion):
         raise HTTPException(status_code=500, detail=str(error_name))
 
 
-
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8037, reload=True)
-
-
-
-
