@@ -20,7 +20,7 @@ struct ProfileBarView: View {
                         .font(.system(size: 20))
                         .fontWeight(.regular)
                         .foregroundColor(Color("manitasNegro"))
-                    Text(curretUser.name) //remplazar con nombre de variable
+                    Text(curretUser.name)
                         .font(.system(size: 30))
                         .fontWeight(.heavy)
                         .foregroundColor(Color("manitasNegro"))

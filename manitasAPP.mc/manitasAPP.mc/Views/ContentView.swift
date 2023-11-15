@@ -1,7 +1,7 @@
 import SwiftUI
 
-var apiUrl = "http://10.22.224.97:8037"
-var curretUser = User(name: "", lastName: "", email: "", tel: "", gen: 0, fechaNacimiento: "")
+var apiUrl = "http://10.22.131.214:8037"
+var curretUser = User(name: "1", lastName: "", email: "", tel: "", gen: 0, fechaNacimiento: "")
 var token = ""
 
 struct ContentView: View {
@@ -109,7 +109,6 @@ struct ContentView: View {
                                 .navigationDestination(isPresented: $navigationToMain){
                                     if (rolUser==1){
                                         ManagerView()
-                                        
                                     }else{
                                         LandingView()
                                     }
@@ -145,7 +144,7 @@ struct ContentView: View {
                 }
             }else {
                 NavigationLink(
-                    destination: LandingView(nombreRecibido: username, tokenRecibido: token),
+                    destination: LandingView(),
                     isActive: $navigationToMain,
                     label: { EmptyView() }
                 )
