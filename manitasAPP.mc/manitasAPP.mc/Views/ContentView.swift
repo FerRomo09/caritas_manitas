@@ -37,57 +37,65 @@ struct ContentView: View {
                                 .shadow(color: Color("manitasAzulFuerte"), radius: 10, x: 2, y: 10)
                             VStack {
                                 Text("INICIA SESIÓN")
-                                .font(.title)
-                                .fontWeight(.heavy)
-                                .foregroundColor(Color("manitasAzulFuerte"))
-                            Text("¡Bienvenid@! Ingresa tu usuario y contraseña para ingresar a tu cuenta.")
-                                .font(.footnote)
-                                .fontWeight(.thin)
-                                .foregroundColor(Color("manitasAzulFuerte"))
-                                .multilineTextAlignment(.center)
-                                .padding(.horizontal, 70)
-                            Spacer().frame(height: 40)
-                            
-                            VStack(alignment: .leading) {
-                                Text("Usuario:")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color("manitasNegro"))
-                                TextField("Escribe Aquí", text: $username)
-                                    .textFieldStyle(.roundedBorder)
-                                    .autocapitalization(.none)
-                                Spacer().frame(height: 15)
-                                Text("Contraseña:")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color("manitasNegro"))
-                                HStack{
-                                    if showPassword {
-                                        TextField("Escribe Aquí", text: $password)
-                                            .textFieldStyle(.roundedBorder)
-                                            .autocapitalization(.none)
-                                    } else {
-                                        SecureField("Escribe Aquí", text: $password)
-                                            .textFieldStyle(.roundedBorder)
-                                            .autocapitalization(.none)
+                                    .font(.title)
+                                    .fontWeight(.heavy)
+                                    .foregroundColor(Color("manitasAzulFuerte"))
+                                Text("¡Bienvenid@! Ingresa tu usuario y contraseña para ingresar a tu cuenta.")
+                                    .font(.footnote)
+                                    .fontWeight(.thin)
+                                    .foregroundColor(Color("manitasAzulFuerte"))
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal, 70)
+                                Spacer().frame(height: 40)
+                                
+                                VStack(alignment: .leading) {
+                                    Text("Usuario:")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(Color("manitasNegro"))
+                                    TextField("Escribe Aquí", text: $username)
+                                        .textFieldStyle(.roundedBorder)
+                                        .autocapitalization(.none)
+                                    Spacer().frame(height: 15)
+                                    Text("Contraseña:")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(Color("manitasNegro"))
+                                    HStack{
+                                        if showPassword {
+                                            TextField("Escribe Aquí", text: $password)
+                                                .textFieldStyle(.roundedBorder)
+                                                .autocapitalization(.none)
+                                        } else {
+                                            SecureField("Escribe Aquí", text: $password)
+                                                .textFieldStyle(.roundedBorder)
+                                                .autocapitalization(.none)
+                                        }
+                                        Button(action: {
+                                            showPassword.toggle()
+                                        }) {
+                                            Image(systemName: showPassword ? "eye.slash" : "eye")
+                                        }.foregroundColor(Color("manitasMorado"))
                                     }
-                                    //Spacer().frame(height: 10)
-                                    Button(action: {
-                                        showPassword.toggle()
-                                    }) {
-                                        Image(systemName: showPassword ? "eye.slash" : "eye")
-                                    }.foregroundColor(Color("manitasMorado"))
-                                }
-                            }.padding(.horizontal, 60)
-                            
-                            
-                            Spacer().frame(height: 25)
-                            
-                            Button(action: {
-                                var logInRes: logInInfo
-                                logInRes=checkLogIn(user: username, pass: password)
-                                navigationToMain = logInRes.res
-                                rolUser=logInRes.rol!
-                                token=logInRes.token!
-                                showAlert = !navigationToMain}){
+                                }.padding(.horizontal, 60)
+                                
+                                Spacer().frame(height: 25)
+                                
+                                Button(action: {
+                                    var logInRes: logInInfo
+                                    logInRes = checkLogIn(user: username, pass: password)
+                                    navigationToMain = logInRes.res
+                                    rolUser = logInRes.rol!
+                                    UserDefaults.standard.set(logInRes.token, forKey: "token")
+                                    if logInRes.res {
+                                        getUser(token: UserDefaults.standard.string(forKey: "token")) { user in
+                                            if let user = user {
+                                                self.curretUser = user
+                                            } else {
+                                                print("no user data")
+                                            }
+                                        }
+                                    }
+                                    showAlert = !navigationToMain
+                                }) {
                                     Text("INGRESAR")
                                         .fontWeight(.bold)
                                         .padding(.horizontal, 90)
@@ -95,25 +103,12 @@ struct ContentView: View {
                                         .foregroundColor(Color("manitasBlanco"))
                                         .cornerRadius(10)
                                 }
-                                
-                            .tint(Color("manitasMorado"))
-                            .buttonStyle(.borderedProminent)
-                            .navigationDestination(isPresented: $navigationToMain){
-                                if (rolUser == 1){
-                                    ManagerView()
-                                        .navigationBarBackButtonHidden(true)
-                                } else {
-                                    LandingView(nombreRecibido: username, tokenRecibido: token)
-                                        .navigationBarBackButtonHidden(true)
+                                .tint(Color("manitasMorado"))
+                                .buttonStyle(.borderedProminent)
+                                .alert(isPresented: $showAlert) {
+                                    Alert(title: Text("Error"), message: Text("Usuario o contraseña incorrectos"), dismissButton: .default(Text("Ok")))
                                 }
-                            }
-                            .alert(isPresented: $showAlert) {
-                                Alert(title: Text("Error"), message: Text("Usuario o contraseña incorrectos"), dismissButton: .default(Text("Ok")))
-                            }
-                            .navigationBarBackButtonHidden(true)
-  
-                        }
-
+                                .navigationBarBackButtonHidden(true)
                             }
                         }
                         .padding(.horizontal, 20)
