@@ -1,7 +1,8 @@
 import SwiftUI
 
-var apiUrl = "http://10.22.137.191:8037"
+var apiUrl = "http://10.22.224.97:8037"
 var curretUser = User(name: "", lastName: "", email: "", tel: "", gen: 0, fechaNacimiento: "")
+var token = ""
 
 struct ContentView: View {
     
@@ -11,7 +12,6 @@ struct ContentView: View {
     @State private var showAlert: Bool = false
     @State private var navigationToMain: Bool = false
     @State private var rolUser: Int = -1
-    @State private var token: String = ""
 
     var body: some View {
     
@@ -28,7 +28,7 @@ struct ContentView: View {
                             .resizable(resizingMode: .stretch)
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 220)
-
+                        
                         ZStack {
                             Image("CuadroLI")
                                 .resizable(resizingMode: .stretch)
@@ -84,7 +84,8 @@ struct ContentView: View {
                                     logInRes = checkLogIn(user: username, pass: password)
                                     navigationToMain = logInRes.res
                                     rolUser = logInRes.rol!
-                                    UserDefaults.standard.set(logInRes.token, forKey: "token")
+                                    token = logInRes.token!
+                                    UserDefaults.standard.set(token, forKey: "token")
                                     if logInRes.res {
                                         getUser(token: UserDefaults.standard.string(forKey: "token")!) { user in
                                             if let user = user {
@@ -105,6 +106,15 @@ struct ContentView: View {
                                 }
                                 .tint(Color("manitasMorado"))
                                 .buttonStyle(.borderedProminent)
+                                .navigationDestination(isPresented: $navigationToMain){
+                                    if (rolUser==1){
+                                        ManagerView()
+                                        
+                                    }else{
+                                        LandingView()
+                                    }
+                                }
+                                
                                 .alert(isPresented: $showAlert) {
                                     Alert(title: Text("Error"), message: Text("Usuario o contraseña incorrectos"), dismissButton: .default(Text("Ok")))
                                 }
@@ -119,22 +129,21 @@ struct ContentView: View {
                 }
                 .onAppear {
                     // Check if the user token is valid
-                    let token = UserDefaults.standard.string(forKey: "token") ?? ""
-                    do {
-                        try getUser(token: token) { user in
-                            if let user = user {
-                                curretUser = user
-                                // If the user is logged in, go to the main view
-                                navigationToMain = true
-                                self.token = token
-                            }
+                    let Token = UserDefaults.standard.string(forKey: "token") ?? ""
+                    getUser(token: Token) { user in
+                        if let user = user {
+                            curretUser = user
+                            // If the user is logged in, go to the main view
+                            navigationToMain = true
+                            token = Token
                         }
-                    } catch {
-                        // If there's an error (e.g., token is invalid), go to the login view
-                        navigationToMain = false
+                        else{
+                            
+                            navigationToMain = false
+                        }
                     }
                 }
-            } else {
+            }else {
                 NavigationLink(
                     destination: LandingView(nombreRecibido: username, tokenRecibido: token),
                     isActive: $navigationToMain,

@@ -11,7 +11,6 @@ struct DetalleOrdenView: View {
     //Para mostrar las opciones del boton rojo
     @State private var actionSheet = false
     //Booleano para
-    @State var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiMSIsInVzZXJuYW1lIjoiZW1wSnVhblAifSwiZXhwIjoxNzAzODczODQ5fQ.PDsknvxTskMKGtEpHw8_pX4HFiv3cWoMqazNP6qUUlc"
     @State var orderID = 1
     @State private var mostrarTexto = false
     @State private var razonUsuario = ""
