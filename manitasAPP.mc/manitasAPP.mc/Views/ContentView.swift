@@ -86,9 +86,9 @@ struct ContentView: View {
                                     rolUser = logInRes.rol!
                                     UserDefaults.standard.set(logInRes.token, forKey: "token")
                                     if logInRes.res {
-                                        getUser(token: UserDefaults.standard.string(forKey: "token")) { user in
+                                        getUser(token: UserDefaults.standard.string(forKey: "token")!) { user in
                                             if let user = user {
-                                                self.curretUser = user
+                                                curretUser = user
                                             } else {
                                                 print("no user data")
                                             }
@@ -123,7 +123,7 @@ struct ContentView: View {
                     do {
                         try getUser(token: token) { user in
                             if let user = user {
-                                self.curretUser = user
+                                curretUser = user
                                 // If the user is logged in, go to the main view
                                 navigationToMain = true
                                 self.token = token
