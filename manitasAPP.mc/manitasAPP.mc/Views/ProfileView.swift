@@ -93,6 +93,7 @@ struct ProfileView: View {
                 
                 //REVISAR
                 
+
                 NavigationLink("Cerrar sesion"){
                     ContentView()
                 }
@@ -101,15 +102,17 @@ struct ProfileView: View {
                 .padding(.top,10)
                 .navigationBarBackButtonHidden(true)
                 
-                
-                
                 /*
-                 Button("Cerrar sesion"){
-                 
+                Button("Cerrar sesion"){
+                    UserDefaults.standard.set("", forKey: "token")
+                    ContentView()
                  }
                  .buttonStyle(.borderedProminent)
                  .tint(.red)
-                 */
+                 .padding(.top,10)
+                 .navigationBarBackButtonHidden(true)
+                */
+                 
                 
                 
                 

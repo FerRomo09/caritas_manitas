@@ -1,8 +1,8 @@
 import SwiftUI
 
 var apiUrl = "http://10.22.131.214:8037"
-var curretUser = User(name: "1", lastName: "", email: "", tel: "", gen: 0, fechaNacimiento: "")
-var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiMSIsInVzZXJuYW1lIjoiZW1wSnVhblAifSwiZXhwIjoxNzAzODczODQ5fQ.PDsknvxTskMKGtEpHw8_pX4HFiv3cWoMqazNP6qUUlc"
+var curretUser = User(name: "test", lastName: "", email: "", tel: "", gen: 0, fechaNacimiento: "")
+var token = ""
 
 struct ContentView: View {
     
@@ -11,12 +11,13 @@ struct ContentView: View {
     @State private var showPassword: Bool = false
     @State private var showAlert: Bool = false
     @State private var navigationToMain: Bool = false
+    @State private var alreadyLogedIn: Bool = false
     @State private var rolUser: Int = -1
 
     var body: some View {
     
         NavigationStack {
-            if !navigationToMain {
+            if !alreadyLogedIn {
                 ZStack {
                     Color("manitasAzul")
                         .edgesIgnoringSafeArea(.all)
@@ -86,6 +87,7 @@ struct ContentView: View {
                                     rolUser = logInRes.rol!
                                     token = logInRes.token!
                                     UserDefaults.standard.set(token, forKey: "token")
+                                    UserDefaults.standard.set(rolUser, forKey: "rol")
                                     if logInRes.res {
                                         getUser(token: UserDefaults.standard.string(forKey: "token")!) { user in
                                             if let user = user {
@@ -133,22 +135,18 @@ struct ContentView: View {
                         if let user = user {
                             curretUser = user
                             // If the user is logged in, go to the main view
+                            alreadyLogedIn=true
                             navigationToMain = true
                             token = Token
-                        }
-                        else{
-                            
-                            navigationToMain = false
                         }
                     }
                 }
             }else {
-                NavigationLink(
-                    destination: LandingView(),
-                    isActive: $navigationToMain,
-                    label: { EmptyView() }
-                )
-                .navigationBarBackButtonHidden(true)
+                if UserDefaults.standard.integer(forKey: "rol")==1{
+                    ManagerView()
+                }else{
+                    LandingView()
+                }
             }
         }
     }
