@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct ManagerProfileView: View {
+    @State private var showingLogoutAlert = false
+    @State private var navigateToContentView = false
+
     var body: some View {
-        NavigationStack{
-            VStack{
+        NavigationStack {
+            VStack {
                 Image("Avatar")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -18,97 +21,91 @@ struct ManagerProfileView: View {
                     .clipShape(Circle())
                     .overlay(Circle().stroke(Color("manitasAzul"), lineWidth: 2))
                     .shadow(radius: 5)
-                
+
                 Spacer()
-                
-                VStack{
-                    VStack{
-                        HStack{
+
+                VStack {
+                    VStack {
+                        HStack {
                             Text("Nombre(s)")
                             Spacer()
-                            //Text(user.name)
-                            
-                            
+                            // Text(user.name)
                         }
                         Divider()
-                        
-                        HStack{
+
+                        HStack {
                             Text("Apellidos")
                             Spacer()
-                            //Text(user.lastName)
+                            // Text(user.lastName)
                         }
                         Divider()
-                        
-                        HStack{
+
+                        HStack {
                             Text("Email")
                             Spacer()
-                            //Text(user.email)
+                            // Text(user.email)
                         }
-                        
                     }
                     .padding()
                     .background(.white)
                     .cornerRadius(10)
                     .shadow(radius: 5)
                 }
-                .offset(y:-130)
-                
-                VStack{
-                    VStack{
-                        HStack{
+                .offset(y: -130)
+
+                VStack {
+                    VStack {
+                        HStack {
                             Text("Telefono")
                             Spacer()
-                            //Text(user.tel)
+                            // Text(user.tel)
                         }
                         Divider()
-                        
-                        HStack{
+
+                        HStack {
                             Text("Genero")
                             Spacer()
-                            /*
-                            if user.gen==1{
-                                Text("Masculino")
-                            }
-                            else{
-                                Text("Femenino")
-                            }
-                            */
                         }
                         Divider()
-                        
-                        HStack{
+
+                        HStack {
                             Text("Fecha Nacimiento")
                             Spacer()
-                            //Text(user.fechaNacimiento)
                         }
                         Divider()
-                        
                     }
                     .padding()
                     .background(.white)
                     .cornerRadius(10)
                     .shadow(radius: 5)
                 }
-                .offset(y:-80)
-                
-                //REVISAR
-                
-                NavigationLink("Cerrar sesion"){
-                    ContentView()
+                .offset(y: -80)
+
+                Button("Cerrar sesión") {
+                    showingLogoutAlert = true
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.red)
-                .padding(.top,10)
-                    
-                }
- 
-            }
+                .padding(.top, 10)
 
+                NavigationLink("", destination: ContentView(), isActive: $navigateToContentView)
+                    .hidden()
+            }
+            .alert(isPresented: $showingLogoutAlert) {
+                Alert(
+                    title: Text("Confirmación"),
+                    message: Text("¿Seguro que quieres cerrar sesión?"),
+                    primaryButton: .destructive(Text("Sí")) {
+                        navigateToContentView = true
+                        // Colocar lógica para cerrar sesión
+                    },
+                    secondaryButton: .cancel()
+                )
+            }
             .padding()
-            
+        }
     }
 }
-
 
 struct ManagerProfileView_Previews: PreviewProvider {
     static var previews: some View {
