@@ -2,7 +2,7 @@ import SwiftUI
 
 var apiUrl = "http://10.22.131.214:8037"
 var curretUser = User(name: "1", lastName: "", email: "", tel: "", gen: 0, fechaNacimiento: "")
-var token = ""
+var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiMSIsInVzZXJuYW1lIjoiZW1wSnVhblAifSwiZXhwIjoxNzAzODczODQ5fQ.PDsknvxTskMKGtEpHw8_pX4HFiv3cWoMqazNP6qUUlc"
 
 struct ContentView: View {
     
