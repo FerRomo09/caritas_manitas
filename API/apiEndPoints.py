@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, status, Depends, Header
+from fastapi import FastAPI, HTTPException, status, Depends, Header, Query
 import pyodbc
 import hashing as hs
 import apiModels as am
@@ -160,16 +160,19 @@ def modificar_clave(diccionario, vieja_clave, nueva_clave):
 
 # endpoint que regresa en formato json las ordenes filtradas por el id del empleado
 @app.get("/ordenes/{ID_EMPLEADO}/{ESTATUS_ORDEN}")
-def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int):
+def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...)):
+
     try:
         with get_db_connection() as conn:
             conn = get_db_connection()
             cursor = conn.cursor()
             cursor.execute(
-                "EXEC SelectOrderById @EmpleadoID = ? , @EstatusOrden = ? ,;", (ID_EMPLEADO, ESTATUS_ORDEN,))
+                "EXEC SelectOrder @EmpleadoID = ? , @EstatusOrden = ? , @Fecha = ?", (ID_EMPLEADO, ESTATUS_ORDEN, fecha,))
             resultados = cursor.fetchall()
+            print(len(resultados))
             if len(resultados) != 0:
                 ordenes_list = []
+
                 for item in resultados:
 
                     data = {column[0]: value for column,
@@ -190,14 +193,16 @@ def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int):
             cursor.close()
             conn.close()
 
-        return {"mensaje": "ordenes llamadas exitosamenteeee", "list:": ordenes_list}
+        return {"mensaje": "ordenes llamadas exitosamente", "list": ordenes_list}
 
     # Asumiendo que DatabaseConnectionError es una excepción que podría lanzar get_db_connection().
-    except pyodbc.Error:
+    except pyodbc.Error as e:
+        print(e)
         raise HTTPException(
             status_code=503, detail="No se pudo establecer conexión con la base de datos.")
 
     except Exception as error_name:
+        print(error_name)
         raise HTTPException(status_code=500, detail=str(error_name))
 
 

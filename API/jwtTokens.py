@@ -10,6 +10,8 @@ with open("config.json", "r") as config_file:
 
 # Function to create JWT tokens
 # This function takes user data and creates a JWT token
+
+
 def create_jwt_token(data):
     payload = {
         "data": data,
@@ -21,6 +23,8 @@ def create_jwt_token(data):
 
 # Function to validate tokens
 # This function takes a token and verifies if it is valid and not expired
+
+
 def validate_token(token: str):
     try:
         # Decode the token with the secret key
@@ -36,20 +40,25 @@ def validate_token(token: str):
 
 # Function to get the current user
 # This function extracts the token from the "Authorization" header and validates it
+
+
 def get_current_user(authorization: str = Header(None)):
     if authorization is None:
         # If the "Authorization" header is missing, an exception is thrown
-        raise HTTPException(status_code=401, detail="Authorization header is missing")
+        raise HTTPException(
+            status_code=401, detail="Authorization header is missing")
 
     # Extract the token from the "Bearer" header
     try:
         scheme, token = authorization.split()
         if scheme.lower() != "bearer":
             # If the authentication scheme is not "Bearer", an exception is thrown
-            raise HTTPException(status_code=401, detail="Invalid authentication scheme")
+            raise HTTPException(
+                status_code=401, detail="Invalid authentication scheme")
     except ValueError:
         # If the format of the "Authorization" header is invalid, an exception is thrown
-        raise HTTPException(status_code=401, detail="Invalid authorization header format")
+        raise HTTPException(
+            status_code=401, detail="Invalid authorization header format")
 
     # Validate the token and return the user data
     return validate_token(token)
