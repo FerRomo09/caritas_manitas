@@ -9,8 +9,6 @@ import SwiftUI
 import Foundation
 
 struct LandingView: View {
-    @State var nombreRecibido: String=""
-    @State var tokenRecibido: String=""
     @State private var textoStatus: String = "Recolectado"
     @State private var colorStatus: Color = .green
     @State private var iconStatus: Image = Image(systemName: "checkmark.circle.fill")
@@ -28,12 +26,12 @@ struct LandingView: View {
                 
                 //Profile Bar, link a profile view
                 VStack(){
-                    NavigationLink(destination: (ProfileView(token: tokenRecibido))){
-                        ProfileBarView(nombreRecibidoPB: nombreRecibido)
+                    NavigationLink(destination: (ProfileView())){
+                        ProfileBarView()
                     }
                     .padding(.top, 10)
                     .padding(.bottom, 5)
-                    .navigationBarBackButtonHidden(true)
+                    .navigationBarBackButtonHidden(false)
                 }
                 
                 //Stack ordenes del dia
@@ -74,7 +72,7 @@ struct LandingView: View {
                             let textoStatus = "Recolectado"
                             let colorStatus = Color.green
                             let iconStatus = Image(systemName: "checkmark.circle.fill")
-                            NavigationLink(destination: (DetalleOrdenView(token: tokenRecibido))){
+                            NavigationLink(destination: (DetalleOrdenView())){
                                 OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
                             }
                         } else if (numStatus == 2){

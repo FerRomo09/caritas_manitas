@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ProfileBarView: View {
-    @State var nombreRecibidoPB: String = "Repartidor"
     var body: some View {
         ZStack(){
             Image("bar")
@@ -21,7 +20,7 @@ struct ProfileBarView: View {
                         .font(.system(size: 20))
                         .fontWeight(.regular)
                         .foregroundColor(Color("manitasNegro"))
-                    Text(nombreRecibidoPB) //remplazar con nombre de variable
+                    Text(curretUser.name)
                         .font(.system(size: 30))
                         .fontWeight(.heavy)
                         .foregroundColor(Color("manitasNegro"))

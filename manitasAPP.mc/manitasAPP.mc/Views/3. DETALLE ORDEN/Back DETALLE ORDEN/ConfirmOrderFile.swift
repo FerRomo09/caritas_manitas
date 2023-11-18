@@ -1,7 +1,7 @@
 import Foundation
 
 func confirmOrder(orderID: Int, token: String) {
-    let confirmOrderUrl = URL(string: "http://10.22.128.92:8037/confirm_order/\(orderID)")!
+    let confirmOrderUrl = URL(string: "\(apiUrl)/confirm_order/\(orderID)")!
 
     var request = URLRequest(url: confirmOrderUrl)
     request.httpMethod = "PUT"
