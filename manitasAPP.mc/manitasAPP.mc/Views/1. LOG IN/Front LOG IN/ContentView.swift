@@ -1,8 +1,42 @@
 import SwiftUI
+import Network
 
 var apiUrl = "http://10.22.131.214:8037"
 var curretUser = User(name: "test", lastName: "", email: "", tel: "", gen: 0, fechaNacimiento: "")
 var token = ""
+
+func checkConnection(completion: @escaping (Bool) -> Void) {
+    let monitor = NWPathMonitor()
+    let queue = DispatchQueue(label: "Monitor")
+    monitor.start(queue: queue)
+    
+    monitor.pathUpdateHandler = { path in
+        if path.status == .satisfied {
+            // Internet connection is available
+            // Now check for API response
+            guard let url = URL(string: "\(apiUrl)/connectivity") else {
+                completion(false)
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                    completion(false)
+                } else if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+                    // API responded successfully
+                    completion(true)
+                } else {
+                    completion(false)
+                }
+            }
+            task.resume()
+        } else {
+            // No internet connection
+            completion(false)
+        }
+    }
+}
 
 struct ContentView: View {
     
@@ -10,6 +44,7 @@ struct ContentView: View {
     @State private var password: String = ""
     @State private var showPassword: Bool = false
     @State private var showAlert: Bool = false
+    @State private var showOfflineAlert: Bool = false
     @State private var navigationToMain: Bool = false
     @State private var alreadyLogedIn: Bool = false
     @State private var rolUser: Int = -1
@@ -92,6 +127,13 @@ struct ContentView: View {
                                         getUser(token: UserDefaults.standard.string(forKey: "token")!) { user in
                                             if let user = user {
                                                 curretUser = user
+                                                UserDefaults.standard.set(user.name, forKey: "name")
+                                                UserDefaults.standard.set(user.lastName, forKey: "lastName")
+                                                UserDefaults.standard.set(user.email, forKey: "email")
+                                                UserDefaults.standard.set(user.tel, forKey: "tel")
+                                                UserDefaults.standard.set(user.gen, forKey: "gen")
+                                                UserDefaults.standard.set(user.fechaNacimiento, forKey: "fechaNacimiento")
+
                                             } else {
                                                 print("no user data")
                                             }
@@ -120,6 +162,10 @@ struct ContentView: View {
                                     Alert(title: Text("Error"), message: Text("Usuario o contraseña incorrectos"), dismissButton: .default(Text("Ok")))
                                 }
                                 .navigationBarBackButtonHidden(true)
+
+                                .alert(isPresented: $showOfflineAlert) {
+                                    Alert(title: Text("Error"), message: Text("No hay conexión a internet y no existe un log in previo"), dismissButton: .default(Text("Ok")))
+                                }
                             }
                         }
                         .padding(.horizontal, 20)
@@ -129,15 +175,61 @@ struct ContentView: View {
                     .edgesIgnoringSafeArea(.all)
                 }
                 .onAppear {
-                    // Check if the user token is valid
-                    let Token = UserDefaults.standard.string(forKey: "token") ?? ""
-                    getUser(token: Token) { user in
-                        if let user = user {
-                            curretUser = user
-                            // If the user is logged in, go to the main view
-                            alreadyLogedIn=true
-                            navigationToMain = true
-                            token = Token
+                    // Check if theres internet connection
+                    // if theres  no internet connection, check if theres a token stored, if there is one, load the user data from user defaults and send them to the correct view
+                    // if theres no token stored, show and alert
+                    // if theres internet connection, check if theres a token stored, if there is one, check if its valid, if its valid, load the user data from the api and send them to the correct view
+                    // if theres no token stored, send them to the login view
+                    checkConnection { connected in
+                        if !connected {
+                            // No internet connection
+                            // Check if theres a token stored
+                            let Token = UserDefaults.standard.string(forKey: "token") ?? ""
+                            if Token != "" {
+                                // Token stored
+                                // Load the user data from user defaults
+                                curretUser.name = UserDefaults.standard.string(forKey: "name") ?? ""
+                                curretUser.lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
+                                curretUser.email = UserDefaults.standard.string(forKey: "email") ?? ""
+                                curretUser.tel = UserDefaults.standard.string(forKey: "tel") ?? ""
+                                curretUser.gen = UserDefaults.standard.integer(forKey: "gen")
+                                curretUser.fechaNacimiento = UserDefaults.standard.string(forKey: "fechaNacimiento") ?? ""
+                                // Send them to the correct view
+                                if UserDefaults.standard.integer(forKey: "rol")==1{
+                                    ManagerView()
+                                }else{
+                                    LandingView()
+                                }
+                            } else {
+                                // No token stored
+                                // Show an alert that theres no internet connection and no prev log in
+                                alreadyLogedIn = false
+                                showOfflineAlert = true
+                            }
+                        } else {
+                            // Internet connection available
+                            // Check if theres a token stored
+                            let Token = UserDefaults.standard.string(forKey: "token") ?? ""
+                            if Token != "" {
+                                // Token stored
+                                // Check if the token is valid
+                                getUser(token: Token) { user in
+                                    if let user = user {
+                                        // Token is valid
+                                        // Load the user data from the api
+                                        curretUser = user
+                                        token = Token
+                                        alreadyLogedIn = true
+                                    } else {
+                                        // Token is not valid
+                                        alreadyLogedIn = false
+                                    }
+                                }
+                            } else {
+                                // No token stored
+                                // Send them to the login view
+                                alreadyLogedIn = false
+                            }
                         }
                     }
                 }

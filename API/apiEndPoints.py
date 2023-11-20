@@ -36,11 +36,15 @@ def get_db_connection():
     except Exception as e:
         print(e)
         return None
+    
+# Function to check if the api is running
+@app.get("/connectivity")
+async def check_connectivity():
+    return {"message": "API is running"}
 
 # Function to verify login credentials
 # This function takes the login data provided by the user
 # and verifies if the user exists in the database and if the provided password is correct.
-
 
 @app.post("/check_login", response_model=am.LoginResponse)
 async def check_login(login_data: am.LoginRequest):
