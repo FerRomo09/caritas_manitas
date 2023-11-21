@@ -4,6 +4,7 @@ import Network
 var apiUrl = "http://10.22.130.236:8037"
 var curretUser = User(name: "test", lastName: "", email: "", tel: "", gen: 0, fechaNacimiento: "")
 var token = ""
+
 func checkConnection(completion: @escaping (Bool) -> Void) {
     let monitor = NWPathMonitor()
     let queue = DispatchQueue(label: "Monitor")
@@ -19,8 +20,12 @@ func checkConnection(completion: @escaping (Bool) -> Void) {
                 return
             }
             
+            let configuration = URLSessionConfiguration.default
+            configuration.timeoutIntervalForRequest = 2 // Set your desired timeout interval here
+            let session = URLSession(configuration: configuration)
+            
             group.enter()
-            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            let task = session.dataTask(with: url) { (data, response, error) in
                 if let error = error {
                     print("Error: \(error)")
                     completion(false)
