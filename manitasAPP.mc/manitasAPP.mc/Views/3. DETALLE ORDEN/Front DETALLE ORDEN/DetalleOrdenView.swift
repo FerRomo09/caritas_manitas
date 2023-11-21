@@ -10,10 +10,11 @@ import SwiftUI
 struct DetalleOrdenView: View {
     //Para mostrar las opciones del boton rojo
     @State private var actionSheet = false
-    //Booleano para
+    @State private var offlineAlert = false
     @State var orderID = 1
     @State private var mostrarTexto = false
     @State private var razonUsuario = ""
+
     
     var body: some View {
         VStack{
@@ -125,7 +126,19 @@ struct DetalleOrdenView: View {
             }
             Spacer()
             Button("Cobrado"){
-                confirmOrder(orderID: orderID, token: token)
+                checkConnection{connected in
+                    if connected{
+                        confirmOrder(orderID: orderID, token: token){
+                            else{
+                                offlineAlert = true
+                                print("Error al confirmar orden")
+                            }
+                        }}
+                }
+                
+            }
+            .alert(isPresented: $offlineAlert){
+                Alert(title: Text("Error de conexión"), message: Text("No se pudo confirmar la orden"), dismissButton: .default(Text("OK")))
             }
             .frame(width: 1000)//checar
 
