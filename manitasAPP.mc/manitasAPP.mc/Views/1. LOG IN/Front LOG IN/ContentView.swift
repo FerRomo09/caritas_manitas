@@ -188,12 +188,16 @@ struct ContentView: View {
                             if Token != "" {
                                 // Token stored
                                 // Load the user data from user defaults
-                                curretUser.name = UserDefaults.standard.string(forKey: "name") ?? ""
-                                curretUser.lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
-                                curretUser.email = UserDefaults.standard.string(forKey: "email") ?? ""
-                                curretUser.tel = UserDefaults.standard.string(forKey: "tel") ?? ""
-                                curretUser.gen = UserDefaults.standard.integer(forKey: "gen")
-                                curretUser.fechaNacimiento = UserDefaults.standard.string(forKey: "fechaNacimiento") ?? ""
+                                let name = UserDefaults.standard.string(forKey: "name") ?? ""
+                                let lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
+                                let email = UserDefaults.standard.string(forKey: "email") ?? ""
+                                let tel = UserDefaults.standard.string(forKey: "tel") ?? ""
+                                let gen = UserDefaults.standard.integer(forKey: "gen")
+                                let fechaNacimiento = UserDefaults.standard.string(forKey: "fechaNacimiento") ?? ""
+                                user = User(name: name, lastName: lastName, email: email, tel: tel, gen: gen, fechaNacimiento: fechaNacimiento)
+                                token = Token
+                                curretUser = user
+
                                 // Send them to the correct view
                                 if UserDefaults.standard.integer(forKey: "rol")==1{
                                     ManagerView()
