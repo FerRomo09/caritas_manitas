@@ -1,7 +1,7 @@
 import SwiftUI
 import Network
 
-var apiUrl = "http://10.22.131.214:8037"
+var apiUrl = "http://10.22.130.236:8037"
 var curretUser = User(name: "test", lastName: "", email: "", tel: "", gen: 0, fechaNacimiento: "")
 var token = ""
 
@@ -26,6 +26,7 @@ func checkConnection(completion: @escaping (Bool) -> Void) {
                 } else if let response = response as? HTTPURLResponse, response.statusCode == 200 {
                     // API responded successfully
                     completion(true)
+                    print("succes")
                 } else {
                     completion(false)
                 }
@@ -119,36 +120,35 @@ struct ContentView: View {
                                     checkConnection { connected in
                                         if !connected {
                                             // No internet connection
-                                            .alert(isPresented: $showOfflineAlert) {
-                                                Alert(title: Text("Error"), message: Text("No hay conexión a internet"), dismissButton: .default(Text("Ok")))
-                                            }
+                                            showOfflineAlert=true
+                                            
                                         } else {
-                                    var logInRes: logInInfo
-                                    logInRes = checkLogIn(user: username, pass: password)
-                                    navigationToMain = logInRes.res
-                                    rolUser = logInRes.rol!
-                                    token = logInRes.token!
-                                    UserDefaults.standard.set(token, forKey: "token")
-                                    UserDefaults.standard.set(rolUser, forKey: "rol")
-                                    if logInRes.res {
-                                        getUser(token: UserDefaults.standard.string(forKey: "token")!) { user in
-                                            if let user = user {
-                                                curretUser = user
-                                                UserDefaults.standard.set(user.name, forKey: "name")
-                                                UserDefaults.standard.set(user.lastName, forKey: "lastName")
-                                                UserDefaults.standard.set(user.email, forKey: "email")
-                                                UserDefaults.standard.set(user.tel, forKey: "tel")
-                                                UserDefaults.standard.set(user.gen, forKey: "gen")
-                                                UserDefaults.standard.set(user.fechaNacimiento, forKey: "fechaNacimiento")
-
-                                            } else {
-                                                print("no user data")
+                                            var logInRes: logInInfo
+                                            logInRes = checkLogIn(user: username, pass: password)
+                                            navigationToMain = logInRes.res
+                                            rolUser = logInRes.rol!
+                                            token = logInRes.token!
+                                            UserDefaults.standard.set(token, forKey: "token")
+                                            UserDefaults.standard.set(rolUser, forKey: "rol")
+                                            if logInRes.res {
+                                                getUser(token: UserDefaults.standard.string(forKey: "token")!) { user in
+                                                    if let user = user {
+                                                        curretUser = user
+                                                        UserDefaults.standard.set(user.name, forKey: "name")
+                                                        UserDefaults.standard.set(user.lastName, forKey: "lastName")
+                                                        UserDefaults.standard.set(user.email, forKey: "email")
+                                                        UserDefaults.standard.set(user.tel, forKey: "tel")
+                                                        UserDefaults.standard.set(user.gen, forKey: "gen")
+                                                        UserDefaults.standard.set(user.fechaNacimiento, forKey: "fechaNacimiento")
+                                                        
+                                                    } else {
+                                                        print("no user data")
+                                                    }
+                                                }
                                             }
+                                            showAlert = !navigationToMain
                                         }
                                     }
-                                    showAlert = !navigationToMain
-                                        }
-                                    /////////////////////////////////poner }
                                 }) {
                                     Text("INGRESAR")
                                         .fontWeight(.bold)
@@ -166,15 +166,16 @@ struct ContentView: View {
                                         LandingView()
                                     }
                                 }
+                                .alert(isPresented: $showOfflineAlert) {
+                                    Alert(title: Text("Error"), message: Text("No hay conexión a internet y no existe un log in previo"), dismissButton: .default(Text("Ok")))
+                                }
                                 
                                 .alert(isPresented: $showAlert) {
                                     Alert(title: Text("Error"), message: Text("Usuario o contraseña incorrectos"), dismissButton: .default(Text("Ok")))
                                 }
                                 .navigationBarBackButtonHidden(true)
 
-                                .alert(isPresented: $showOfflineAlert) {
-                                    Alert(title: Text("Error"), message: Text("No hay conexión a internet y no existe un log in previo"), dismissButton: .default(Text("Ok")))
-                                }
+
                             }
                         }
                         .padding(.horizontal, 20)
@@ -203,7 +204,7 @@ struct ContentView: View {
                                 let tel = UserDefaults.standard.string(forKey: "tel") ?? ""
                                 let gen = UserDefaults.standard.integer(forKey: "gen")
                                 let fechaNacimiento = UserDefaults.standard.string(forKey: "fechaNacimiento") ?? ""
-                                user = User(name: name, lastName: lastName, email: email, tel: tel, gen: gen, fechaNacimiento: fechaNacimiento)
+                                let user = User(name: name, lastName: lastName, email: email, tel: tel, gen: gen, fechaNacimiento: fechaNacimiento)
                                 token = Token
                                 curretUser = user
 
