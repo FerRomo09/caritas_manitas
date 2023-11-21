@@ -91,20 +91,11 @@ struct ProfileView: View {
                     .shadow(radius: 5)
                 }
                 .offset(y:-80)
-                
-                /*
-                NavigationLink("Cerrar sesion"){
-                    ContentView()
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.red)
-                .padding(.top,10)
-                .navigationBarBackButtonHidden(true)
-                */
 
                 Button(action: {
                     UserDefaults.standard.set("", forKey: "token")
                     token=""
+                    logOut=true
                 }){
                     Text("Cerrar sesion")
                 }
