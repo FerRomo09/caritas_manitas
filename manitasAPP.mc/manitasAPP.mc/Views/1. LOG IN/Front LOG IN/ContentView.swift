@@ -8,7 +8,6 @@ var token = ""
 func checkConnection(completion: @escaping (Bool) -> Void) {
     let monitor = NWPathMonitor()
     let queue = DispatchQueue(label: "Monitor")
-    let semaphore = DispatchSemaphore(value: 0)
     monitor.start(queue: queue)
     
     monitor.pathUpdateHandler = { path in
@@ -17,7 +16,6 @@ func checkConnection(completion: @escaping (Bool) -> Void) {
             // Now check for API response
             guard let url = URL(string: "\(apiUrl)/connectivity") else {
                 completion(false)
-                semaphore.signal()
                 return
             }
             
@@ -32,16 +30,13 @@ func checkConnection(completion: @escaping (Bool) -> Void) {
                 } else {
                     completion(false)
                 }
-                semaphore.signal()
             }
             task.resume()
         } else {
             // No internet connection
             completion(false)
-            semaphore.signal()
         }
     }
-    semaphore.wait()
 }
 
 struct ContentView: View {
