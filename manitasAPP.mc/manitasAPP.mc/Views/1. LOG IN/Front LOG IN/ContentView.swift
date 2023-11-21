@@ -195,6 +195,7 @@ struct ContentView: View {
                                     
                                 }
                             }
+                        /////////////////////poner } aqui
                             .padding(.horizontal, 20)
                             Spacer()
                             Image("FotoManos")
@@ -259,6 +260,7 @@ struct ContentView: View {
                             }
                         }
                     }
+                
                 
             }else {
                 if UserDefaults.standard.integer(forKey: "rol")==1{
