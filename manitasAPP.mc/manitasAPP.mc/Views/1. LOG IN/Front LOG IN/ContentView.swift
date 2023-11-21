@@ -4,10 +4,10 @@ import Network
 var apiUrl = "http://10.22.130.236:8037"
 var curretUser = User(name: "test", lastName: "", email: "", tel: "", gen: 0, fechaNacimiento: "")
 var token = ""
-
 func checkConnection(completion: @escaping (Bool) -> Void) {
     let monitor = NWPathMonitor()
     let queue = DispatchQueue(label: "Monitor")
+    let group = DispatchGroup()
     monitor.start(queue: queue)
     
     monitor.pathUpdateHandler = { path in
@@ -19,6 +19,7 @@ func checkConnection(completion: @escaping (Bool) -> Void) {
                 return
             }
             
+            group.enter()
             let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if let error = error {
                     print("Error: \(error)")
@@ -30,6 +31,7 @@ func checkConnection(completion: @escaping (Bool) -> Void) {
                 } else {
                     completion(false)
                 }
+                group.leave()
             }
             task.resume()
         } else {
@@ -37,6 +39,7 @@ func checkConnection(completion: @escaping (Bool) -> Void) {
             completion(false)
         }
     }
+    group.wait()
 }
 
 struct ContentView: View {
