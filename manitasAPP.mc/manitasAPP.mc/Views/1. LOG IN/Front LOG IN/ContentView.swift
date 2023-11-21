@@ -116,6 +116,13 @@ struct ContentView: View {
                                 Spacer().frame(height: 25)
                                 
                                 Button(action: {
+                                    checkConnection { connected in
+                                        if !connected {
+                                            // No internet connection
+                                            .alert(isPresented: $showOfflineAlert) {
+                                                Alert(title: Text("Error"), message: Text("No hay conexión a internet"), dismissButton: .default(Text("Ok")))
+                                            }
+                                        } else {
                                     var logInRes: logInInfo
                                     logInRes = checkLogIn(user: username, pass: password)
                                     navigationToMain = logInRes.res
@@ -140,6 +147,8 @@ struct ContentView: View {
                                         }
                                     }
                                     showAlert = !navigationToMain
+                                        }
+                                    /////////////////////////////////poner }
                                 }) {
                                     Text("INGRESAR")
                                         .fontWeight(.bold)
