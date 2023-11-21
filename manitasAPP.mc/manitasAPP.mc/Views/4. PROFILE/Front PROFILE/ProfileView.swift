@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @State private var logOut=false
     var body: some View {
         NavigationStack{
             VStack{
@@ -103,7 +104,6 @@ struct ProfileView: View {
 
                 Button(action: {
                     UserDefaults.standard.set("", forKey: "token")
-                    ContentView()
                     token=""
                 }){
                     Text("Cerrar sesion")
@@ -111,8 +111,10 @@ struct ProfileView: View {
                 .buttonStyle(.borderedProminent)
                 .tint(.red)
                 .padding(.top,10)
+                .navigationDestination(isPresented: $logOut){
+                    ContentView()
+                }
                 .navigationBarBackButtonHidden(true)
-                
                 
                 .padding()
             }

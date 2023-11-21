@@ -133,8 +133,8 @@ struct ContentView: View {
                                     checkConnection { connected in
                                         if !connected {
                                             // No internet connection
-                                            showOfflineAlert=true
-                                            slef.activeAlert = .offline
+                                            showAlert=true
+                                            self.activeAlert = .offline
                                             
                                         } else {
                                             var logInRes: logInInfo
@@ -186,85 +186,80 @@ struct ContentView: View {
                                 .navigationBarBackButtonHidden(true)
                                 .alert(isPresented: $showAlert) {
                                     switch activeAlert {
-                                        case .offline:
-                                            return Alert(title: Text("Error"), message: Text("No hay conexión a internet"), dismissButton: .default(Text("Ok")))
-                                        case .wrongCredentials:
-                                            return Alert(title: Text("Error"), message: Text("Usuario o contraseña incorrectos"), dismissButton: .default(Text("Ok")))
+                                    case .offline:
+                                        return Alert(title: Text("Error"), message: Text("No hay conexión a internet"), dismissButton: .default(Text("Ok")))
+                                    case .wrongCredentials:
+                                        return Alert(title: Text("Error"), message: Text("Usuario o contraseña incorrectos"), dismissButton: .default(Text("Ok")))
                                     }
-                             
-
+                                    
+                                    
+                                }
                             }
+                            .padding(.horizontal, 20)
+                            Spacer()
+                            Image("FotoManos")
                         }
-                        .padding(.horizontal, 20)
-                        Spacer()
-                        Image("FotoManos")
+                        .edgesIgnoringSafeArea(.all)
                     }
-                    .edgesIgnoringSafeArea(.all)
-                }
-                .onAppear {
-                    // Check if theres internet connection
-                    // if theres  no internet connection, check if theres a token stored, if there is one, load the user data from user defaults and send them to the correct view
-                    // if theres no token stored, show and alert
-                    // if theres internet connection, check if theres a token stored, if there is one, check if its valid, if its valid, load the user data from the api and send them to the correct view
-                    // if theres no token stored, send them to the login view
-                    checkConnection { connected in
-                        if !connected {
-                            // No internet connection
-                            // Check if theres a token stored
-                            let Token = UserDefaults.standard.string(forKey: "token") ?? ""
-                            if Token != "" {
-                                // Token stored
-                                // Load the user data from user defaults
-                                let name = UserDefaults.standard.string(forKey: "name") ?? ""
-                                let lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
-                                let email = UserDefaults.standard.string(forKey: "email") ?? ""
-                                let tel = UserDefaults.standard.string(forKey: "tel") ?? ""
-                                let gen = UserDefaults.standard.integer(forKey: "gen")
-                                let fechaNacimiento = UserDefaults.standard.string(forKey: "fechaNacimiento") ?? ""
-                                let user = User(name: name, lastName: lastName, email: email, tel: tel, gen: gen, fechaNacimiento: fechaNacimiento)
-                                token = Token
-                                curretUser = user
-
-                                // Send them to the correct view
-                                if UserDefaults.standard.integer(forKey: "rol")==1{
-                                    ManagerView()
-                                }else{
-                                    LandingView()
+                    .onAppear {
+                        // Check if theres internet connection
+                        // if theres  no internet connection, check if theres a token stored, if there is one, load the user data from user defaults and send them to the correct view
+                        // if theres no token stored, show and alert
+                        // if theres internet connection, check if theres a token stored, if there is one, check if its valid, if its valid, load the user data from the api and send them to the correct view
+                        // if theres no token stored, send them to the login view
+                        checkConnection { connected in
+                            if !connected {
+                                // No internet connection
+                                // Check if theres a token stored
+                                let Token = UserDefaults.standard.string(forKey: "token") ?? ""
+                                if Token != "" {
+                                    // Token stored
+                                    // Load the user data from user defaults
+                                    let name = UserDefaults.standard.string(forKey: "name") ?? ""
+                                    let lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
+                                    let email = UserDefaults.standard.string(forKey: "email") ?? ""
+                                    let tel = UserDefaults.standard.string(forKey: "tel") ?? ""
+                                    let gen = UserDefaults.standard.integer(forKey: "gen")
+                                    let fechaNacimiento = UserDefaults.standard.string(forKey: "fechaNacimiento") ?? ""
+                                    let user = User(name: name, lastName: lastName, email: email, tel: tel, gen: gen, fechaNacimiento: fechaNacimiento)
+                                    token = Token
+                                    curretUser = user
+                                    alreadyLogedIn = true
+                                } else {
+                                    // No token stored
+                                    // Show an alert that theres no internet connection and no prev log in
+                                    alreadyLogedIn = false
+                                    showAlert = true
+                                    activeAlert = .offline
                                 }
                             } else {
-                                // No token stored
-                                // Show an alert that theres no internet connection and no prev log in
-                                alreadyLogedIn = false
-                                showAlert = true
-                                activeAlert = .offline
-                            }
-                        } else {
-                            // Internet connection available
-                            // Check if theres a token stored
-                            let Token = UserDefaults.standard.string(forKey: "token") ?? ""
-                            if Token != "" {
-                                // Token stored
-                                // Check if the token is valid
-                                getUser(token: Token) { user in
-                                    if let user = user {
-                                        // Token is valid
-                                        // Load the user data from the api
-                                        curretUser = user
-                                        token = Token
-                                        alreadyLogedIn = true
-                                    } else {
-                                        // Token is not valid
-                                        alreadyLogedIn = false
+                                // Internet connection available
+                                // Check if theres a token stored
+                                let Token = UserDefaults.standard.string(forKey: "token") ?? ""
+                                if Token != "" {
+                                    // Token stored
+                                    // Check if the token is valid
+                                    getUser(token: Token) { user in
+                                        if let user = user {
+                                            // Token is valid
+                                            // Load the user data from the api
+                                            curretUser = user
+                                            token = Token
+                                            alreadyLogedIn = true
+                                        } else {
+                                            // Token is not valid
+                                            alreadyLogedIn = false
+                                        }
                                     }
+                                } else {
+                                    // No token stored
+                                    // Send them to the login view
+                                    alreadyLogedIn = false
                                 }
-                            } else {
-                                // No token stored
-                                // Send them to the login view
-                                alreadyLogedIn = false
                             }
                         }
                     }
-                }
+                
             }else {
                 if UserDefaults.standard.integer(forKey: "rol")==1{
                     ManagerView()
