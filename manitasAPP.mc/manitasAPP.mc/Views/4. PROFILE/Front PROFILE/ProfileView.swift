@@ -91,9 +91,7 @@ struct ProfileView: View {
                 }
                 .offset(y:-80)
                 
-                //REVISAR
-                
-
+                /*
                 NavigationLink("Cerrar sesion"){
                     ContentView()
                 }
@@ -101,20 +99,19 @@ struct ProfileView: View {
                 .tint(.red)
                 .padding(.top,10)
                 .navigationBarBackButtonHidden(true)
-                
-                /*
-                Button("Cerrar sesion"){
+                */
+
+                Button(action: {
                     UserDefaults.standard.set("", forKey: "token")
                     ContentView()
-                 }
-                 .buttonStyle(.borderedProminent)
-                 .tint(.red)
-                 .padding(.top,10)
-                 .navigationBarBackButtonHidden(true)
-                */
-                 
-                
-                
+                    token=""
+                }){
+                    Text("Cerrar sesion")
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.red)
+                .padding(.top,10)
+                .navigationBarBackButtonHidden(true)
                 
                 
                 .padding()

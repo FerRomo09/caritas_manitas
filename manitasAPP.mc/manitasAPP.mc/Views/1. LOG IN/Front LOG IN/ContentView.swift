@@ -5,6 +5,10 @@ var apiUrl = "http://10.22.130.236:8037"
 var curretUser = User(name: "test", lastName: "", email: "", tel: "", gen: 0, fechaNacimiento: "")
 var token = ""
 
+enum ActiveAlert {
+    case offline, wrongCredentials
+}
+
 func checkConnection(completion: @escaping (Bool) -> Void) {
     let monitor = NWPathMonitor()
     let queue = DispatchQueue(label: "Monitor")
@@ -50,15 +54,14 @@ func checkConnection(completion: @escaping (Bool) -> Void) {
 }
 
 struct ContentView: View {
-    
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var showPassword: Bool = false
-    @State private var showAlert: Bool = false
-    @State private var showOfflineAlert: Bool = false
     @State private var navigationToMain: Bool = false
     @State private var alreadyLogedIn: Bool = false
     @State private var rolUser: Int = -1
+    @State private var showAlert = false
+    @State private var activeAlert: ActiveAlert = .offline
 
     var body: some View {
     
@@ -131,6 +134,7 @@ struct ContentView: View {
                                         if !connected {
                                             // No internet connection
                                             showOfflineAlert=true
+                                            slef.activeAlert = .offline
                                             
                                         } else {
                                             var logInRes: logInInfo
@@ -157,6 +161,9 @@ struct ContentView: View {
                                                 }
                                             }
                                             showAlert = !navigationToMain
+                                            if !navigationToMain {
+                                                activeAlert = .wrongCredentials
+                                            }
                                         }
                                     }
                                 }) {
@@ -176,15 +183,15 @@ struct ContentView: View {
                                         LandingView()
                                     }
                                 }
-                                .alert(isPresented: $showOfflineAlert) {
-                                    Alert(title: Text("Error"), message: Text("No hay conexión a internet y no existe un log in previo"), dismissButton: .default(Text("Ok")))
-                                }
-                                
-                                .alert(isPresented: $showAlert) {
-                                    Alert(title: Text("Error"), message: Text("Usuario o contraseña incorrectos"), dismissButton: .default(Text("Ok")))
-                                }
                                 .navigationBarBackButtonHidden(true)
-
+                                .alert(isPresented: $showAlert) {
+                                    switch activeAlert {
+                                        case .offline:
+                                            return Alert(title: Text("Error"), message: Text("No hay conexión a internet"), dismissButton: .default(Text("Ok")))
+                                        case .wrongCredentials:
+                                            return Alert(title: Text("Error"), message: Text("Usuario o contraseña incorrectos"), dismissButton: .default(Text("Ok")))
+                                    }
+                             
 
                             }
                         }
@@ -228,7 +235,8 @@ struct ContentView: View {
                                 // No token stored
                                 // Show an alert that theres no internet connection and no prev log in
                                 alreadyLogedIn = false
-                                showOfflineAlert = true
+                                showAlert = true
+                                activeAlert = .offline
                             }
                         } else {
                             // Internet connection available
