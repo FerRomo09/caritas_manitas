@@ -128,22 +128,21 @@ struct DetalleOrdenView: View {
             Button("Cobrado"){
                 checkConnection{connected in
                     if connected{
-                        confirmOrder(orderID: orderID, token: token){
-                            else{
-                                offlineAlert = true
-                                print("Error al confirmar orden")
-                            }
-                        }}
+                        confirmOrder(orderID: orderID, token: token)   
+                    }
+                    else{
+                        offlineAlert = true
+                        print("Error al confirmar orden")
+                    }   
                 }
                 
             }
+            .frame(width: 1000)//checar
+            .buttonStyle(.borderedProminent)
+            .tint(.green)
             .alert(isPresented: $offlineAlert){
                 Alert(title: Text("Error de conexión"), message: Text("No se pudo confirmar la orden"), dismissButton: .default(Text("OK")))
             }
-            .frame(width: 1000)//checar
-
-            .buttonStyle(.borderedProminent)
-            .tint(.green)
         
             
             Button("No cobrado"){
