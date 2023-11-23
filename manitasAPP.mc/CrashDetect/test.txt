@@ -1,0 +1,3 @@
+remove comments from the manitasAPP file
+move both crash detection files to back_views folder
+add the new endpoint to the back detalle orden

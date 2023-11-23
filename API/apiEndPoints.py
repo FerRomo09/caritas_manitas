@@ -154,6 +154,37 @@ async def confirm_order(orderID: int, current_user: dict = Depends(get_current_u
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Internal server error")
+    
+# Function to change the assigned employee of an order
+# This function takes the ID of an order and the ID of an employee and updates the order's assigned employee in the database.
+
+@app.put("/change_emp_order/{orderID}/{empID}")
+async def change_emp_order(orderID: int, empID: int, current_user: dict = Depends(get_current_user)):
+    try:
+        # Establish connection with the database
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Execute stored procedure to update the order's assigned employee
+        cursor.execute(
+            "EXEC UpdateOrdenEmpleado @EmpleadoID = ?, @ID_ORDEN = ?; ", (empID, orderID,))
+        conn.commit()
+        if cursor.rowcount == 0:
+            # If the order does not exist, an exception is thrown
+            raise HTTPException(status_code=404, detail="Order not found")
+        cursor.close()
+        conn.close()
+
+        # If the order exists and is updated correctly, a confirmation message is returned
+        return {"message": "Order confirmed"}
+
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=500, detail="Internal server error")
+    
+
 
 # funcion para modificar unas de las llaves del diccionario
 

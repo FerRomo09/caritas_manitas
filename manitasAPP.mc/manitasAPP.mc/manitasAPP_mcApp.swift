@@ -1,17 +1,16 @@
-//
-//  manitasAPP_mcApp.swift
-//  manitasAPP.mc
-//
-//  Created by Alumno on 18/10/23.
-//
-
 import SwiftUI
 
 @main
 struct manitasAPP_mcApp: App {
+    // Initialize the AppDelegate
+    //@UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
+    // Initialize the CrashDetectionManager
+    //@StateObject private var crashDetectionManager = CrashDetectionManager()
     var body: some Scene {
         WindowGroup {
             SplashView()
+                //.environmentObject(crashDetectionManager)
         }
     }
 }
