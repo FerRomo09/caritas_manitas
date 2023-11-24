@@ -309,4 +309,4 @@ def reprogram_order(orderID: int,  info_body: am.Reprogramacion):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8037, reload=True)
+    uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8086, reload=True)
