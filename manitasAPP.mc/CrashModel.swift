@@ -39,12 +39,14 @@ class CrashDetectionManager: ObservableObject {
 
     private func checkForCrash(_ data: CMDeviceMotion) -> Bool {
         // Detect a crash if the acceleration exceeds a certain threshold
-        let accelerationThreshold: Double = 5.0
+        let accelerationThreshold: Double = 4.0
         let spinningThreshold: Double = 2.0  // radians per second
 
         let acceleration = sqrt(pow(data.userAcceleration.x, 2) + pow(data.userAcceleration.y, 2) + pow(data.userAcceleration.z, 2))
-        
-        // Check for both acceleration and spinning
+        print("acc=")
+        print(acceleration)
+        print("spin=")
+        print(abs(data.rotationRate.z))        // Check for both acceleration and spinning
         let isAccelerationExceeded = acceleration > accelerationThreshold
         let isSpinning = abs(data.rotationRate.z) > spinningThreshold
 
@@ -52,12 +54,12 @@ class CrashDetectionManager: ObservableObject {
     }
 
     private func handleCrash() {
-
         makeEmergencyCall()
+        print("-------------------------------------------------------------------------------------------------")
     }
 
     private func makeEmergencyCall() {
-        guard let url = URL(string: "tel://123456789") else { return }
+        guard let url = URL(string: "tel://3317589454") else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }
