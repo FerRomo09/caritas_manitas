@@ -10,13 +10,14 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        // Resume motion updates when the app returns to the foreground
-        crashDetectionManager?.startMotionUpdates()
-    }
+        // Stop the background task when the app comes back to the foreground
+        if backgroundTask != .invalid {
+            application.endBackgroundTask(backgroundTask)
+            backgroundTask = .invalid
+        }
 
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Stop motion updates when the app is terminated
-        crashDetectionManager?.stopMotionUpdates()
+        // Resume motion updates
+        crashDetectionManager?.startMotionUpdates()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -31,14 +32,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         crashDetectionManager?.startMotionUpdates()
     }
 
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // Stop the background task when the app comes to the foreground
-        if backgroundTask != .invalid {
-            application.endBackgroundTask(backgroundTask)
-            backgroundTask = .invalid
-        }
-
-        // Resume motion updates
-        crashDetectionManager?.startMotionUpdates()
+    func applicationWillTerminate(_ application: UIApplication) {
+        // Stop motion updates when the app is terminated
+        crashDetectionManager?.stopMotionUpdates()
     }
 }
