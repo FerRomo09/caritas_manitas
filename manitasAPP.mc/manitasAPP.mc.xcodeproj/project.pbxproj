@@ -24,6 +24,9 @@
 		FB14915F2AE075C000C29C1E /* OrdenBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB14915E2AE075C000C29C1E /* OrdenBarView.swift */; };
 		FB1491612AE19FB100C29C1E /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491602AE19FB100C29C1E /* ProfileView.swift */; };
 		FB1491632AE1B0E900C29C1E /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491622AE1B0E900C29C1E /* TabView.swift */; };
+		FB23D5642B1111B4008371A6 /* ChangeEmployeeFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB23D5632B1111B4008371A6 /* ChangeEmployeeFile.swift */; };
+		FB23D5662B1112C3008371A6 /* CrashModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB23D5652B1112C3008371A6 /* CrashModel.swift */; };
+		FB23D5682B1112F1008371A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB23D5672B1112F1008371A6 /* AppDelegate.swift */; };
 		FB3233EC2B05438C0051E967 /* GetUserFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3233EB2B05438C0051E967 /* GetUserFile.swift */; };
 		FB8AC7332AE312CB005A8022 /* LogInFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8AC7322AE312CB005A8022 /* LogInFile.swift */; };
 		FB94FEE72B01AB4D0066A98F /* CambioRepartidor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB94FEE62B01AB4D0066A98F /* CambioRepartidor.swift */; };
@@ -51,6 +54,9 @@
 		FB14915E2AE075C000C29C1E /* OrdenBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdenBarView.swift; sourceTree = "<group>"; };
 		FB1491602AE19FB100C29C1E /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		FB1491622AE1B0E900C29C1E /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		FB23D5632B1111B4008371A6 /* ChangeEmployeeFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmployeeFile.swift; sourceTree = "<group>"; };
+		FB23D5652B1112C3008371A6 /* CrashModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashModel.swift; sourceTree = "<group>"; };
+		FB23D5672B1112F1008371A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FB3233EB2B05438C0051E967 /* GetUserFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserFile.swift; sourceTree = "<group>"; };
 		FB8AC7322AE312CB005A8022 /* LogInFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInFile.swift; sourceTree = "<group>"; };
 		FB94FEE62B01AB4D0066A98F /* CambioRepartidor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CambioRepartidor.swift; sourceTree = "<group>"; };
@@ -73,6 +79,8 @@
 		FB1491382AE04F9900C29C1E = {
 			isa = PBXGroup;
 			children = (
+				FB23D5652B1112C3008371A6 /* CrashModel.swift */,
+				FB23D5672B1112F1008371A6 /* AppDelegate.swift */,
 				FB1491432AE04F9900C29C1E /* manitasAPP.mc */,
 				FB1491422AE04F9900C29C1E /* Products */,
 			);
@@ -199,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				FB98A7E82AFEADF500D0CAB5 /* ConfirmOrderFile.swift */,
+				FB23D5632B1111B4008371A6 /* ChangeEmployeeFile.swift */,
 			);
 			path = "Back DETALLE ORDEN";
 			sourceTree = "<group>";
@@ -311,6 +320,8 @@
 				539C60C52AFF08BC00AB10F2 /* LandingManagerView.swift in Sources */,
 				539C60C12AFEF9EF00AB10F2 /* OrdenManagerBarView.swift in Sources */,
 				FB94FEE72B01AB4D0066A98F /* CambioRepartidor.swift in Sources */,
+				FB23D5642B1111B4008371A6 /* ChangeEmployeeFile.swift in Sources */,
+				FB23D5662B1112C3008371A6 /* CrashModel.swift in Sources */,
 				FB1491452AE04F9900C29C1E /* manitasAPP_mcApp.swift in Sources */,
 				FB1491632AE1B0E900C29C1E /* TabView.swift in Sources */,
 				539C60C32AFF042500AB10F2 /* ProfileManagerView.swift in Sources */,
@@ -319,6 +330,7 @@
 				FBF6CEFB2AE2F06F00E3950A /* SplashView.swift in Sources */,
 				FB98A7E92AFEADF500D0CAB5 /* ConfirmOrderFile.swift in Sources */,
 				539C60CF2B01647300AB10F2 /* ManagerView.swift in Sources */,
+				FB23D5682B1112F1008371A6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
