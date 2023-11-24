@@ -28,6 +28,7 @@
 		FB23D5662B1112C3008371A6 /* CrashModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB23D5652B1112C3008371A6 /* CrashModel.swift */; };
 		FB23D5682B1112F1008371A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB23D5672B1112F1008371A6 /* AppDelegate.swift */; };
 		FB3233EC2B05438C0051E967 /* GetUserFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3233EB2B05438C0051E967 /* GetUserFile.swift */; };
+		FB3233EE2B1125320051E967 /* ManagerLandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB3233ED2B1125320051E967 /* ManagerLandingView.swift */; };
 		FB8AC7332AE312CB005A8022 /* LogInFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8AC7322AE312CB005A8022 /* LogInFile.swift */; };
 		FB94FEE72B01AB4D0066A98F /* CambioRepartidor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB94FEE62B01AB4D0066A98F /* CambioRepartidor.swift */; };
 		FB98A7E92AFEADF500D0CAB5 /* ConfirmOrderFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB98A7E82AFEADF500D0CAB5 /* ConfirmOrderFile.swift */; };
@@ -58,6 +59,7 @@
 		FB23D5652B1112C3008371A6 /* CrashModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashModel.swift; sourceTree = "<group>"; };
 		FB23D5672B1112F1008371A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FB3233EB2B05438C0051E967 /* GetUserFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserFile.swift; sourceTree = "<group>"; };
+		FB3233ED2B1125320051E967 /* ManagerLandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerLandingView.swift; sourceTree = "<group>"; };
 		FB8AC7322AE312CB005A8022 /* LogInFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInFile.swift; sourceTree = "<group>"; };
 		FB94FEE62B01AB4D0066A98F /* CambioRepartidor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CambioRepartidor.swift; sourceTree = "<group>"; };
 		FB98A7E82AFEADF500D0CAB5 /* ConfirmOrderFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOrderFile.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			children = (
 				FB1491522AE04FF000C29C1E /* LandingView.swift */,
 				539C60CE2B01647300AB10F2 /* ManagerView.swift */,
+				FB3233ED2B1125320051E967 /* ManagerLandingView.swift */,
 				FB3233E32B0541A40051E967 /* Componentes LANDING */,
 			);
 			path = "Front LANDING";
@@ -330,6 +333,7 @@
 				FBF6CEFB2AE2F06F00E3950A /* SplashView.swift in Sources */,
 				FB98A7E92AFEADF500D0CAB5 /* ConfirmOrderFile.swift in Sources */,
 				539C60CF2B01647300AB10F2 /* ManagerView.swift in Sources */,
+				FB3233EE2B1125320051E967 /* ManagerLandingView.swift in Sources */,
 				FB23D5682B1112F1008371A6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
