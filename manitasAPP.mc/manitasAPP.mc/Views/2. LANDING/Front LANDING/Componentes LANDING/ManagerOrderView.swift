@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ManagerOrderView: View {
+    @State var nombre: String = ""
+    @State var numeroOrdenes = 0
     var body: some View {
         NavigationStack{
             ZStack{
@@ -18,15 +20,11 @@ struct ManagerOrderView: View {
                     .offset(x:50, y:30)
 
                 VStack(alignment:.leading){
-                    Text("Gerardo R.") //REEMPLAZAR
+                    Text(nombre) 
                         .font(.system(size: 20))
                         .fontWeight(.bold)
                         .foregroundColor(Color("manitasNegro"))
-                    Text("Obregon") //REEMPLAZAR
-                        .font(.system(size: 20))
-                        .fontWeight(.bold)
-                        .foregroundColor(Color("manitasNegro"))
-                    Text("15 ordenes") //REEMPLAZAR
+                    Text("\(numeroOrdenes) ordenes")
                         .padding(.top,2)
                         .font(.system(size: 16))
                         .fontWeight(.semibold)

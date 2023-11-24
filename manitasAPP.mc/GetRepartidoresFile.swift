@@ -3,17 +3,16 @@ import Foundation
 struct Empleado: Codable {
     let id: Int
     let nombre: String
-    let numOrdenes: Int
+    let num_ordenes: Int
 
     init(id: Int, nombre: String, numOrdenes: Int) {
         self.id = id
         self.nombre = nombre
-        self.numOrdenes = numOrdenes
+        self.num_ordenes = numOrdenes
     }
 }
 
-func getEmpleados(token: String, completion: @escaping (Result<[Empleado], Error>) -> Void) {
-    let apiUrl = "https://your-api-url"
+func getEmpleados(completion: @escaping (Result<[Empleado], Error>) -> Void) {
     let getEmpleadosUrl = URL(string: "\(apiUrl)/get_empleados")!
 
     var request = URLRequest(url: getEmpleadosUrl)

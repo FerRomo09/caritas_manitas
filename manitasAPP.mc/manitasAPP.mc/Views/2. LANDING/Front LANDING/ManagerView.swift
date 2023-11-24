@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ManagerView: View {
-    @State var numOrdenes: Int = 0
+    @State var numOrdenes: Int = 3
     @State private var empleados: [Empleado] = []
     var body: some View {
         NavigationStack{
@@ -28,46 +28,29 @@ struct ManagerView: View {
                     .foregroundColor(Color("manitasNegro"))
                 
                 ScrollView(.vertical, showsIndicators: true){
-                    LazyVStack(){
-    
+                    LazyVStack() {
                         Grid(horizontalSpacing: 12, verticalSpacing: 20) {
-                            if numOrdenes % 2 == 0 { //Si es even el numero de repartidores
-                                let x = numOrdenes / 2
-                                ForEach(1...x, id: \.self) { i in
-                                    GridRow(alignment: .top) {
-                                        NavigationLink(destination: LandingManagerView().navigationBarBackButtonHidden(true)){
-                                            ManagerOrderView()
-                                        }
-                                        NavigationLink(destination: LandingManagerView().navigationBarBackButtonHidden(true)){
-                                            ManagerOrderView()
-                                        }
-                                    }
-                                }
-                            } else{ //si es odd el numero de repartidores
-                                let x = (numOrdenes - 1) / 2
-                                ForEach(1...x, id: \.self) { i in
-                                    GridRow(alignment: .top) {
-                                        NavigationLink(destination: LandingManagerView().navigationBarBackButtonHidden(true)){
-                                            ManagerOrderView()
-                                        }
-                                        NavigationLink(destination: LandingManagerView().navigationBarBackButtonHidden(true)){
-                                            ManagerOrderView()
-                                        }
-                                    }
-                                }
+                            ForEach(0..<(empleados.count / 2 + empleados.count % 2), id: \.self) { i in
+                                let firstIndex = i * 2
+                                let secondIndex = min((i * 2) + 1, self.empleados.count - 1)
                                 GridRow(alignment: .top) {
-                                    NavigationLink(destination: LandingManagerView().navigationBarBackButtonHidden(true)){
-                                        ManagerOrderView()
+                                    NavigationLink(destination: LandingManagerView().navigationBarBackButtonHidden(true)) {
+                                        ManagerOrderView(nombre: self.empleados[firstIndex].nombre, numeroOrdenes: self.empleados[firstIndex].num_ordenes)
+                                    }
+                                    NavigationLink(destination: LandingManagerView().navigationBarBackButtonHidden(true)) {
+                                        ManagerOrderView(nombre: self.empleados[secondIndex].nombre, numeroOrdenes: self.empleados[secondIndex].num_ordenes)
                                     }
                                 }
                             }
                         }
                     }
+                    
                 } //se acaba el scroll view
                 
                 Spacer()
                 
             }
+            
             .onAppear {
                 // Call the function when the view appears
                 getEmpleados() { result in
@@ -80,6 +63,7 @@ struct ManagerView: View {
                     }
                 }
             }
+            
         }
     }
 }
