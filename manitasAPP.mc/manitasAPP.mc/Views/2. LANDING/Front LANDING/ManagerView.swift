@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ManagerView: View {
-    @State var numOrdenes: Int = 9
+    @State var numOrdenes: Int = 0
+    @State private var empleados: [Empleado] = []
     var body: some View {
         NavigationStack{
             VStack{
@@ -27,7 +28,7 @@ struct ManagerView: View {
                 //Dashboard de repartidores
                 ScrollView(.vertical, showsIndicators: true){
                     LazyVStack(){
-                        //Eventualmente poner ids en los repartidores
+    
                         Grid(horizontalSpacing: 12, verticalSpacing: 20) {
                             if numOrdenes % 2 == 0 { //Si es even el numero de repartidores
                                 let x = numOrdenes / 2
@@ -65,6 +66,18 @@ struct ManagerView: View {
                 
                 Spacer()
                 
+            }
+            .onAppear {
+                // Call the function when the view appears
+                getEmpleados() { result in
+                    switch result {
+                    case .success(let empleados):
+                        self.empleados = empleados
+                        self.numOrdenes = empleados.count
+                    case .failure(let error):
+                        print("Error fetching empleados: \(error)")
+                    }
+                }
             }
         }
     }
