@@ -9,14 +9,14 @@ import SwiftUI
 import Foundation
 
 struct LandingView: View {
+    @State private var listaOrdenes: [Orden] = []
+    
     @State private var textoStatus: String = "Recolectado"
     @State private var colorStatus: Color = .green
     @State private var iconStatus: Image = Image(systemName: "checkmark.circle.fill")
     @State private var numStatus: Int = 3
-    @State private var numRecibos: Int = 15
-    @State private var arrayNumStatus: [Int] = [1,2,3]
 
-    
+
     var body: some View {
         
         NavigationStack(){
@@ -60,59 +60,18 @@ struct LandingView: View {
             }
             .padding(.bottom, 10)
             
-            ScrollView(.vertical, showsIndicators: true){
-                
-                LazyVStack(){
-                    //Itera n veces
-                        
-                    ForEach(1...15, id: \.self) {
-                        i in
-                        let numStatus = Int.random(in: 1..<4)
-                        if (numStatus == 3){
-                            let textoStatus = "Recolectado"
-                            let colorStatus = Color.green
-                            let iconStatus = Image(systemName: "checkmark.circle.fill")
-                            NavigationLink(destination: (DetalleOrdenView().navigationBarBackButtonHidden(true))){
-                                OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
-                            }
-                        } else if (numStatus == 2){
-                            let textoStatus = "Pendiente"
-                            let colorStatus = Color.yellow
-                            let iconStatus = Image(systemName: "exclamationmark.triangle.fill")
-                            NavigationLink(destination: (DetalleOrdenView().navigationBarBackButtonHidden(true))){
-                                OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
-                            }
-                        }else if (numStatus == 1){
-                            let textoStatus = """
-                            No
-                            recolectado
-                            """
-                            let colorStatus = Color.red
-                            let iconStatus = Image(systemName: "xmark.circle.fill")
-                            NavigationLink(destination: (DetalleOrdenView().navigationBarBackButtonHidden(true))){
-                                OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
-                            }
-                        }
-                         }
-                         
-                    
-                    //OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
+            List(listaOrdenes, id: \.idOrden) { orden in
+                OrdenBarView(orden: orden)
+            }
+            .onAppear {
+                fetchOrders(forEmployeeID: 1, forEstatusId: 2) { ordenes in
+                    self.listaOrdenes = ordenes
                 }
             }
-            
+
             //Manda foto para arriba
             Spacer()
         }
-        /*Array numberos del 1 -3
-         //var arrayNumStatus: [Int] = [0]
-         ForEach (1...numRecibos, id: \.self){
-         i in
-         let numRandom = Int.random(in: 1..<4)
-         arrayNumStatus.append(numRandom)
-         }
-         */
-        
-        
     }
 }
 

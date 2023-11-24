@@ -5,6 +5,7 @@
 //  Created by Jacobo Hirsch on 10/11/23.
 //
 
+/*
 import SwiftUI
 
 struct ManagerProfileView: View {
@@ -121,3 +122,4 @@ struct ManagerProfileView_Previews: PreviewProvider {
         ManagerProfileView()
     }
 }
+*/
