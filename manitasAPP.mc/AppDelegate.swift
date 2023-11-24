@@ -1,4 +1,4 @@
-/*
+
 import UIKit
 
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -39,4 +39,3 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 }
 
-*/
