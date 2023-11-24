@@ -33,6 +33,7 @@
 		FB8AC7332AE312CB005A8022 /* LogInFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8AC7322AE312CB005A8022 /* LogInFile.swift */; };
 		FB94FEE72B01AB4D0066A98F /* CambioRepartidor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB94FEE62B01AB4D0066A98F /* CambioRepartidor.swift */; };
 		FB98A7E92AFEADF500D0CAB5 /* ConfirmOrderFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB98A7E82AFEADF500D0CAB5 /* ConfirmOrderFile.swift */; };
+		FB9E4B252B112C6F00E373F1 /* GetRepartidoresFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9E4B242B112C6F00E373F1 /* GetRepartidoresFile.swift */; };
 		FBF6CEFB2AE2F06F00E3950A /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF6CEFA2AE2F06F00E3950A /* SplashView.swift */; };
 		FBF6CEFD2AE2F25400E3950A /* Back-Views in Resources */ = {isa = PBXBuildFile; fileRef = FBF6CEFC2AE2F25400E3950A /* Back-Views */; };
 /* End PBXBuildFile section */
@@ -65,6 +66,7 @@
 		FB8AC7322AE312CB005A8022 /* LogInFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInFile.swift; sourceTree = "<group>"; };
 		FB94FEE62B01AB4D0066A98F /* CambioRepartidor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CambioRepartidor.swift; sourceTree = "<group>"; };
 		FB98A7E82AFEADF500D0CAB5 /* ConfirmOrderFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOrderFile.swift; sourceTree = "<group>"; };
+		FB9E4B242B112C6F00E373F1 /* GetRepartidoresFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRepartidoresFile.swift; sourceTree = "<group>"; };
 		FBF6CEFA2AE2F06F00E3950A /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		FBF6CEFC2AE2F25400E3950A /* Back-Views */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Back-Views"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,6 +87,7 @@
 			children = (
 				FB23D5652B1112C3008371A6 /* CrashModel.swift */,
 				FB23D5672B1112F1008371A6 /* AppDelegate.swift */,
+				FB9E4B242B112C6F00E373F1 /* GetRepartidoresFile.swift */,
 				FB1491432AE04F9900C29C1E /* manitasAPP.mc */,
 				FB1491422AE04F9900C29C1E /* Products */,
 			);
@@ -322,6 +325,7 @@
 				FB14915A2AE0570B00C29C1E /* ProfileBarView.swift in Sources */,
 				539C60D12B01705E00AB10F2 /* ManagerOrderView.swift in Sources */,
 				FB14915F2AE075C000C29C1E /* OrdenBarView.swift in Sources */,
+				FB9E4B252B112C6F00E373F1 /* GetRepartidoresFile.swift in Sources */,
 				539C60CD2AFF3D8100AB10F2 /* ManagerProfileView.swift in Sources */,
 				53427A012B1128A4004F61F6 /* GetOrderFile.swift in Sources */,
 				539C60C52AFF08BC00AB10F2 /* LandingManagerView.swift in Sources */,
