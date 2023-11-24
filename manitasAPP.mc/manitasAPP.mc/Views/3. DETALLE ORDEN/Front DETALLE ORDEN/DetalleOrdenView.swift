@@ -15,10 +15,18 @@ struct DetalleOrdenView: View {
     @State private var mostrarTexto = false
     @State private var razonUsuario = ""
     let address = "Av. Eugenio Garza Sada 2501 Sur, Tecnológico, 64849 Monterrey, Nuevo Leon"
-
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack{
+            
+            HStack {
+                Button("← Regresar") {
+                    dismiss()
+                }
+                Spacer()
+            }
+            
             ProfileBarView()
             
             Spacer()
