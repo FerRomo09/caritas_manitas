@@ -72,14 +72,14 @@ struct LandingView: View {
                             let textoStatus = "Recolectado"
                             let colorStatus = Color.green
                             let iconStatus = Image(systemName: "checkmark.circle.fill")
-                            NavigationLink(destination: (DetalleOrdenView())){
+                            NavigationLink(destination: (DetalleOrdenView().navigationBarBackButtonHidden(true))){
                                 OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
                             }
                         } else if (numStatus == 2){
                             let textoStatus = "Pendiente"
                             let colorStatus = Color.yellow
                             let iconStatus = Image(systemName: "exclamationmark.triangle.fill")
-                            NavigationLink(destination: (DetalleOrdenView())){
+                            NavigationLink(destination: (DetalleOrdenView().navigationBarBackButtonHidden(true))){
                                 OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
                             }
                         }else if (numStatus == 1){
@@ -89,7 +89,7 @@ struct LandingView: View {
                             """
                             let colorStatus = Color.red
                             let iconStatus = Image(systemName: "xmark.circle.fill")
-                            NavigationLink(destination: (DetalleOrdenView())){
+                            NavigationLink(destination: (DetalleOrdenView().navigationBarBackButtonHidden(true))){
                                 OrdenBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
                             }
                         }

@@ -1,83 +1,120 @@
 //
-//  ordenBarView.swift
-//  manitasAPP.mc
+//  OrderBarView.swift
+//  PRUEBA
 //
-//  Created by Alumno on 18/10/23.
+//  Created by Jacobo Hirsch on 15/11/23.
 //
 
 import SwiftUI
 
 struct OrdenBarView: View {
-    @State var textoRecibido: String = "Recolectado"
-    @State var colorRecibido: Color = .green
-    @State var iconRecibido: Image = Image(systemName: "checkmark.circle.fill")
+    // Para mostrar los detalles de la orden
+    let orden: Orden
+    @State private var listaOrdenes: [Orden] = []
+    
+    // Formateo de fecha
+    private var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter
+    }
+    
+    // Propiedades dinámicas basadas en el estatus de la orden
+    private var textoRecibido: String {
+        switch orden.estatusOrden {
+        case 0:
+            return "No recolectado"
+        case 1:
+            return "Pendiente"
+        case 2:
+            return "Recolectado"
+        default:
+            return "Desconocido"
+        }
+    }
+    
+    private var colorRecibido: Color {
+        switch orden.estatusOrden {
+        case 0:
+            return .red
+        case 1:
+            return .green
+        case 2:
+            return .yellow
+        default:
+            return .gray
+        }
+    }
+    
+    private var iconRecibido: Image {
+        switch orden.estatusOrden {
+        case 0:
+            return Image(systemName: "xmark.circle.fill")
+        case 1:
+            return Image(systemName: "checkmark.circle.fill")
+        case 2:
+            return Image(systemName: "exclamationmark.triangle.fill")
+        default:
+            return Image(systemName: "questionmark.circle.fill")
+        }
+    }
 
     var body: some View {
-        ZStack(){
+        ZStack {
             Image("barGris")
                 .resizable(resizingMode: .stretch)
                 .cornerRadius(24)
-                .frame(width:368, height: 150.0)
+                .frame(width: 368, height: 150.0)
             
-            HStack{
-                VStack(alignment: .leading, spacing: 1.5){
-                    HStack{Spacer()}
-                    Text("Recibo #9182379") //remplazar con numero de orden
+            
+            
+            HStack {
+                
+                VStack(alignment: .leading, spacing: 1.5) {
+                    
+                    HStack { Spacer() }
+                    
+                    Text("Recibo #\(orden.idOrden)")
                         .font(.system(size: 20))
                         .fontWeight(.bold)
-                        .foregroundColor(Color("manitasNegro"))
+                       
                         .padding(.bottom, 10)
-                    Text("Donante: ")
-                        .font(.system(size: 16))
-                        .fontWeight(.medium)
-                        .foregroundColor(Color("manitasNegro"))
-                    + Text("Sr. Alberto Tamez V.")
+                    Text("Donante: \(orden.nombre ?? "N/A") \(orden.apellidoPaterno) \(orden.apellidoMaterno ?? "")")
                         .font(.system(size: 16))
                         .fontWeight(.light)
-                        .foregroundColor(Color("manitasNegro"))
+                        
                     
-                    //Colinia, municipio, codigo postal
-                    Text("Col: ")
+                    // Colonia, municipio, codigo postal
+                    Text("Col: \(orden.colonia)")
                         .font(.system(size: 16))
                         .fontWeight(.medium)
-                        .foregroundColor(Color("manitasNegro"))
-                    + Text("Prolongacion Chipinque")
-                        .font(.system(size: 16))
-                        .fontWeight(.light)
-                        .foregroundColor(Color("manitasNegro"))
-                    Text("Mun: ")
+                       
+                    Text("Mun: \(orden.municipio ?? "N/A")")
                         .font(.system(size: 16))
                         .fontWeight(.medium)
-                        .foregroundColor(Color("manitasNegro"))
-                    + Text("Santa Catarina")
-                        .font(.system(size: 16))
-                        .fontWeight(.light)
-                        .foregroundColor(Color("manitasNegro"))
-                    Text("CP: ")
+                        
+                    Text("CP: \(orden.codigoPostal)")
                         .font(.system(size: 16))
                         .fontWeight(.medium)
-                        .foregroundColor(Color("manitasNegro"))
-                    + Text("66290")
-                        .font(.system(size: 16))
-                        .fontWeight(.light)
-                        .foregroundColor(Color("manitasNegro"))
+                        
                     
-                    HStack{Spacer()}
+                    HStack { Spacer() }
+                
+                    
                 }
                 .padding(.leading, 30)
                 
-                VStack(alignment: .trailing){
-                    ZStack(){
+                
+                VStack(alignment: .trailing) {
+                    
+                    ZStack {
                         Rectangle()
                             .frame(width: 104.0, height: 150.0)
                             .opacity(0.8)
                             .foregroundColor(colorRecibido)
-                            .cornerRadius(0, corners: .topLeft)
-                            .cornerRadius(24, corners: .topRight)
-                            .cornerRadius(0, corners: .bottomLeft)
-                            .cornerRadius(24, corners: .bottomRight)
+                            .cornerRadius(24, corners: [.topRight, .bottomRight])
                         
-                        VStack(){
+                        VStack {
                             iconRecibido
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
@@ -99,7 +136,7 @@ struct OrdenBarView: View {
     }
 }
 
-//Estructura para hacer rounded corners specificos
+// Extensión para hacer esquinas redondeadas específicas
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape(RoundedCorner(radius: radius, corners: corners))
@@ -116,20 +153,53 @@ struct RoundedCorner: Shape {
     }
 }
 
-struct OrdenBarView_Previews: PreviewProvider {
-    static var previews: some View {
-        // Directamente pasamos valores sin @State ya que no es necesario en previews.
-        OrdenBarView(textoRecibido: "Recolectado", colorRecibido: .green, iconRecibido: Image(systemName: "checkmark.circle.fill"))
+// Extensión para crear una instancia de ejemplo de 'Orden'
+extension Orden {
+    init(idOrden: Int64, fechaCobro: Date?, fechaPago: Date?, importe: Double?, estatusOrden: Int64?, comentarios: String?, comentariosReprogramacion: String?, nombre: String?, apellidoPaterno: String, apellidoMaterno: String?, callePrincipal: String, numeroExterior: Int64, colonia: String, codigoPostal: Int64, municipio: String?) {
+        self.idOrden = idOrden
+        self.fechaCobro = fechaCobro
+        self.fechaPago = fechaPago
+        self.importe = importe
+        self.estatusOrden = estatusOrden
+        self.comentarios = comentarios
+        self.comentariosReprogramacion = comentariosReprogramacion
+        self.nombre = nombre
+        self.apellidoPaterno = apellidoPaterno
+        self.apellidoMaterno = apellidoMaterno
+        self.callePrincipal = callePrincipal
+        self.numeroExterior = numeroExterior
+        self.colonia = colonia
+        self.codigoPostal = codigoPostal
+        self.municipio = municipio
+    }
+
+    static var ejemplo: Orden {
+        return Orden(
+            idOrden: 12345,
+            fechaCobro: Date(),
+            fechaPago: Date(),
+            importe: 1000.0,
+            estatusOrden: 1,
+            comentarios: "Comentario de ejemplo",
+            comentariosReprogramacion: "Reprogramación de ejemplo",
+            nombre: "Juan",
+            apellidoPaterno: "Pérez",
+            apellidoMaterno: "González",
+            callePrincipal: "Avenida Siempre Viva",
+            numeroExterior: 742,
+            colonia: "Springfield",
+            codigoPostal: 12345,
+            municipio: "Ciudad Ejemplo"
+        )
     }
 }
 
-/*
+
+// Código de la vista previa actualizado
 struct OrdenBarView_Previews: PreviewProvider {
     static var previews: some View {
-        @State var variableTempTexto: String = "Recolectado"
-        @State var variableTempColor: Color = .green
-        @State var variableTempIcon: Image = Image(systemName: "checkmark.circle.fill")
-        OrdenBarView(textoRecibido: variableTempTexto, colorRecibido: variableTempColor, iconRecibido: variableTempIcon)
+        OrdenBarView(orden: Orden.ejemplo)
     }
 }
-*/
+
+

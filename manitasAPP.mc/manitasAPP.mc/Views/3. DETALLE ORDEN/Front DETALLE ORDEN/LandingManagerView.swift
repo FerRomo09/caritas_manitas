@@ -16,22 +16,21 @@ struct LandingManagerView: View {
     @State private var numRecibos: Int = 15
     @State private var arrayNumStatus: [Int] = [1,2,3]
     @State private var isActive = false
+    @Environment(\.dismiss) var dismiss
+
     
     var body: some View {
         NavigationStack(){
             //Main VStack
             VStack(){
                 HStack {
-                    NavigationLink(destination: ManagerView(), isActive: $isActive) {
-                                        EmptyView()
-                                    }
-                    Button("Regresar") {
-                        self.isActive = true
+                    Button("← Regresar") {
+                        dismiss()
                     }
                     Spacer()
-                    Spacer()
-                    .padding()
-                }.padding(.horizontal, 30)
+                }
+                .padding(.horizontal, 30)
+                
                 VStack(){
                     //Profile Bar, link a profile view
                     NavigationLink(destination: (ManagerProfileView())){

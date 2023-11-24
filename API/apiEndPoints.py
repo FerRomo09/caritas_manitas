@@ -124,7 +124,6 @@ async def get_user(current_user: dict = Depends(get_current_user)):
 # Function to confirm that an order was completed
 # This function takes the ID of an order and updates its status to "completed" in the database.
 
-
 @app.put("/confirm_order/{orderID}")
 async def confirm_order(orderID: int, current_user: dict = Depends(get_current_user)):
     try:
@@ -184,6 +183,42 @@ async def change_emp_order(orderID: int, empID: int, current_user: dict = Depend
         print(e)
         raise HTTPException(status_code=500, detail="Internal server error")
     
+# Function to retrieve a list of all employees
+# This function returns a list of all employees in the database and their number of orders.
+
+@app.get("/get_empleados")
+async def get_empleados(current_user: dict = Depends(get_current_user)):
+    try:
+        # Establish connection with the database
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+
+        # Execute stored procedure to get the list of employees
+        cursor.execute("EXEC ReporteOrdenesEmpleadoPorDia @Fecha = ?", (datetime.date.today(),))
+        empleados = cursor.fetchall()
+
+        cursor.close()
+        conn.close()
+
+        if empleados is None:
+            # If there are no employees, an exception is thrown
+            raise HTTPException(status_code=404, detail="No employees found")
+        else:
+            # If there are employees, a list of employees is returned
+            empleados_list = []
+            for empleado in empleados:
+                empleados_list.append({
+                    "id": empleado[0],
+                    "nombre": empleado[1],
+                    "num_ordenes": empleado[2]
+                })
+            return empleados_list
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=500, detail="Internal server error")
 
 
 # funcion para modificar unas de las llaves del diccionario
