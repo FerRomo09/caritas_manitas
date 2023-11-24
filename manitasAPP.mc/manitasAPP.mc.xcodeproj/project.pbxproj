@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		534279FF2B112718004F61F6 /* GetOrderFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534279FE2B112718004F61F6 /* GetOrderFile.swift */; };
 		539C60C12AFEF9EF00AB10F2 /* OrdenManagerBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539C60C02AFEF9EF00AB10F2 /* OrdenManagerBarView.swift */; };
 		539C60C32AFF042500AB10F2 /* ProfileManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539C60C22AFF042500AB10F2 /* ProfileManagerView.swift */; };
 		539C60C52AFF08BC00AB10F2 /* LandingManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539C60C42AFF08BC00AB10F2 /* LandingManagerView.swift */; };
@@ -37,7 +36,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		534279FE2B112718004F61F6 /* GetOrderFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOrderFile.swift; sourceTree = "<group>"; };
 		539C60C02AFEF9EF00AB10F2 /* OrdenManagerBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdenManagerBarView.swift; sourceTree = "<group>"; };
 		539C60C22AFF042500AB10F2 /* ProfileManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManagerView.swift; sourceTree = "<group>"; };
 		539C60C42AFF08BC00AB10F2 /* LandingManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingManagerView.swift; sourceTree = "<group>"; };
@@ -210,7 +208,6 @@
 			children = (
 				FB98A7E82AFEADF500D0CAB5 /* ConfirmOrderFile.swift */,
 				FB23D5632B1111B4008371A6 /* ChangeEmployeeFile.swift */,
-				534279FE2B112718004F61F6 /* GetOrderFile.swift */,
 			);
 			path = "Back DETALLE ORDEN";
 			sourceTree = "<group>";
@@ -320,7 +317,6 @@
 				539C60D12B01705E00AB10F2 /* ManagerOrderView.swift in Sources */,
 				FB14915F2AE075C000C29C1E /* OrdenBarView.swift in Sources */,
 				539C60CD2AFF3D8100AB10F2 /* ManagerProfileView.swift in Sources */,
-				534279FF2B112718004F61F6 /* GetOrderFile.swift in Sources */,
 				539C60C52AFF08BC00AB10F2 /* LandingManagerView.swift in Sources */,
 				539C60C12AFEF9EF00AB10F2 /* OrdenManagerBarView.swift in Sources */,
 				FB94FEE72B01AB4D0066A98F /* CambioRepartidor.swift in Sources */,
