@@ -14,6 +14,7 @@ struct DetalleOrdenView: View {
     @State var orderID = 1
     @State private var mostrarTexto = false
     @State private var razonUsuario = ""
+    let address = "Av. Eugenio Garza Sada 2501 Sur, Tecnológico, 64849 Monterrey, Nuevo Leon"
 
     
     var body: some View {
@@ -117,8 +118,13 @@ struct DetalleOrdenView: View {
                     }
                     .offset(x:-52, y:170)
                     
-                    Image("Reemplazar")
-                        .offset(x:110, y:145)
+                    Button(action: {
+                        openMapsForAddress(address: self.address)
+                    }, label: {
+                        Image("Reemplazar")
+                            
+                    })
+                    .offset(x:110, y:145)
                     
                     
                 }
@@ -196,6 +202,17 @@ struct DetalleOrdenView: View {
         .shadow(radius: 10)
         .padding()
     
+    }
+    func openMapsForAddress(address: String) {
+        let addressEncoded = address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+
+        if let url = URL(string: "http://maps.apple.com/?address=\(addressEncoded)") {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        } else {
+            print("Invalid address")
+        }
     }
 }
 

@@ -20,7 +20,7 @@ struct ProfileManagerView: View {
                         .font(.system(size: 20))
                         .fontWeight(.regular)
                         .foregroundColor(Color("manitasNegro"))
-                    Text(currentUser.name)
+                    //Text(currentUser.name)
                         .font(.system(size: 30))
                         .fontWeight(.heavy)
                         .foregroundColor(Color("manitasNegro"))
