@@ -1,6 +1,6 @@
 import Foundation
 
-func changeEmployeeOrder(orderID: Int, empID: Int, token: String) {
+func changeEmployeeOrder(orderID: Int, empID: Int) {
     
     let changeOrderUrl = URL(string: "\(apiUrl)/change_emp_order/\(orderID)/\(empID)")!
 

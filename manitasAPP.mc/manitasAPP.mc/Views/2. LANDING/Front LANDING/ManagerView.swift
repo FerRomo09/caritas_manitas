@@ -17,15 +17,16 @@ struct ManagerView: View {
                 NavigationLink(destination: ProfileView().navigationBarBackButtonHidden(true)){
                     ProfileManagerView()
                 }
-                .padding(.bottom, 15)
-                
-                Text("Repartidores")
-                    .font(.system(size: 28))
+                Text("Ordenes Asignadas")
+                    .font(.system(size: 20))
+                    .fontWeight(.semibold)
+                    .foregroundColor(.orange)
+                Divider()
+                Text("Repartidores Activos")
+                    .font(.system(size: 20))
                     .fontWeight(.bold)
                     .foregroundColor(Color("manitasNegro"))
                 
-                
-                //Dashboard de repartidores
                 ScrollView(.vertical, showsIndicators: true){
                     LazyVStack(){
     

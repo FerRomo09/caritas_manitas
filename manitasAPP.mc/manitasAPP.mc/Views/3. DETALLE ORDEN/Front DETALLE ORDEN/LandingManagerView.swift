@@ -31,6 +31,7 @@ struct LandingManagerView: View {
                 }
                 .padding(.horizontal, 30)
                 
+                /*
                 VStack(){
                     //Profile Bar, link a profile view
                     NavigationLink(destination: (ManagerProfileView())){
@@ -39,7 +40,8 @@ struct LandingManagerView: View {
                     .padding(.top, 10)
                     .padding(.bottom, 5)
                 }
- 
+                 */
+                
                 //Stack ordenes del dia
                 VStack(alignment: .leading){
                     
