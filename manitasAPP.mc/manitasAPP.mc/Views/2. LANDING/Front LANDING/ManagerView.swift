@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ManagerView: View {
+    
     var body: some View {
         NavigationStack{
             VStack{

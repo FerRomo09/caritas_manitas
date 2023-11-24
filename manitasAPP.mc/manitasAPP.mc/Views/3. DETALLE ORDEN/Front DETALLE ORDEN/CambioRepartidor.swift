@@ -10,7 +10,8 @@ import SwiftUI
 
 struct CambioRepartidor: View {
     @Environment(\.presentationMode) var presentationMode
-    let orderID = "#5148132"
+    let orderID = 1
+    let empID = 1
     let deliveryPeople = ["Hernan Ramirez", "Enrique Torres", "Guillermo Alarcon", "Pablo Zubiria", "Gaston Belden"]
     @State private var repartidorSelect = "Hernan Ramirez"
     @State private var isActive = false
@@ -45,6 +46,7 @@ struct CambioRepartidor: View {
                
 
                Button("Confirmar reasignacion") {
+                   changeEmployeeOrder(orderID: orderID, empID: empID)
                                presentationMode.wrappedValue.dismiss()
                            }
                            .padding()
