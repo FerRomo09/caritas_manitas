@@ -21,6 +21,7 @@ struct ProfileManagerView: View {
                         .fontWeight(.regular)
                         .foregroundColor(Color("manitasNegro"))
                     //Text(currentUser.name)
+                    Text("Manager") //quitar despues
                         .font(.system(size: 30))
                         .fontWeight(.heavy)
                         .foregroundColor(Color("manitasNegro"))

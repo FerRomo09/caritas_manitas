@@ -9,9 +9,18 @@ import SwiftUI
 
 struct ProfileView: View {
     @State private var logOut=false
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationStack{
             VStack{
+                HStack {
+                    Button("← Regresar") {
+                        dismiss()
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal, 30)
+                
                 let user=curretUser
                 Image("Avatar")
                     .resizable()

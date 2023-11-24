@@ -10,10 +10,19 @@ import SwiftUI
 struct ManagerProfileView: View {
     @State private var showingLogoutAlert = false
     @State private var navigateToContentView = false
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         NavigationStack {
             VStack {
+                HStack {
+                    Button("← Regresar") {
+                        dismiss()
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal, 30)
+                
                 Image("Avatar")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
