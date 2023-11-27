@@ -3,7 +3,6 @@
 //
 //  Created by Jacobo Hirsch on 22/11/23.
 //
-
 import Foundation
 
 struct OrdenesResponse: Decodable {
@@ -14,6 +13,11 @@ struct OrdenesResponse: Decodable {
         case mensaje =  "mensaje"
         case list = "list"
     }
+}
+
+
+struct ReprogramacionInfo: Encodable {
+    let comentarios: String
 }
 
 struct Orden: Decodable {
@@ -147,6 +151,18 @@ func fetchOrders(forEmployeeID employeeID: Int, forEstatusId StatusId: Int, comp
 
             print("Ordenes decodificadas: \(ordenes)")
             
+            print(type(of: ordenes))
+            
+            print(type(of: ordenes[0]))
+            
+            
+            print(ordenes[0].idOrden)
+            
+            print(ordenes[0].importe ?? 0.0)
+            
+            print("cp")
+            print(ordenes[0].codigoPostal)
+            
    
             completion(ordenes)
 
@@ -200,4 +216,81 @@ extension Orden {
             municipio: "Ciudad Ejemplo"
         )
     }
+}
+
+
+func reprogramOrder(orderID: Int, reprogramacionInfo: ReprogramacionInfo, completion: @escaping (Bool, String) -> Void) {
+    let urlString = "http://10.22.131.171:8037/reprogram_order/\(orderID)"
+    guard let url = URL(string: urlString) else {
+        print("URL inválida")
+        completion(false, "URL inválida")
+        return
+    }
+
+    var request = URLRequest(url: url)
+    request.httpMethod = "PUT"
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+    do {
+        let jsonData = try JSONEncoder().encode(reprogramacionInfo)
+        request.httpBody = jsonData
+    } catch {
+        print("Error al codificar los datos: \(error)")
+        completion(false, "Error al codificar los datos")
+        return
+    }
+
+    let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        if let error = error {
+            print("Error al realizar la solicitud: \(error)")
+            completion(false, "Error al realizar la solicitud")
+            return
+        }
+
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            print("Respuesta no exitosa del servidor")
+            completion(false, "Respuesta no exitosa del servidor")
+            return
+        }
+
+        completion(true, "Reprogramación exitosa")
+    }
+    
+    task.resume()
+}
+
+
+func confirmOrder(orderID: Int, completion: @escaping (Bool, String) -> Void) {
+    let urlString = "http://10.22.131.171:8037/confirm_order/\(orderID)"
+    guard let url = URL(string: urlString) else {
+        print("URL inválida")
+        completion(false, "URL inválida")
+        return
+    }
+
+    var request = URLRequest(url: url)
+    request.httpMethod = "PUT"
+
+    let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        if let error = error {
+            print("Error al realizar la solicitud: \(error)")
+            completion(false, "Error al realizar la solicitud")
+            return
+        }
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            completion(false, "Respuesta no exitosa del servidor")
+            return
+        }
+
+        if httpResponse.statusCode == 200 {
+            completion(true, "Orden confirmada exitosamente")
+        } else if httpResponse.statusCode == 404 {
+            completion(false, "Orden no encontrada")
+        } else {
+            completion(false, "Error del servidor")
+        }
+    }
+    
+    task.resume()
 }

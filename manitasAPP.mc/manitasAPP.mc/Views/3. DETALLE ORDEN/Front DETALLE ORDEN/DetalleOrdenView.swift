@@ -9,6 +9,8 @@ import SwiftUI
 
 struct DetalleOrdenView: View {
     let orden:Orden
+    @Environment(\.presentationMode) var presentationMode
+    @State private var ordenReprogramada = false
     
     //Para mostrar las opciones del boton rojo
     @State private var actionSheet = false
@@ -143,6 +145,18 @@ struct DetalleOrdenView: View {
             }
             Spacer()
             Button("Cobrado"){
+                let reprogramacionInfo = ReprogramacionInfo(comentarios: "Reprogramación a estatus Cobrado")
+                  reprogramOrder(orderID: Int(orden.idOrden), reprogramacionInfo: reprogramacionInfo) { success, message in
+                      if success {
+                          ordenReprogramada = true
+                          // Regresar a la lista de órdenes
+                          DispatchQueue.main.async {
+                              self.presentationMode.wrappedValue.dismiss()
+                          }
+                      } else {
+                          print(message)
+                      }
+                  }
                 
                 /*
                 checkConnection{connected in
