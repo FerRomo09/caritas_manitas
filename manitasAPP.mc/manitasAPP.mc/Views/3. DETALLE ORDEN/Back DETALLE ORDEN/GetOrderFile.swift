@@ -33,6 +33,18 @@ struct Orden: Decodable {
     var codigoPostal: Int64
     var municipio: String?
     
+    //Formateo de importe
+    var importeFormateado: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        formatter.decimalSeparator = ","
+        formatter.groupingSeparator = "."
+
+        return formatter.string(from: NSNumber(value: self.importe ?? 0.0)) ?? "0,00"
+    }
+    
 
     enum CodingKeys: String, CodingKey {
         case idOrden = "id"
@@ -92,7 +104,7 @@ func fetchOrders(forEmployeeID employeeID: Int, forEstatusId StatusId: Int, comp
     let today = dateFormatter.string(from: Date())
     //print(type(of: today))
     
-    let urlString = "http://10.22.132.226:8037/ordenes/\(employeeID)/\(StatusId)?fecha=\(today)"
+    let urlString = "http://10.22.131.171:8037/ordenes/\(employeeID)/\(StatusId)?fecha=\(today)"
     guard let url = URL(string: urlString) else {
         print("URL inválida")
         completion([])
@@ -135,15 +147,6 @@ func fetchOrders(forEmployeeID employeeID: Int, forEstatusId StatusId: Int, comp
 
             print("Ordenes decodificadas: \(ordenes)")
             
-            print(type(of: ordenes))
-            
-            print(type(of: ordenes[0]))
-            
-            
-            print(ordenes[0].idOrden)
-            
-            print(ordenes[0].importe ?? 0.0)
-            
    
             completion(ordenes)
 
@@ -155,4 +158,46 @@ func fetchOrders(forEmployeeID employeeID: Int, forEstatusId StatusId: Int, comp
     }
     
     task.resume()
+}
+
+
+// Extensión para crear una instancia de ejemplo de 'Orden'
+extension Orden {
+    init(idOrden: Int64, fechaCobro: Date?, fechaPago: Date?, importe: Double?, estatusOrden: Int64?, comentarios: String?, comentariosReprogramacion: String?, nombre: String?, apellidoPaterno: String, apellidoMaterno: String?, callePrincipal: String, numeroExterior: Int64, colonia: String, codigoPostal: Int64, municipio: String?) {
+        self.idOrden = idOrden
+        self.fechaCobro = fechaCobro
+        self.fechaPago = fechaPago
+        self.importe = importe
+        self.estatusOrden = estatusOrden
+        self.comentarios = comentarios
+        self.comentariosReprogramacion = comentariosReprogramacion
+        self.nombre = nombre
+        self.apellidoPaterno = apellidoPaterno
+        self.apellidoMaterno = apellidoMaterno
+        self.callePrincipal = callePrincipal
+        self.numeroExterior = numeroExterior
+        self.colonia = colonia
+        self.codigoPostal = codigoPostal
+        self.municipio = municipio
+    }
+
+    static var ejemplo: Orden {
+        return Orden(
+            idOrden: 12345,
+            fechaCobro: Date(),
+            fechaPago: Date(),
+            importe: 1000.0,
+            estatusOrden: 1,
+            comentarios: "Comentario de ejemplo",
+            comentariosReprogramacion: "Reprogramación Ejemplo",
+            nombre: "Nombre Ejemplo",
+            apellidoPaterno: "Apellido P Ejemplo",
+            apellidoMaterno: "Apellido M Ejemplo",
+            callePrincipal: "Calle Ejemplo",
+            numeroExterior: 742,
+            colonia: "Colonia ejemplo",
+            codigoPostal: 12345,
+            municipio: "Ciudad Ejemplo"
+        )
+    }
 }

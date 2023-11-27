@@ -8,26 +8,18 @@
 import SwiftUI
 
 struct OrdenBarView: View {
-    // Para mostrar los detalles de la orden
+    //Variable de tipo orden
     let orden: Orden
-    @State private var listaOrdenes: [Orden] = []
-    
-    // Formateo de fecha
-    private var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter
-    }
     
     // Propiedades dinámicas basadas en el estatus de la orden
     private var textoRecibido: String {
         switch orden.estatusOrden {
         case 0:
-            return "No recolectado"
-        case 1:
             return "Pendiente"
-        case 2:
+        case 1:
             return "Recolectado"
+        case 2:
+            return "No recolectado"
         default:
             return "Desconocido"
         }
@@ -36,11 +28,11 @@ struct OrdenBarView: View {
     private var colorRecibido: Color {
         switch orden.estatusOrden {
         case 0:
-            return .red
+            return .yellow
         case 1:
             return .green
         case 2:
-            return .yellow
+            return .red
         default:
             return .gray
         }
@@ -49,11 +41,11 @@ struct OrdenBarView: View {
     private var iconRecibido: Image {
         switch orden.estatusOrden {
         case 0:
-            return Image(systemName: "xmark.circle.fill")
+            return Image(systemName: "exclamationmark.triangle.fill")
         case 1:
             return Image(systemName: "checkmark.circle.fill")
         case 2:
-            return Image(systemName: "exclamationmark.triangle.fill")
+            return Image(systemName: "xmark.circle.fill")
         default:
             return Image(systemName: "questionmark.circle.fill")
         }
@@ -74,7 +66,7 @@ struct OrdenBarView: View {
                     
                     HStack { Spacer() }
                     
-                    Text("Recibo #\(orden.idOrden)")
+                    Text("Recibo #\(String(orden.idOrden))")
                         .font(.system(size: 20))
                         .fontWeight(.bold)
                        
@@ -93,7 +85,7 @@ struct OrdenBarView: View {
                         .font(.system(size: 16))
                         .fontWeight(.medium)
                         
-                    Text("CP: \(orden.codigoPostal)")
+                    Text("CP: \(String(orden.codigoPostal))")
                         .font(.system(size: 16))
                         .fontWeight(.medium)
                         
@@ -153,53 +145,10 @@ struct RoundedCorner: Shape {
     }
 }
 
-// Extensión para crear una instancia de ejemplo de 'Orden'
-extension Orden {
-    init(idOrden: Int64, fechaCobro: Date?, fechaPago: Date?, importe: Double?, estatusOrden: Int64?, comentarios: String?, comentariosReprogramacion: String?, nombre: String?, apellidoPaterno: String, apellidoMaterno: String?, callePrincipal: String, numeroExterior: Int64, colonia: String, codigoPostal: Int64, municipio: String?) {
-        self.idOrden = idOrden
-        self.fechaCobro = fechaCobro
-        self.fechaPago = fechaPago
-        self.importe = importe
-        self.estatusOrden = estatusOrden
-        self.comentarios = comentarios
-        self.comentariosReprogramacion = comentariosReprogramacion
-        self.nombre = nombre
-        self.apellidoPaterno = apellidoPaterno
-        self.apellidoMaterno = apellidoMaterno
-        self.callePrincipal = callePrincipal
-        self.numeroExterior = numeroExterior
-        self.colonia = colonia
-        self.codigoPostal = codigoPostal
-        self.municipio = municipio
-    }
-
-    static var ejemplo: Orden {
-        return Orden(
-            idOrden: 12345,
-            fechaCobro: Date(),
-            fechaPago: Date(),
-            importe: 1000.0,
-            estatusOrden: 1,
-            comentarios: "Comentario de ejemplo",
-            comentariosReprogramacion: "Reprogramación de ejemplo",
-            nombre: "Juan",
-            apellidoPaterno: "Pérez",
-            apellidoMaterno: "González",
-            callePrincipal: "Avenida Siempre Viva",
-            numeroExterior: 742,
-            colonia: "Springfield",
-            codigoPostal: 12345,
-            municipio: "Ciudad Ejemplo"
-        )
-    }
-}
-
-
 // Código de la vista previa actualizado
 struct OrdenBarView_Previews: PreviewProvider {
     static var previews: some View {
         OrdenBarView(orden: Orden.ejemplo)
     }
 }
-
 

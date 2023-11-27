@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct DetalleOrdenView: View {
+    let orden:Orden
+    
     //Para mostrar las opciones del boton rojo
     @State private var actionSheet = false
     @State private var offlineAlert = false
@@ -19,6 +21,7 @@ struct DetalleOrdenView: View {
     
     var body: some View {
         VStack{
+            /*
             
             HStack {
                 Button("← Regresar") {
@@ -26,15 +29,15 @@ struct DetalleOrdenView: View {
                 }
                 Spacer()
             }
-            
-            ProfileBarView()
+            */
+            //ProfileBarView()
             
             Spacer()
             ZStack{
 
                 Image("Carusel")
             
-                Text("Recibo #5148132")//REEMPLAZAR POR VARIABLE
+                Text("Recibo #\(String(orden.idOrden))")//REEMPLAZAR POR VARIABLE
                     .font(.system(size: 25, weight: .bold))
                     .offset(x:-60, y:-200)
                 
@@ -54,7 +57,7 @@ struct DetalleOrdenView: View {
                 HStack{
                     Text("Donante:")
                         .font(.system(size: 18))
-                    Text("Sr. Francisco Torres J.")//REEMPLAZAR POR VARIABLE
+                    Text("\(orden.nombre ?? "N/A") \(orden.apellidoPaterno) \(orden.apellidoMaterno ?? "")")
                         .font(.system(size: 18, weight: .light))
                 }
                 .offset(x:-15, y:-90)
@@ -62,7 +65,7 @@ struct DetalleOrdenView: View {
                 HStack{
                     Text("Cantidad:")
                         .font(.system(size: 18))
-                    Text("$2,500.00 pesos")//REEMPLAZAR POR VARIABLE
+                    Text("\(String(orden.importeFormateado))")
                         .font(.system(size: 18, weight: .light))
                         
                 }.offset(x:-31, y:-62)
@@ -70,7 +73,7 @@ struct DetalleOrdenView: View {
                 HStack{
                     Text("Forma de pago:")
                         .font(.system(size: 18))
-                    Text("Efectivo")//REEMPLAZAR POR VARIABLE
+                    Text("Efectivo")
                         .font(.system(size: 18, weight: .light))
                         
                 }.offset(x:-40, y:-35)
@@ -78,7 +81,7 @@ struct DetalleOrdenView: View {
                 ZStack{
                     Image("Top2")
                         .offset(y:35)
-                    Text("Direccion")//REEMPLAZAR POR VARIABLE
+                    Text("Direccion")
                         .font(.system(size: 20, weight: .medium))
                         .offset(x:-98, y:40)
                     
@@ -89,7 +92,7 @@ struct DetalleOrdenView: View {
                     HStack{
                         Text("Calle:")
                             .font(.system(size: 18))
-                        Text("Avenida Revolucion")//REEMPLAZAR POR VARIABLE
+                        Text("\(orden.callePrincipal)")
                             .font(.system(size: 18, weight: .light))
                     }
                     .offset(x:-38, y:78)
@@ -105,7 +108,7 @@ struct DetalleOrdenView: View {
                     HStack{
                         Text("Colonia:")
                             .font(.system(size: 18))
-                        Text("Los Pinos")//REEMPLAZAR POR VARIABLE
+                        Text("\(orden.colonia)")
                             .font(.system(size: 18, weight: .light))
                     }
                     .offset(x:-64, y:123)
@@ -113,7 +116,7 @@ struct DetalleOrdenView: View {
                     HStack{
                         Text("Codigo Postal:")
                             .font(.system(size: 18))
-                        Text("64840")//REEMPLAZAR POR VARIABLE
+                        Text("\(String(orden.codigoPostal))")
                             .font(.system(size: 18, weight: .light))
                     }
                     .offset(x:-48, y:145)
@@ -121,7 +124,7 @@ struct DetalleOrdenView: View {
                     HStack{
                         Text("Municipio:")
                             .font(.system(size: 18))
-                        Text("Monterrey")//REEMPLAZAR POR VARIABLE
+                        Text("\(orden.municipio ?? "N/A")")//REEMPLAZAR POR VARIABLE
                             .font(.system(size: 18, weight: .light))
                     }
                     .offset(x:-52, y:170)
@@ -140,15 +143,18 @@ struct DetalleOrdenView: View {
             }
             Spacer()
             Button("Cobrado"){
+                
+                /*
                 checkConnection{connected in
                     if connected{
-                        confirmOrder(orderID: orderID, token: token)   
+                        confirmOrder(orderID: orderID, token: token)
                     }
                     else{
                         offlineAlert = true
                         print("Error al confirmar orden")
-                    }   
+                    }
                 }
+                */
                 
             }
             .frame(width: 1000)//checar
@@ -228,6 +234,7 @@ struct DetalleOrdenView: View {
 
 struct DetalleOrdenView_Previews: PreviewProvider {
     static var previews: some View {
-        DetalleOrdenView()
+        DetalleOrdenView(orden: Orden.ejemplo)
     }
 }
+
