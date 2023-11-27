@@ -43,7 +43,6 @@ func checkLogIn(user: String, pass: String)->logInInfo {
                             let json = try JSONSerialization.jsonObject(with: data, options: [])
                             
                             if let response = json as? [String: Any] {
-                                //hacer algo si fue exitoso
                                 logD.rol = response["rol"] as? Int
                                 logD.token = response["token"] as? String
                                 logD.res=true
@@ -54,11 +53,9 @@ func checkLogIn(user: String, pass: String)->logInInfo {
                     }
                 }
                 else if statusCode == 401{
-                    //hacer algo si no la clave esta incorrecta
                     print("Wrong password")
                 }
                 else if statusCode == 404{
-                    //hacer algo si no existe el usuario
                     print("User not found")
                 }
                 else{
@@ -87,8 +84,6 @@ func checkConnection(completion: @escaping (Bool) -> Void) {
     
     monitor.pathUpdateHandler = { path in
         if path.status == .satisfied {
-            // Internet connection is available
-            // Now check for API response
             guard let url = URL(string: "\(apiUrl)/connectivity") else {
                 completion(false)
                 semaphore.signal()
@@ -104,7 +99,6 @@ func checkConnection(completion: @escaping (Bool) -> Void) {
                     print("Error: \(error)")
                     completion(false)
                 } else if let response = response as? HTTPURLResponse, response.statusCode == 200 {
-                    // API responded successfully
                     completion(true)
                     print("succes")
                 } else {
@@ -114,7 +108,6 @@ func checkConnection(completion: @escaping (Bool) -> Void) {
             }
             task.resume()
         } else {
-            // No internet connection
             completion(false)
             semaphore.signal()
         }

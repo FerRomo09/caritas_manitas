@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LandingManagerView: View {
+    @State var idRepartidor: String=""
     @State var nombreRecibido: String="Manager"
     @State private var textoStatus: String = "Recolectado"
     @State private var colorStatus: Color = .green

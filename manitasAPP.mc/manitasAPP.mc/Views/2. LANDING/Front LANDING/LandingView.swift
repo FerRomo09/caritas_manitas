@@ -17,11 +17,7 @@ struct LandingView: View {
     var body: some View {
         
         NavigationStack(){
-            //Main VStack
             VStack(){
-                
-                
-                //Profile Bar, link a profile view
                 VStack(){
                     NavigationLink(destination: (ProfileView())){
                         ProfileBarView()
@@ -35,7 +31,7 @@ struct LandingView: View {
                 VStack(alignment: .leading){
                     
                     HStack{Spacer()}
-                    Text("Recibos del dia: ")
+                    Text("Recibos del Día: ")
                         .font(.system(size: 25))
                         .fontWeight(.bold)
                         .foregroundColor(Color("manitasNegro"))

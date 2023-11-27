@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetalleOrdenView: View {
-    let orden:Orden
+    let orden: Orden
     @Environment(\.presentationMode) var presentationMode
     @State private var ordenReprogramada = false
     
@@ -73,9 +73,9 @@ struct DetalleOrdenView: View {
                 }.offset(x:-31, y:-62)
                 
                 HStack{
-                    Text("Forma de pago:")
+                    Text("Teléfono:")
                         .font(.system(size: 18))
-                    Text("Efectivo")
+                    Text("32212312312")
                         .font(.system(size: 18, weight: .light))
                         
                 }.offset(x:-40, y:-35)
@@ -83,7 +83,7 @@ struct DetalleOrdenView: View {
                 ZStack{
                     Image("Top2")
                         .offset(y:35)
-                    Text("Direccion")
+                    Text("Dirección")
                         .font(.system(size: 20, weight: .medium))
                         .offset(x:-98, y:40)
                     
@@ -100,7 +100,7 @@ struct DetalleOrdenView: View {
                     .offset(x:-38, y:78)
                     
                     HStack{
-                        Text("Numero Exterior:")
+                        Text("Número Exterior:")
                             .font(.system(size: 18))
                         Text("123")//REEMPLAZAR POR VARIABLE
                             .font(.system(size: 18, weight: .light))
@@ -116,7 +116,7 @@ struct DetalleOrdenView: View {
                     .offset(x:-64, y:123)
                     
                     HStack{
-                        Text("Codigo Postal:")
+                        Text("Código Postal:")
                             .font(.system(size: 18))
                         Text("\(String(orden.codigoPostal))")
                             .font(.system(size: 18, weight: .light))
@@ -134,7 +134,10 @@ struct DetalleOrdenView: View {
                     Button(action: {
                         openMapsForAddress(address: self.address)
                     }, label: {
-                        Image("Reemplazar")
+                        Image("mapaBoton")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 80)
                             
                     })
                     .offset(x:110, y:145)
@@ -144,7 +147,7 @@ struct DetalleOrdenView: View {
     
             }
             Spacer()
-            Button("Cobrado"){
+            Button("**Cobrado**                                          "){
                 let reprogramacionInfo = ReprogramacionInfo(comentarios: "Reprogramación a estatus Cobrado")
                   reprogramOrder(orderID: Int(orden.idOrden), reprogramacionInfo: reprogramacionInfo) { success, message in
                       if success {
@@ -171,6 +174,7 @@ struct DetalleOrdenView: View {
                 */
                 
             }
+            .controlSize(.large)
             .frame(width: 1000)//checar
             .buttonStyle(.borderedProminent)
             .tint(.green)
@@ -179,10 +183,13 @@ struct DetalleOrdenView: View {
             }
         
             
-            Button("No cobrado"){
+            Button("**No cobrado**                                    "){
                 actionSheet = true
                 
             }
+            .controlSize(.large)
+            
+            //.controlSize(.large)
             .actionSheet(isPresented: $actionSheet){
                 ActionSheet(title: Text("No se completo la orden"), message: Text("Elige la razon por la que no se pudo completar"), buttons: [
                     
