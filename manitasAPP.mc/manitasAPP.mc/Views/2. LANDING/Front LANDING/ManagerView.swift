@@ -17,11 +17,15 @@ struct ManagerView: View {
                 NavigationLink(destination: ProfileView().navigationBarBackButtonHidden(true)){
                     ProfileManagerView()
                 }
+                Text("Ordenes Asignadas")
+                    .font(.system(size: 20))
+                    .fontWeight(.semibold)
+                    .foregroundColor(.orange)
+                Divider()
                 Text("Repartidores Activos")
                     .font(.system(size: 20))
                     .fontWeight(.bold)
                     .foregroundColor(Color("manitasNegro"))
-                Divider()
                 
                 ScrollView(.vertical, showsIndicators: true){
                     LazyVStack() {
@@ -31,16 +35,16 @@ struct ManagerView: View {
                                 let secondIndex = min((i * 2) + 1, self.empleados.count - 1)
                                 if firstIndex == secondIndex {
                                     GridRow(alignment: .top) {
-                                        NavigationLink(destination: LandingManagerView(self.empleados[firstIndex].id).navigationBarBackButtonHidden(true)) {
+                                        NavigationLink(destination: LandingManagerView().navigationBarBackButtonHidden(true)) {
                                             ManagerOrderView(nombre: self.empleados[firstIndex].nombre, numeroOrdenes: self.empleados[firstIndex].num_ordenes)
                                         }
                                     }
                                 } else {
                                     GridRow(alignment: .top) {
-                                        NavigationLink(destination: LandingManagerView(self.empleados[firstIndex].id).navigationBarBackButtonHidden(true)) {
+                                        NavigationLink(destination: LandingManagerView().navigationBarBackButtonHidden(true)) {
                                             ManagerOrderView(nombre: self.empleados[firstIndex].nombre, numeroOrdenes: self.empleados[firstIndex].num_ordenes)
                                         }
-                                        NavigationLink(destination: LandingManagerView(self.empleados[secondIndex].id).navigationBarBackButtonHidden(true)) {
+                                        NavigationLink(destination: LandingManagerView().navigationBarBackButtonHidden(true)) {
                                             ManagerOrderView(nombre: self.empleados[secondIndex].nombre, numeroOrdenes: self.empleados[secondIndex].num_ordenes)
                                         }
                                     }
@@ -54,6 +58,7 @@ struct ManagerView: View {
                 Spacer()
                 
             }
+            
             .onAppear {
                 // Call the function when the view appears
                 getEmpleados() { result in
@@ -66,6 +71,7 @@ struct ManagerView: View {
                     }
                 }
             }
+            
         }
     }
 }
