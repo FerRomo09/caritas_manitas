@@ -16,7 +16,7 @@ def create_jwt_token(data):
     payload = {
         "data": data,
         # The token expires after 50 days
-        "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=3),
+        "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=10000),
     }
     # Encode the payload with the secret key
     return jwt.encode(payload, SECRET_KEY, algorithm="HS256")

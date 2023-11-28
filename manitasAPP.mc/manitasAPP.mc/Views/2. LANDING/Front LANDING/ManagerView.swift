@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ManagerView: View {
     @State var numOrdenes: Int = 3
-    //@State private var empleados: [Empleado] = []
+    @State private var empleados: [Empleado] = []
     var body: some View {
         NavigationStack{
             VStack{
@@ -22,39 +22,38 @@ struct ManagerView: View {
                     .fontWeight(.bold)
                     .foregroundColor(Color("manitasNegro"))
                 Divider()
-                /*
+                
                 ScrollView(.vertical, showsIndicators: true){
                     LazyVStack() {
                         Grid(horizontalSpacing: 12, verticalSpacing: 20) {
                             ForEach(0..<(empleados.count / 2 + empleados.count % 2), id: \.self) { i in
                                 let firstIndex = i * 2
                                 let secondIndex = min((i * 2) + 1, self.empleados.count - 1)
-                                if firstIndex==secondIndex{
+                                if firstIndex == secondIndex {
                                     GridRow(alignment: .top) {
-                                        NavigationLink(destination: LandingManagerView(idRepartidor:self.empleados[firstIndex].id ).navigationBarBackButtonHidden(true)) {
+                                        NavigationLink(destination: LandingManagerView(self.empleados[firstIndex].id).navigationBarBackButtonHidden(true)) {
                                             ManagerOrderView(nombre: self.empleados[firstIndex].nombre, numeroOrdenes: self.empleados[firstIndex].num_ordenes)
                                         }
                                     }
-                                }
-                                    else{
-                                        GridRow(alignment: .top) {
-                                            NavigationLink(destination: LandingManagerView(idRepartidor:self.empleados[firstIndex].id ).navigationBarBackButtonHidden(true)) {
-                                                ManagerOrderView(nombre: self.empleados[firstIndex].nombre, numeroOrdenes: self.empleados[firstIndex].num_ordenes)
-                                            }
-                                            NavigationLink(destination: LandingManagerView(idRepartidor:self.empleados[firstIndex].id ).navigationBarBackButtonHidden(true)) {
-                                                ManagerOrderView(nombre: self.empleados[secondIndex].nombre, numeroOrdenes: self.empleados[secondIndex].num_ordenes)
-                                            }
+                                } else {
+                                    GridRow(alignment: .top) {
+                                        NavigationLink(destination: LandingManagerView(self.empleados[firstIndex].id).navigationBarBackButtonHidden(true)) {
+                                            ManagerOrderView(nombre: self.empleados[firstIndex].nombre, numeroOrdenes: self.empleados[firstIndex].num_ordenes)
                                         }
+                                        NavigationLink(destination: LandingManagerView(self.empleados[secondIndex].id).navigationBarBackButtonHidden(true)) {
+                                            ManagerOrderView(nombre: self.empleados[secondIndex].nombre, numeroOrdenes: self.empleados[secondIndex].num_ordenes)
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                     
                 } //se acaba el scroll view
-                */
+                
                 Spacer()
                 
-            }/*
+            }
             .onAppear {
                 // Call the function when the view appears
                 getEmpleados() { result in
@@ -66,7 +65,7 @@ struct ManagerView: View {
                         print("Error fetching empleados: \(error)")
                     }
                 }
-            }*/
+            }
         }
     }
 }
