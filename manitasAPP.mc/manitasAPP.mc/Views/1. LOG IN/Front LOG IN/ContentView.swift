@@ -1,6 +1,6 @@
 import SwiftUI
 
-var apiUrl = "http://10.22.167.114:8086"
+var apiUrl = "http://10.22.139.95:8086"
 var curretUser = User(name: "test", lastName: "", email: "", tel: "", gen: 0, fechaNacimiento: "")
 var token = ""
 

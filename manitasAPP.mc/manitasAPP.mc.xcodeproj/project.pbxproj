@@ -15,6 +15,8 @@
 		539C60CD2AFF3D8100AB10F2 /* ManagerProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539C60CC2AFF3D8100AB10F2 /* ManagerProfileView.swift */; };
 		539C60CF2B01647300AB10F2 /* ManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539C60CE2B01647300AB10F2 /* ManagerView.swift */; };
 		539C60D12B01705E00AB10F2 /* ManagerOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539C60D02B01705E00AB10F2 /* ManagerOrderView.swift */; };
+		FB0F7A762B16783A006CE12A /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0F7A752B16783A006CE12A /* ProgressBarView.swift */; };
+		FB0F7A782B167DA7006CE12A /* DineroProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0F7A772B167DA7006CE12A /* DineroProgressBarView.swift */; };
 		FB1491452AE04F9900C29C1E /* manitasAPP_mcApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491442AE04F9900C29C1E /* manitasAPP_mcApp.swift */; };
 		FB1491472AE04F9900C29C1E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1491462AE04F9900C29C1E /* ContentView.swift */; };
 		FB1491492AE04F9A00C29C1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB1491482AE04F9A00C29C1E /* Assets.xcassets */; };
@@ -47,6 +49,8 @@
 		539C60CC2AFF3D8100AB10F2 /* ManagerProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerProfileView.swift; sourceTree = "<group>"; };
 		539C60CE2B01647300AB10F2 /* ManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerView.swift; sourceTree = "<group>"; };
 		539C60D02B01705E00AB10F2 /* ManagerOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerOrderView.swift; sourceTree = "<group>"; };
+		FB0F7A752B16783A006CE12A /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
+		FB0F7A772B167DA7006CE12A /* DineroProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DineroProgressBarView.swift; sourceTree = "<group>"; };
 		FB1491412AE04F9900C29C1E /* manitasAPP.mc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = manitasAPP.mc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB1491442AE04F9900C29C1E /* manitasAPP_mcApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = manitasAPP_mcApp.swift; sourceTree = "<group>"; };
 		FB1491462AE04F9900C29C1E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -181,6 +185,8 @@
 		FB3233E32B0541A40051E967 /* Componentes LANDING */ = {
 			isa = PBXGroup;
 			children = (
+				FB0F7A752B16783A006CE12A /* ProgressBarView.swift */,
+				FB0F7A772B167DA7006CE12A /* DineroProgressBarView.swift */,
 				FB1491592AE0570B00C29C1E /* ProfileBarView.swift */,
 				539C60C22AFF042500AB10F2 /* ProfileManagerView.swift */,
 				FB14915E2AE075C000C29C1E /* OrdenBarView.swift */,
@@ -325,8 +331,10 @@
 				FB14915A2AE0570B00C29C1E /* ProfileBarView.swift in Sources */,
 				539C60D12B01705E00AB10F2 /* ManagerOrderView.swift in Sources */,
 				FB14915F2AE075C000C29C1E /* OrdenBarView.swift in Sources */,
+				FB0F7A782B167DA7006CE12A /* DineroProgressBarView.swift in Sources */,
 				FB9E4B252B112C6F00E373F1 /* GetRepartidoresFile.swift in Sources */,
 				539C60CD2AFF3D8100AB10F2 /* ManagerProfileView.swift in Sources */,
+				FB0F7A762B16783A006CE12A /* ProgressBarView.swift in Sources */,
 				53427A012B1128A4004F61F6 /* GetOrderFile.swift in Sources */,
 				539C60C52AFF08BC00AB10F2 /* LandingManagerView.swift in Sources */,
 				539C60C12AFEF9EF00AB10F2 /* OrdenManagerBarView.swift in Sources */,
