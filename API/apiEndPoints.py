@@ -36,8 +36,10 @@ def get_db_connection():
     except Exception as e:
         print(e)
         return None
-    
+
 # Function to check if the api is running
+
+
 @app.get("/connectivity")
 async def check_connectivity():
     return {"message": "API is running"}
@@ -45,6 +47,7 @@ async def check_connectivity():
 # Function to verify login credentials
 # This function takes the login data provided by the user
 # and verifies if the user exists in the database and if the provided password is correct.
+
 
 @app.post("/check_login", response_model=am.LoginResponse)
 async def check_login(login_data: am.LoginRequest):
@@ -124,8 +127,10 @@ async def get_user(current_user: dict = Depends(get_current_user)):
 # Function to confirm that an order was completed
 # This function takes the ID of an order and updates its status to "completed" in the database.
 
+
 @app.put("/confirm_order/{orderID}")
-async def confirm_order(orderID: int, current_user: dict = Depends(get_current_user)):
+async def confirm_order(orderID: int,):
+   # async def confirm_order(orderID: int, current_user: dict = Depends(get_current_user)):
     try:
         # Establish connection with the database
         conn = get_db_connection()
@@ -153,9 +158,10 @@ async def confirm_order(orderID: int, current_user: dict = Depends(get_current_u
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Internal server error")
-    
+
 # Function to change the assigned employee of an order
 # This function takes the ID of an order and the ID of an employee and updates the order's assigned employee in the database.
+
 
 @app.put("/change_emp_order/{orderID}/{empID}")
 async def change_emp_order(orderID: int, empID: int, current_user: dict = Depends(get_current_user)):
@@ -182,9 +188,10 @@ async def change_emp_order(orderID: int, empID: int, current_user: dict = Depend
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Internal server error")
-    
+
 # Function to retrieve a list of all employees
 # This function returns a list of all employees in the database and their number of orders.
+
 
 @app.get("/get_empleados")
 async def get_empleados(current_user: dict = Depends(get_current_user)):
@@ -193,9 +200,9 @@ async def get_empleados(current_user: dict = Depends(get_current_user)):
         conn = get_db_connection()
         cursor = conn.cursor()
 
-
         # Execute stored procedure to get the list of employees
-        cursor.execute("EXEC ReporteOrdenesEmpleadoPorDia @Fecha = ?", (datetime.date.today(),))
+        cursor.execute(
+            "EXEC ReporteOrdenesEmpleadoPorDia @Fecha = ?", (datetime.date.today(),))
         empleados = cursor.fetchall()
 
         cursor.close()
@@ -230,11 +237,11 @@ def modificar_clave(diccionario, vieja_clave, nueva_clave):
 
 # endpoint que regresa en formato json las ordenes filtradas por el id del empleado
 @app.get("/ordenes/{ID_EMPLEADO}/{ESTATUS_ORDEN}")
-def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...), ):
+def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...)):
     # def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...)):
     # def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int):
 
-    # fecha = '2023-11-24'
+    # fecha = '2023-11-28'
 
     try:
         with get_db_connection() as conn:
@@ -352,8 +359,7 @@ def conteo_suma_ordenes_por_estado(ID_EMPLEADO: int,):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8086, reload=True)
-    
+
     #    import uvicorn
     # uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8037, reload=True,
     #            ssl_keyfile="./SSL/equipo19_key.pem", ssl_certfile="./SSL/equipo19.pem")
-
