@@ -22,7 +22,7 @@ struct ManagerView: View {
                     .fontWeight(.bold)
                     .foregroundColor(Color("manitasNegro"))
                 Divider()
-                /*
+                
                 ScrollView(.vertical, showsIndicators: true){
                     LazyVStack() {
                         Grid(horizontalSpacing: 12, verticalSpacing: 20) {
@@ -50,10 +50,10 @@ struct ManagerView: View {
                     }
                     
                 } //se acaba el scroll view
-                */
+                
                 Spacer()
                 
-            }/*
+            }
             .onAppear {
                 // Call the function when the view appears
                 getEmpleados() { result in
@@ -65,7 +65,7 @@ struct ManagerView: View {
                         print("Error fetching empleados: \(error)")
                     }
                 }
-            }*/
+            }
         }
     }
 }
