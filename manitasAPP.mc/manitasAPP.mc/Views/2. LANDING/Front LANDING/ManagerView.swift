@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ManagerView: View {
     @State var numOrdenes: Int = 3
-    //@State private var empleados: [Empleado] = []
+    @State private var empleados: [Empleado] = []
     var body: some View {
         NavigationStack{
             VStack{
