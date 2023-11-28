@@ -8,18 +8,21 @@
 import SwiftUI
 
 struct DetalleOrdenView: View {
-    let orden: Orden
+    let orden:Orden
+   
     @Environment(\.presentationMode) var presentationMode
     @State private var ordenReprogramada = false
     
     //Para mostrar las opciones del boton rojo
     @State private var actionSheet = false
     @State private var offlineAlert = false
+    
     @State var orderID = 1
     @State private var mostrarTexto = false
     @State private var razonUsuario = ""
     let address = "Av. Eugenio Garza Sada 2501 Sur, Tecnológico, 64849 Monterrey, Nuevo Leon"
-    @Environment(\.dismiss) var dismiss
+    
+    //@Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack{
@@ -73,9 +76,9 @@ struct DetalleOrdenView: View {
                 }.offset(x:-31, y:-62)
                 
                 HStack{
-                    Text("Teléfono:")
+                    Text("Forma de pago:")
                         .font(.system(size: 18))
-                    Text("32212312312")
+                    Text("Efectivo")
                         .font(.system(size: 18, weight: .light))
                         
                 }.offset(x:-40, y:-35)
@@ -141,103 +144,153 @@ struct DetalleOrdenView: View {
                             
                     })
                     .offset(x:110, y:145)
-                    
-                    
+   
                 }
-    
             }
             Spacer()
-            Button("**Cobrado**                                          "){
-                let reprogramacionInfo = ReprogramacionInfo(comentarios: "Reprogramación a estatus Cobrado")
-                  reprogramOrder(orderID: Int(orden.idOrden), reprogramacionInfo: reprogramacionInfo) { success, message in
-                      if success {
-                          ordenReprogramada = true
-                          // Regresar a la lista de órdenes
-                          DispatchQueue.main.async {
-                              self.presentationMode.wrappedValue.dismiss()
-                          }
-                      } else {
-                          print(message)
-                      }
-                  }
-                
-                /*
-                checkConnection{connected in
-                    if connected{
-                        confirmOrder(orderID: orderID, token: token)
-                    }
-                    else{
-                        offlineAlert = true
-                        print("Error al confirmar orden")
-                    }
-                }
-                */
-                
-            }
-            .controlSize(.large)
-            .frame(width: 1000)//checar
-            .buttonStyle(.borderedProminent)
-            .tint(.green)
-            .alert(isPresented: $offlineAlert){
-                Alert(title: Text("Error de conexión"), message: Text("No se pudo confirmar la orden"), dismissButton: .default(Text("OK")))
-            }
-        
             
-            Button("**No cobrado**                                    "){
-                actionSheet = true
-                
-            }
-            .controlSize(.large)
-            
-            //.controlSize(.large)
-            .actionSheet(isPresented: $actionSheet){
-                ActionSheet(title: Text("No se completo la orden"), message: Text("Elige la razon por la que no se pudo completar"), buttons: [
+            if orden.estatusOrden != 1 && orden.estatusOrden != 2 {
+                Button("**Cobrado**"){
+                    confirmOrder(orderID: Int(orden.idOrden)) { success, message in
+                        if success {
+                            print("Operación exitosa: \(message)")
+                            DispatchQueue.main.async {
+                                self.presentationMode.wrappedValue.dismiss()
+                                
+                            }
+                        } else {
+                            print("Error: \(message)")
+                        }
+                    }
+
+                    /*
+                    checkConnection{connected in
+                        if connected{
+                            confirmOrder(orderID: orderID, token: token)
+                        }
+                        else{
+                            offlineAlert = true
+                            print("Error al confirmar orden")
+                        }
+                    }
+                    */
                     
-                    .default(Text("No se encontraba en casa")),
-                    .default(Text("Ya no vive ahi")),
-                    .default(Text("No desea continuar ayudando")),
-                    .default(Text("Indispuesto")),
-                    .default(Text("No se ubicó el domicilio")),
-                    .default(Text("Otra razon")){
-                        mostrarTexto = true
-                    },
-                    .cancel()
-                ])
-            }
-            .buttonStyle(.borderedProminent)
-            .tint(.red)
-            
-            if mostrarTexto{
-                ingresarRazon()
+                }
+                .controlSize(.large)
+                .frame(width: 1000)//checar
+                .buttonStyle(.borderedProminent)
+                .tint(.green)
+                .alert(isPresented: $offlineAlert){
+                    Alert(title: Text("Error de conexión"), message: Text("No se pudo confirmar la orden"), dismissButton: .default(Text("OK")))
+                }
+
+                Button("**No cobrado**"){
+                    actionSheet = true
+                }
+                .actionSheet(isPresented: $actionSheet){
+                    ActionSheet(title: Text("No se completo la orden"), message: Text("Elige la razon por la que no se pudo completar"), buttons: [
+                        .default(Text("No se encontraba en casa")) { reprogramarConComentario("No se encontraba en casa") },
+                        .default(Text("Ya no vive ahí")) { reprogramarConComentario("Ya no vive ahí") },
+                        .default(Text("No desea continuar ayudando")) { reprogramarConComentario("No desea continuar ayudando") },
+                        .default(Text("Indispuesto")) { reprogramarConComentario("Indispuesto") },
+                        .default(Text("No se ubicó el domicilio")) {
+                            reprogramarConComentario("No se ubicó el domicilio") },
+                        .default(Text("Otra razón")){
+                            mostrarTexto = true
+                        },
+                        .cancel()
+                    ])
+                }
+                .controlSize(.large)
+                .buttonStyle(.borderedProminent)
+                .tint(.red)
                 
+                if mostrarTexto{
+                    ingresarRazon()
+                    
+                }
             }
-            
-            
+
         }.padding()
     }
-    //Funcion para que el usuario ingrese el texto y se hace un print
-    func ingresarRazon() -> some View{
-        
-        VStack {
-            TextField("Escribe tu razón aquí", text: $razonUsuario)
-                //.textFieldStyle(RoundedBorderTextFieldStyle())
-                .textFieldStyle(.roundedBorder)
-                
+    
+    func reprogramarConComentario(_ comentario: String) {
+        let reprogramacionInfo = ReprogramacionInfo(comentarios: comentario)
+        reprogramOrder(orderID: Int(orden.idOrden), reprogramacionInfo: reprogramacionInfo) { success, message in
+            if success {
+                print("Operación exitosa: \(message)")
+                DispatchQueue.main.async {
+                    self.presentationMode.wrappedValue.dismiss()
+                }
+            } else {
+                print("Error al reprogramar: \(message)")
+            }
+        }
+    }
+    
+    func ingresarRazon() -> some View {
+        VStack(spacing: 20) {
+            HStack {
+                Image(systemName: "pencil.circle.fill")
+                    .resizable()
+                    .frame(width: 30, height: 30)
+                    .foregroundColor(.blue)
+                    .padding(.leading)
+
+                Text("Razón de no cobro")
+                    .font(.headline)
+                    .foregroundColor(.blue)
+            }
             
-            Button("Aceptar") {
-                // Procesa la razón escrita por el usuario
-                print(razonUsuario)
-                mostrarTexto = false
+            TextField("Escribe tu razón aquí", text: $razonUsuario)
+                .padding()
+                .background(Color(.secondarySystemBackground))
+                .cornerRadius(10)
+                .shadow(radius: 3)
+                .padding(.horizontal)
+
+            Button(action: {
+                procesarRazonNoCobro()
+            }) {
+                HStack {
+                    Image(systemName: "checkmark.circle.fill") // Icono para el botón
+                        .foregroundColor(.white)
+                    Text("Aceptar")
+                        .foregroundColor(.white)
+                        .fontWeight(.bold)
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color.green)
+                .cornerRadius(10)
+                .shadow(radius: 3)
             }
             .padding()
-            .buttonStyle(.borderedProminent)
         }
         .background(Color.white)
         .cornerRadius(20)
         .shadow(radius: 10)
         .padding()
-    
+        .transition(.slide)
     }
+    
+    func procesarRazonNoCobro() {
+        let reprogramacionInfo = ReprogramacionInfo(comentarios: razonUsuario)
+        
+        reprogramOrder(orderID: Int(orden.idOrden), reprogramacionInfo: reprogramacionInfo) { success, message in
+            if success {
+                print("Operación exitosa: \(message)")
+                DispatchQueue.main.async {
+                    self.presentationMode.wrappedValue.dismiss()
+                }
+            } else {
+                print("Error al reprogramar: \(message)")
+            }
+        }
+        mostrarTexto = false
+        razonUsuario = ""
+    }
+    
     func openMapsForAddress(address: String) {
         let addressEncoded = address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
 
