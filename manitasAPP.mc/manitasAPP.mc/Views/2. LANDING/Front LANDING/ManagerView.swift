@@ -33,6 +33,11 @@ struct ManagerView: View {
                             ForEach(0..<(empleados.count / 2 + empleados.count % 2), id: \.self) { i in
                                 let firstIndex = i * 2
                                 let secondIndex = min((i * 2) + 1, self.empleados.count - 1)
+                                if firstIndex == secondIndex {
+                                    NavigationLink(destination: LandingManagerView().navigationBarBackButtonHidden(true)) {
+                                        ManagerOrderView(nombre: self.empleados[firstIndex].nombre, numeroOrdenes: self.empleados[firstIndex].num_ordenes)
+                                    }
+                                } else {
                                 GridRow(alignment: .top) {
                                     NavigationLink(destination: LandingManagerView().navigationBarBackButtonHidden(true)) {
                                         ManagerOrderView(nombre: self.empleados[firstIndex].nombre, numeroOrdenes: self.empleados[firstIndex].num_ordenes)
@@ -40,6 +45,7 @@ struct ManagerView: View {
                                     NavigationLink(destination: LandingManagerView().navigationBarBackButtonHidden(true)) {
                                         ManagerOrderView(nombre: self.empleados[secondIndex].nombre, numeroOrdenes: self.empleados[secondIndex].num_ordenes)
                                     }
+                                }
                                 }
                             }
                         }
