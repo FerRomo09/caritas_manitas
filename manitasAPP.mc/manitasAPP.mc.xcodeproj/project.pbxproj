@@ -34,6 +34,9 @@
 		FB94FEE72B01AB4D0066A98F /* CambioRepartidor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB94FEE62B01AB4D0066A98F /* CambioRepartidor.swift */; };
 		FB98A7E92AFEADF500D0CAB5 /* ConfirmOrderFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB98A7E82AFEADF500D0CAB5 /* ConfirmOrderFile.swift */; };
 		FB9E4B252B112C6F00E373F1 /* GetRepartidoresFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9E4B242B112C6F00E373F1 /* GetRepartidoresFile.swift */; };
+		FBAF3AC22B167335006F0005 /* CrashModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF3AC12B167335006F0005 /* CrashModel.swift */; };
+		FBAF3AC42B167359006F0005 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF3AC32B167359006F0005 /* AppDelegate.swift */; };
+		FBAF3AC62B167388006F0005 /* GetRepartidoresFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAF3AC52B167388006F0005 /* GetRepartidoresFile.swift */; };
 		FBF6CEFB2AE2F06F00E3950A /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF6CEFA2AE2F06F00E3950A /* SplashView.swift */; };
 		FBF6CEFD2AE2F25400E3950A /* Back-Views in Resources */ = {isa = PBXBuildFile; fileRef = FBF6CEFC2AE2F25400E3950A /* Back-Views */; };
 /* End PBXBuildFile section */
@@ -67,6 +70,9 @@
 		FB94FEE62B01AB4D0066A98F /* CambioRepartidor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CambioRepartidor.swift; sourceTree = "<group>"; };
 		FB98A7E82AFEADF500D0CAB5 /* ConfirmOrderFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmOrderFile.swift; sourceTree = "<group>"; };
 		FB9E4B242B112C6F00E373F1 /* GetRepartidoresFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRepartidoresFile.swift; sourceTree = "<group>"; };
+		FBAF3AC12B167335006F0005 /* CrashModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashModel.swift; sourceTree = "<group>"; };
+		FBAF3AC32B167359006F0005 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FBAF3AC52B167388006F0005 /* GetRepartidoresFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRepartidoresFile.swift; sourceTree = "<group>"; };
 		FBF6CEFA2AE2F06F00E3950A /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		FBF6CEFC2AE2F25400E3950A /* Back-Views */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Back-Views"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,6 +110,7 @@
 		FB1491432AE04F9900C29C1E /* manitasAPP.mc */ = {
 			isa = PBXGroup;
 			children = (
+				FBAF3AC02B16730F006F0005 /* CrashDetect */,
 				FB1491562AE0533100C29C1E /* Views */,
 				FBF6CEFC2AE2F25400E3950A /* Back-Views */,
 				FB1491442AE04F9900C29C1E /* manitasAPP_mcApp.swift */,
@@ -217,6 +224,7 @@
 				FB98A7E82AFEADF500D0CAB5 /* ConfirmOrderFile.swift */,
 				FB23D5632B1111B4008371A6 /* ChangeEmployeeFile.swift */,
 				53427A002B1128A4004F61F6 /* GetOrderFile.swift */,
+				FBAF3AC52B167388006F0005 /* GetRepartidoresFile.swift */,
 			);
 			path = "Back DETALLE ORDEN";
 			sourceTree = "<group>";
@@ -244,6 +252,15 @@
 				FBF6CEFA2AE2F06F00E3950A /* SplashView.swift */,
 			);
 			path = "1a. SPLASH";
+			sourceTree = "<group>";
+		};
+		FBAF3AC02B16730F006F0005 /* CrashDetect */ = {
+			isa = PBXGroup;
+			children = (
+				FBAF3AC12B167335006F0005 /* CrashModel.swift */,
+				FBAF3AC32B167359006F0005 /* AppDelegate.swift */,
+			);
+			path = CrashDetect;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,8 +335,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB1491612AE19FB100C29C1E /* ProfileView.swift in Sources */,
+				FBAF3AC62B167388006F0005 /* GetRepartidoresFile.swift in Sources */,
+				FBAF3AC22B167335006F0005 /* CrashModel.swift in Sources */,
 				539C60C72AFF0BBB00AB10F2 /* DetalleOrdenManagerView.swift in Sources */,
 				FB1491532AE04FF000C29C1E /* LandingView.swift in Sources */,
+				FBAF3AC42B167359006F0005 /* AppDelegate.swift in Sources */,
 				FB1491472AE04F9900C29C1E /* ContentView.swift in Sources */,
 				FB8AC7332AE312CB005A8022 /* LogInFile.swift in Sources */,
 				FB14915A2AE0570B00C29C1E /* ProfileBarView.swift in Sources */,
