@@ -230,7 +230,11 @@ def modificar_clave(diccionario, vieja_clave, nueva_clave):
 
 # endpoint que regresa en formato json las ordenes filtradas por el id del empleado
 @app.get("/ordenes/{ID_EMPLEADO}/{ESTATUS_ORDEN}")
-def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...)):
+def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...), ):
+    # def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...)):
+    # def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int):
+
+    # fecha = '2023-11-24'
 
     try:
         with get_db_connection() as conn:
@@ -278,7 +282,7 @@ def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...)
 
 # Endpoint para cambiar la informacion de las ordenes reprogramadas
 @app.put("/reprogram_order/{orderID}")
-def reprogram_order(orderID: int,  info_body: am.Reprogramacion):
+def reprogram_order(orderID: int,  info_body: am.Reprogramacion, ):
 
     comentarios = info_body.comentarios
 
@@ -290,8 +294,8 @@ def reprogram_order(orderID: int,  info_body: am.Reprogramacion):
             conn = get_db_connection()
             cursor = conn.cursor()
 
-            cursor.execute("UPDATE OPE_ORDENES SET FECHA_VISITA = ?, COMENTARIOS_REPROGRAMACION = ? WHERE ID_ORDEN = ?",
-                           (current_date, comentarios, orderID))
+            cursor.execute("EXEC spReprogramarOrden  @OrderID = ? ,   @FechaVisita = ? ,  @ComentariosReprogramacion = ?, @NuevoEstatus = 2",
+                           (orderID, current_date, comentarios,))
             conn.commit()
 
         cursor.close()
@@ -307,6 +311,49 @@ def reprogram_order(orderID: int,  info_body: am.Reprogramacion):
         raise HTTPException(status_code=500, detail=str(error_name))
 
 
+@app.get("/conteo_ordenes/{ID_EMPLEADO}")
+def conteo_suma_ordenes_por_estado(ID_EMPLEADO: int,):
+    try:
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                "EXEC dbo.ContarPorEstatus @IDEmpleado = ?", (ID_EMPLEADO,))
+            resultado = cursor.fetchone()
+            cursor.close()
+            if resultado:
+                return {
+                    "mensaje": "Conteo y suma realizados exitosamente",
+                    "conteo": {
+                        "Estado0": resultado[0],
+                        "Estado1": resultado[1],
+                        "Estado2": resultado[2]
+                    },
+                    "suma": {
+                        "Estado0": resultado[3],
+                        "Estado1": resultado[4],
+                        "Estado2": resultado[5]
+                    }
+                }
+            else:
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                    detail=f"No se encontraron datos para el empleado con ID: {ID_EMPLEADO}")
+
+    except pyodbc.Error as e:
+        print(e)
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="No se pudo establecer conexión con la base de datos.")
+
+    except Exception as error:
+        print(error)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(error))
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8086, reload=True)
+    
+    #    import uvicorn
+    # uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8037, reload=True,
+    #            ssl_keyfile="./SSL/equipo19_key.pem", ssl_certfile="./SSL/equipo19.pem")
+
