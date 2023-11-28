@@ -16,7 +16,7 @@ struct ManagerLandingView: View {
                 }
             DetalleOrdenManagerView()
                 .tabItem {
-                    Label("Order", systemImage: "square.and.pencil")
+                    Label("Orden", systemImage: "square.and.pencil")
                 }
         }
     }

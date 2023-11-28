@@ -53,9 +53,9 @@ struct DetalleOrdenManagerView: View {
                 }.offset(x:-31, y:-62)
                 
                 HStack{
-                    Text("Forma de pago:")
+                    Text("Teléfono:")
                         .font(.system(size: 18))
-                    Text("Efectivo")//REEMPLAZAR POR VARIABLE
+                    Text("3221231231")//REEMPLAZAR POR VARIABLE
                         .font(.system(size: 18, weight: .light))
                     
                 }.offset(x:-40, y:-35)
@@ -63,7 +63,7 @@ struct DetalleOrdenManagerView: View {
                 ZStack{
                     Image("Top2")
                         .offset(y:35)
-                    Text("Direccion")//REEMPLAZAR POR VARIABLE
+                    Text("Dirección")//REEMPLAZAR POR VARIABLE
                         .font(.system(size: 20, weight: .medium))
                         .offset(x:-98, y:40)
                     
@@ -80,7 +80,7 @@ struct DetalleOrdenManagerView: View {
                     .offset(x:-38, y:78)
                     
                     HStack{
-                        Text("Numero Exterior:")
+                        Text("Número Exterior:")
                             .font(.system(size: 18))
                         Text("123")//REEMPLAZAR POR VARIABLE
                             .font(.system(size: 18, weight: .light))
@@ -96,7 +96,7 @@ struct DetalleOrdenManagerView: View {
                     .offset(x:-64, y:123)
                     
                     HStack{
-                        Text("Codigo Postal:")
+                        Text("Código Postal:")
                             .font(.system(size: 18))
                         Text("64840")//REEMPLAZAR POR VARIABLE
                             .font(.system(size: 18, weight: .light))

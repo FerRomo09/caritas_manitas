@@ -10,21 +10,14 @@ import Foundation
 
 struct LandingView: View {
     @State private var listaOrdenes: [Orden] = []
-    
-    @State private var textoStatus: String = "Recolectado"
-    @State private var colorStatus: Color = .green
-    @State private var iconStatus: Image = Image(systemName: "checkmark.circle.fill")
-    @State private var numStatus: Int = 3
-
+    @State private var ordenesPendientes: [Orden] = []
+    @State private var ordenesRecolectadas: [Orden] = []
+    @State private var ordenesNoRecolectadas: [Orden] = []
 
     var body: some View {
         
         NavigationStack(){
-            //Main VStack
             VStack(){
-                
-                
-                //Profile Bar, link a profile view
                 VStack(){
                     NavigationLink(destination: (ProfileView())){
                         ProfileBarView()
@@ -38,7 +31,7 @@ struct LandingView: View {
                 VStack(alignment: .leading){
                     
                     HStack{Spacer()}
-                    Text("Recibos del dia: ")
+                    Text("Recibos del Día: ")
                         .font(.system(size: 25))
                         .fontWeight(.bold)
                         .foregroundColor(Color("manitasNegro"))
@@ -60,12 +53,40 @@ struct LandingView: View {
             }
             .padding(.bottom, 10)
             
-            List(listaOrdenes, id: \.idOrden) { orden in
-                OrdenBarView(orden: orden)
+            List {
+                Section(header: Text("Pendientes")) {
+                    ForEach(ordenesPendientes, id: \.idOrden) { orden in
+                        NavigationLink(destination: DetalleOrdenView(orden: orden)) {
+                            OrdenBarView(orden: orden)
+                        }
+                    }
+                }
+
+                Section(header: Text("Recolectadas")) {
+                    ForEach(ordenesRecolectadas, id: \.idOrden) { orden in
+                        NavigationLink(destination: DetalleOrdenView(orden: orden)) {
+                            OrdenBarView(orden: orden)
+                        }
+                    }
+                }
+
+                Section(header: Text("No Recolectadas")) {
+                    ForEach(ordenesNoRecolectadas, id: \.idOrden) { orden in
+                        NavigationLink(destination: DetalleOrdenView(orden: orden)) {
+                            OrdenBarView(orden: orden)
+                        }
+                    }
+                }
             }
             .onAppear {
+                fetchOrders(forEmployeeID: 1, forEstatusId: 0) { ordenes in
+                    self.ordenesPendientes = ordenes
+                }
+                fetchOrders(forEmployeeID: 1, forEstatusId: 1) { ordenes in
+                    self.ordenesRecolectadas = ordenes
+                }
                 fetchOrders(forEmployeeID: 1, forEstatusId: 2) { ordenes in
-                    self.listaOrdenes = ordenes
+                    self.ordenesNoRecolectadas = ordenes
                 }
             }
 

@@ -45,7 +45,7 @@ struct CambioRepartidor: View {
                
                
 
-               Button("Confirmar reasignacion") {
+               Button("**Confirmar Reasignación**                   ") {
                    changeEmployeeOrder(orderID: orderID, empID: empID)
                                presentationMode.wrappedValue.dismiss()
                            }

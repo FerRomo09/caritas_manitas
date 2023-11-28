@@ -88,7 +88,6 @@ struct ContentView: View {
                                 Button(action: {
                                     checkConnection { connected in
                                         if !connected {
-                                            // No internet connection
                                             showAlert=true
                                             self.activeAlert = .offline
                                             
@@ -135,11 +134,12 @@ struct ContentView: View {
                                 .navigationDestination(isPresented: $navigationToMain){
                                     if (rolUser==1){
                                         ManagerView()
+                                            .navigationBarBackButtonHidden(true)
                                     }else{
                                         LandingView()
+                                            .navigationBarBackButtonHidden(true)
                                     }
                                 }
-                                .navigationBarBackButtonHidden(true)
                                 .alert(isPresented: $showAlert) {
                                     switch activeAlert {
                                     case .offline:
@@ -159,19 +159,10 @@ struct ContentView: View {
                     .edgesIgnoringSafeArea(.all)
                 }
                 .onAppear {
-                    // Check if theres internet connection
-                    // if theres  no internet connection, check if theres a token stored, if there is one, load the user data from user defaults and send them to the correct view
-                    // if theres no token stored, show and alert
-                    // if theres internet connection, check if theres a token stored, if there is one, check if its valid, if its valid, load the user data from the api and send them to the correct view
-                    // if theres no token stored, send them to the login view
                     checkConnection { connected in
                         if !connected {
-                            // No internet connection
-                            // Check if theres a token stored
                             let Token = UserDefaults.standard.string(forKey: "token") ?? ""
                             if Token != "" {
-                                // Token stored
-                                // Load the user data from user defaults
                                 let name = UserDefaults.standard.string(forKey: "name") ?? ""
                                 let lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
                                 let email = UserDefaults.standard.string(forKey: "email") ?? ""
@@ -183,40 +174,29 @@ struct ContentView: View {
                                 curretUser = user
                                 alreadyLogedIn = true
                             } else {
-                                // No token stored
-                                // Show an alert that theres no internet connection and no prev log in
                                 alreadyLogedIn = false
                                 showAlert = true
                                 activeAlert = .offline
                             }
                         } else {
-                            // Internet connection available
-                            // Check if theres a token stored
                             let Token = UserDefaults.standard.string(forKey: "token") ?? ""
                             if Token != "" {
-                                // Token stored
-                                // Check if the token is valid
                                 getUser(token: Token) { user in
                                     if let user = user {
-                                        // Token is valid
-                                        // Load the user data from the api
                                         curretUser = user
                                         token = Token
                                         alreadyLogedIn = true
                                     } else {
-                                        // Token is not valid
                                         alreadyLogedIn = false
                                     }
                                 }
                             } else {
-                                // No token stored
-                                // Send them to the login view
                                 alreadyLogedIn = false
                             }
                         }
                     }
                 }   
-            }else {
+            } else {
                 if UserDefaults.standard.integer(forKey: "rol")==1{
                     ManagerView()
                 }else{

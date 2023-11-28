@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ManagerView: View {
     @State var numOrdenes: Int = 3
-    @State private var empleados: [Empleado] = []
+    //@State private var empleados: [Empleado] = []
     var body: some View {
         NavigationStack{
             VStack{
@@ -17,16 +17,12 @@ struct ManagerView: View {
                 NavigationLink(destination: ProfileView().navigationBarBackButtonHidden(true)){
                     ProfileManagerView()
                 }
-                Text("Ordenes Asignadas")
-                    .font(.system(size: 20))
-                    .fontWeight(.semibold)
-                    .foregroundColor(.orange)
-                Divider()
                 Text("Repartidores Activos")
                     .font(.system(size: 20))
                     .fontWeight(.bold)
                     .foregroundColor(Color("manitasNegro"))
-                
+                Divider()
+                /*
                 ScrollView(.vertical, showsIndicators: true){
                     LazyVStack() {
                         Grid(horizontalSpacing: 12, verticalSpacing: 20) {
@@ -54,11 +50,10 @@ struct ManagerView: View {
                     }
                     
                 } //se acaba el scroll view
-                
+                */
                 Spacer()
                 
-            }
-            
+            }/*
             .onAppear {
                 // Call the function when the view appears
                 getEmpleados() { result in
@@ -70,8 +65,7 @@ struct ManagerView: View {
                         print("Error fetching empleados: \(error)")
                     }
                 }
-            }
-            
+            }*/
         }
     }
 }
