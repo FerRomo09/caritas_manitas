@@ -7,6 +7,35 @@
 
 import SwiftUI
 
+var estado0Count: Int?
+var estado1Count: Int?
+var estado2Count: Int?
+
+var estado0Sum: Double?
+var estado1Sum: Double?
+var estado2Sum: Double?
+
+
+
+struct OrderCountResponse: Codable {
+    let mensaje: String
+    let conteo: CountDetails
+    let suma: SumDetails
+}
+
+struct CountDetails: Codable {
+    let Estado0: Int?
+    let Estado1: Int?
+    let Estado2: Int?
+}
+
+struct SumDetails: Codable {
+    let Estado0: Double?
+    let Estado1: Double?
+    let Estado2: Double?
+}
+
+
 struct LandingManagerView: View {
     @State var idRepartidor = 2
     @State private var isActive = false
@@ -21,8 +50,8 @@ struct LandingManagerView: View {
     @State private var toggleIcon = "star"
     @State var Dinerototals=0.0
     @State var Dinerorecolectado=0.0
-    @State var Recibostotales=0
-    @State var RecibosCompletados=0
+    @State var Recibostotales=1.0
+    @State var RecibosCompletados=0.0
     // Función para verificar si se han cargado los datos
     private func checkLoadingState() {
         if !ordenesPendientes.isEmpty {
@@ -30,7 +59,7 @@ struct LandingManagerView: View {
         }
     }
 
-    let timer=Timer.publish(every: 1, on: .current, in: .common).autoconnect()
+    let timer=Timer.publish(every: 10, on: .current, in: .common).autoconnect()
     
     var body: some View {
         NavigationStack(){
@@ -54,7 +83,7 @@ struct LandingManagerView: View {
                         VStack{
                             if isView1Active {
                                 
-                                View1(totales: Double(Recibostotales), completados: Double(RecibosCompletados))
+                                View1(totales: Recibostotales, completados: RecibosCompletados)
                                 
                                 //toggleIcon = "arrow.right.circle.fill"
                             } else {
@@ -166,6 +195,28 @@ struct LandingManagerView: View {
                 }
             }
             .onAppear {
+                fetchOrderCountForEmployee(employeeID: idRepartidor) { result in
+                   switch result {
+                   case .success(let response):
+                       print("Mensaje: \(response.mensaje)")
+                       if let countZero = response.conteo.Estado0 , let countOne = response.conteo.Estado1, let sumaZero = response.suma.Estado0, let sumaOne = response.suma.Estado1{
+                           Recibostotales = Double(countZero + countOne)
+                           RecibosCompletados = Double(countOne)
+                           Dinerototals = Double(sumaOne) + Double(sumaZero)
+                           Dinerorecolectado = Double(sumaOne)
+                 
+                           
+                           
+                       } else {
+                           print("Conteo Estado0 y Estado1 no estan disponibles")
+                       }
+                       // ... imprimir otros valores o realizar otras acciones ...
+                       
+                       
+                   case .failure(let error):
+                       print("Error: \(error.localizedDescription)")
+                   }
+               }
                 
                 // Ejecuta todas las solicitudes de carga de datos
                 fetchOrders(forEmployeeID: idRepartidor, forEstatusId: 0) { ordenes in
@@ -182,6 +233,28 @@ struct LandingManagerView: View {
                 }
             }
             .onReceive(timer){ _ in
+                fetchOrderCountForEmployee(employeeID: idRepartidor) { result in
+                   switch result {
+                   case .success(let response):
+                       print("Mensaje: \(response.mensaje)")
+                       if let countZero = response.conteo.Estado0 , let countOne = response.conteo.Estado1, let sumaZero = response.suma.Estado0, let sumaOne = response.suma.Estado1{
+                           Recibostotales = Double(countZero + countOne)
+                           RecibosCompletados = Double(countOne)
+                           print(Recibostotales)
+                           print("--------------------------------")
+                           Dinerototals = Double(sumaOne) + Double(sumaZero)
+                           Dinerorecolectado = Double(sumaOne)
+
+                       } else {
+                           print("Conteo Estado0 y Estado1 no estan disponibles")
+                       }
+                       // ... imprimir otros valores o realizar otras acciones ...
+                       
+                       
+                   case .failure(let error):
+                       print("Error: \(error.localizedDescription)")
+                   }
+               }
                 // Ejecuta todas las solicitudes de carga de datos
                 fetchOrders(forEmployeeID: idRepartidor, forEstatusId: 0) { ordenes in
                     self.ordenesPendientes = ordenes
@@ -205,3 +278,46 @@ struct LandingManagerView_Previews: PreviewProvider {
         LandingManagerView()
     }
 }
+
+// Función para obtener el conteo y la suma de órdenes
+func fetchOrderCountForEmployee(employeeID: Int, completion: @escaping (Result<OrderCountResponse, Error>) -> Void) {
+    // Construcción de la URL
+    let urlString = "\(apiUrl)/conteo_ordenes/\(employeeID)"
+    guard let url = URL(string: urlString) else {
+        completion(.failure(URLError(.badURL)))
+        return
+    }
+
+    // Iniciar la tarea de red
+    let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        if let error = error {
+            completion(.failure(error))
+            return
+        }
+
+        guard let data = data else {
+            completion(.failure(URLError(.badServerResponse)))
+            return
+        }
+
+        do {
+            let decodedResponse = try JSONDecoder().decode(OrderCountResponse.self, from: data)
+
+            // Asignar el valor a la variable externa
+            estado0Count = decodedResponse.conteo.Estado0
+            estado1Count = decodedResponse.conteo.Estado1
+            estado2Count = decodedResponse.conteo.Estado2
+
+            estado0Sum = decodedResponse.suma.Estado0
+            estado1Sum = decodedResponse.suma.Estado1
+            estado2Sum = decodedResponse.suma.Estado2
+
+            // Llamar al closure de completion con la respuesta
+            completion(.success(decodedResponse))
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    task.resume()
+}
+
