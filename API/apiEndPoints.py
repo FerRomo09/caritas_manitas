@@ -350,9 +350,8 @@ def conteo_suma_ordenes_por_estado(ID_EMPLEADO: int, ):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8086, reload=True)
+    uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8086, reload=True,
+    ssl_keyfile="./SSL/equipo19_key.pem", ssl_certfile="./SSL/equipo19.pem")
 
 
-    #    import uvicorn
-    # uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8086, reload=True,
-    #            ssl_keyfile="./SSL/equipo19_key.pem", ssl_certfile="./SSL/equipo19.pem")
+
