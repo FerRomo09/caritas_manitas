@@ -24,7 +24,7 @@ struct ManagerOrderView: View {
                         .font(.system(size: 20))
                         .fontWeight(.bold)
                         .foregroundColor(Color("manitasNegro"))
-                    Text("\(numeroOrdenes) ordenes")
+                    Text("\(numeroOrdenes) Recibos")
                         .padding(.top,2)
                         .font(.system(size: 16))
                         .fontWeight(.semibold)
@@ -34,7 +34,7 @@ struct ManagerOrderView: View {
                 .padding(.leading)
                 .offset(x: -30, y:-30)
                 
-                Text("Ver detalles")
+                Text("Ver Detalles")
                     .font(.system(size: 15))
                     .fontWeight(.semibold)
                     .foregroundColor(.white)

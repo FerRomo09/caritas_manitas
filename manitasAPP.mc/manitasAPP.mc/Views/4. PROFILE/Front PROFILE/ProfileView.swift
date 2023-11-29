@@ -18,7 +18,7 @@ struct ProfileView: View {
                 }
                 Spacer()
             }
-            .padding(.horizontal, 30)
+            .padding(.horizontal, 20)
             VStack{
                 VStack {
                     let user=curretUser

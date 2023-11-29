@@ -8,10 +8,17 @@
 import SwiftUI
 
 struct DetalleOrdenManagerView: View {
+    @Environment(\.presentationMode) var presentationMode
     @State private var isActive = false
     
     var body: some View {
         VStack{
+            HStack {
+                Button("← Regresar") {
+                    self.presentationMode.wrappedValue.dismiss()
+                }
+                Spacer()
+            }.padding(.horizontal, 20)
             ProfileManagerView()
             
             Spacer()

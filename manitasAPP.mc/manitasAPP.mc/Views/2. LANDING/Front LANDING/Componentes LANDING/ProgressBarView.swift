@@ -31,7 +31,7 @@ struct ProgressBarView: View {
             ProgressView(value: porcentaje, total: 100) //Remplazar con formula para calcular el porcentaje
                 .padding(.horizontal, 40) //Remplazar
                 .tint(Color("manitasAzul"))
-            Text("Recibos faltantes: ")
+            Text("Recibos Faltantes: ")
                 .font(.system(size: 15))
                 .foregroundColor(Color("manitasNegro"))
             + Text("\(String(format: "%.0f", recibosFaltantes))") //REEMPLAZAR POR VARIABLE ENTERA
