@@ -14,6 +14,7 @@ class LoginResponse(BaseModel):
     token: str
 
 class UserResponse(BaseModel):
+    id: int
     apellido: str
     nombre: str
     email: str
