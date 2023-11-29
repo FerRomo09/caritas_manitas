@@ -66,7 +66,7 @@ struct DetalleOrdenManagerView: View {
                                 .font(.system(size: 18, weight: .light))
                         }
                     }
-                    .offset(x:40,y:40)
+                    .offset(x:-30,y:30)
                   
 
                     ZStack{
@@ -116,7 +116,7 @@ struct DetalleOrdenManagerView: View {
                                         .font(.system(size: 18, weight: .light))
                                 }
                             }
-                            .offset(x:-40,y:130)
+                            .offset(x:-30,y:130)
      
                             Button(action: {
                                 openMapsForAddress(address: self.address)
@@ -124,9 +124,9 @@ struct DetalleOrdenManagerView: View {
                                 Image("mapaBoton")
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 80)
+                                    .frame(width: 60)
                             })
-                            .offset(x:110, y:145)
+                            .offset(x:180, y:25)
                         }
                     }
                 }
