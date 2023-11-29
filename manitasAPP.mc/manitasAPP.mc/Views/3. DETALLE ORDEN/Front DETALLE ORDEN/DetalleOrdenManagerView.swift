@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct DetalleOrdenManagerView: View {
+    var idRepartridor:Int
+    let orden:Orden
     @Environment(\.presentationMode) var presentationMode
     @State private var isActive = false
+    let address = "Av. Eugenio Garza Sada 2501 Sur, Tecnológico, 64849 Monterrey, Nuevo Leon"
     
     var body: some View {
         VStack{
@@ -26,7 +29,7 @@ struct DetalleOrdenManagerView: View {
                 
                 Image("Carusel")
                 
-                Text("Recibo #5148132")//REEMPLAZAR POR VARIABLE
+                Text("Recibo #\(String(orden.idOrden))")//REEMPLAZAR POR VARIABLE
                     .font(.system(size: 25, weight: .bold))
                     .offset(x:-60, y:-200)
                 
@@ -46,7 +49,7 @@ struct DetalleOrdenManagerView: View {
                 HStack{
                     Text("Donante:")
                         .font(.system(size: 18))
-                    Text("Sr. Francisco Torres J.")//REEMPLAZAR POR VARIABLE
+                    Text("\(orden.nombre ?? "N/A") \(orden.apellidoPaterno) \(orden.apellidoMaterno ?? "")")
                         .font(.system(size: 18, weight: .light))
                 }
                 .offset(x:-15, y:-90)
@@ -54,15 +57,15 @@ struct DetalleOrdenManagerView: View {
                 HStack{
                     Text("Cantidad:")
                         .font(.system(size: 18))
-                    Text("$2,500.00 pesos")//REEMPLAZAR POR VARIABLE
+                    Text("\(String(orden.importeFormateado))")
                         .font(.system(size: 18, weight: .light))
                     
                 }.offset(x:-31, y:-62)
                 
                 HStack{
-                    Text("Teléfono:")
+                    Text("Forma de pago:")
                         .font(.system(size: 18))
-                    Text("3221231231")//REEMPLAZAR POR VARIABLE
+                    Text("Efectivo")
                         .font(.system(size: 18, weight: .light))
                     
                 }.offset(x:-40, y:-35)
@@ -70,7 +73,7 @@ struct DetalleOrdenManagerView: View {
                 ZStack{
                     Image("Top2")
                         .offset(y:35)
-                    Text("Dirección")//REEMPLAZAR POR VARIABLE
+                    Text("Dirección")
                         .font(.system(size: 20, weight: .medium))
                         .offset(x:-98, y:40)
                     
@@ -81,7 +84,7 @@ struct DetalleOrdenManagerView: View {
                     HStack{
                         Text("Calle:")
                             .font(.system(size: 18))
-                        Text("Avenida Revolucion")//REEMPLAZAR POR VARIABLE
+                        Text("\(orden.callePrincipal)")
                             .font(.system(size: 18, weight: .light))
                     }
                     .offset(x:-38, y:78)
@@ -97,7 +100,7 @@ struct DetalleOrdenManagerView: View {
                     HStack{
                         Text("Colonia:")
                             .font(.system(size: 18))
-                        Text("Los Pinos")//REEMPLAZAR POR VARIABLE
+                        Text("\(orden.colonia)")
                             .font(.system(size: 18, weight: .light))
                     }
                     .offset(x:-64, y:123)
@@ -105,7 +108,7 @@ struct DetalleOrdenManagerView: View {
                     HStack{
                         Text("Código Postal:")
                             .font(.system(size: 18))
-                        Text("64840")//REEMPLAZAR POR VARIABLE
+                        Text("\(String(orden.codigoPostal))")
                             .font(.system(size: 18, weight: .light))
                     }
                     .offset(x:-48, y:145)
@@ -113,23 +116,30 @@ struct DetalleOrdenManagerView: View {
                     HStack{
                         Text("Municipio:")
                             .font(.system(size: 18))
-                        Text("Monterrey")//REEMPLAZAR POR VARIABLE
+                        Text("\(orden.municipio ?? "N/A")")//REEMPLAZAR POR VARIABLE
                             .font(.system(size: 18, weight: .light))
                     }
                     .offset(x:-52, y:170)
                     
-                    Image("Reemplazar")
-                        .offset(x:110, y:145)
+                    Button(action: {
+                        openMapsForAddress(address: self.address)
+                    }, label: {
+                        Image("mapaBoton")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 80)
+                        
+                    })
+                    .offset(x:110, y:145)
                     
                 }
-               
             }
-            Spacer()
+            
             
             
             NavigationView{
                 VStack{
-                    NavigationLink(destination: CambioRepartidor()) {
+                    NavigationLink(destination: CambioRepartidor(orderID: Int(orden.idOrden), empID: idRepartridor)) {
                         Text("Reasignar Repartidor")
                             .padding()
                             .background(Color.green)
@@ -146,6 +156,6 @@ struct DetalleOrdenManagerView: View {
 
 struct DetalleOrdenManagerView_Previews: PreviewProvider {
     static var previews: some View {
-        DetalleOrdenManagerView()
+        DetalleOrdenManagerView(idRepartridor: 2, orden: Orden.ejemplo)
     }
 }

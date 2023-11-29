@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+var repartidores: [Empleado] = []
+
 
 struct ManagerView: View {
     @State var numOrdenes: Int = 3
@@ -65,6 +67,7 @@ struct ManagerView: View {
                     switch result {
                     case .success(let empleados):
                         self.empleados = empleados
+                        repartidores=empleados
                         self.numOrdenes = empleados.count
                     case .failure(let error):
                         print("Error fetching empleados: \(error)")

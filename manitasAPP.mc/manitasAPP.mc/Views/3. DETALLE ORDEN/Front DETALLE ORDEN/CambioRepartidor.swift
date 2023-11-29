@@ -10,8 +10,8 @@ import SwiftUI
 
 struct CambioRepartidor: View {
     @Environment(\.presentationMode) var presentationMode
-    let orderID = 1
-    let empID = 1
+    var orderID = 1
+    var empID = 1
     let deliveryPeople = ["Hernan Ramirez", "Enrique Torres", "Guillermo Alarcon", "Pablo Zubiria", "Gaston Belden"]
     @State private var repartidorSelect = "Hernan Ramirez"
     @State private var isActive = false

@@ -2,6 +2,7 @@ import Foundation
 import Dispatch
 
 struct User {
+    let id: Int
     let name: String
     let lastName: String
     let email: String
@@ -45,12 +46,13 @@ func getUser(token: String, completion: @escaping (User?) -> Void) {
                         if let userDict = json as? [String: Any] {
 
                             if let name = userDict["nombre"] as? String,
+                               let id = userDict["id"] as? Int,
                                let lastName = userDict["apellido"] as? String,
                                let email = userDict["email"] as? String,
                                let tel = userDict["telefono"] as? String,
                                let fechaNacimiento = userDict["fecha_nacimiento"] as? String,
                                let gen = userDict["id_genero"] as? Int{
-                                let user = User(name: name, lastName: lastName, email: email, tel: tel, gen: gen, fechaNacimiento: fechaNacimiento)
+                                let user = User(id: id, name: name, lastName: lastName, email: email, tel: tel, gen: gen, fechaNacimiento: fechaNacimiento)
                                 completion(user)
                             } else {
                                 print("Error parsing user data")

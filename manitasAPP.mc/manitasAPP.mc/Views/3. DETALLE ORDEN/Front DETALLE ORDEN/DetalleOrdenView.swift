@@ -287,18 +287,7 @@ struct DetalleOrdenView: View {
         mostrarTexto = false
         razonUsuario = ""
     }
-    
-    func openMapsForAddress(address: String) {
-        let addressEncoded = address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
 
-        if let url = URL(string: "http://maps.apple.com/?address=\(addressEncoded)") {
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        } else {
-            print("Invalid address")
-        }
-    }
 }
 
 
@@ -309,3 +298,14 @@ struct DetalleOrdenView_Previews: PreviewProvider {
     }
 }
 
+func openMapsForAddress(address: String) {
+    let addressEncoded = address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+
+    if let url = URL(string: "http://maps.apple.com/?address=\(addressEncoded)") {
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    } else {
+        print("Invalid address")
+    }
+}

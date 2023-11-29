@@ -2,7 +2,7 @@ import SwiftUI
 
 
 var apiUrl = "http://10.22.130.164:8086"
-var curretUser = User(name: "test", lastName: "", email: "", tel: "", gen: 0, fechaNacimiento: "")
+var curretUser = User(id: 2, name: "test", lastName: "", email: "", tel: "", gen: 0, fechaNacimiento: "")
 var token = ""
 
 enum ActiveAlert {
@@ -103,6 +103,7 @@ struct ContentView: View {
                                                 getUser(token: UserDefaults.standard.string(forKey: "token")!) { user in
                                                     if let user = user {
                                                         curretUser = user
+                                                        UserDefaults.standard.set(user.id, forKey: "id")
                                                         UserDefaults.standard.set(user.name, forKey: "name")
                                                         UserDefaults.standard.set(user.lastName, forKey: "lastName")
                                                         UserDefaults.standard.set(user.email, forKey: "email")
@@ -163,13 +164,14 @@ struct ContentView: View {
                         if !connected {
                             let Token = UserDefaults.standard.string(forKey: "token") ?? ""
                             if Token != "" {
+                                let id = UserDefaults.standard.integer(forKey: "id") ?? 0
                                 let name = UserDefaults.standard.string(forKey: "name") ?? ""
                                 let lastName = UserDefaults.standard.string(forKey: "lastName") ?? ""
                                 let email = UserDefaults.standard.string(forKey: "email") ?? ""
                                 let tel = UserDefaults.standard.string(forKey: "tel") ?? ""
                                 let gen = UserDefaults.standard.integer(forKey: "gen")
                                 let fechaNacimiento = UserDefaults.standard.string(forKey: "fechaNacimiento") ?? ""
-                                let user = User(name: name, lastName: lastName, email: email, tel: tel, gen: gen, fechaNacimiento: fechaNacimiento)
+                                let user = User(id: id, name: name, lastName: lastName, email: email, tel: tel, gen: gen, fechaNacimiento: fechaNacimiento)
                                 token = Token
                                 curretUser = user
                                 alreadyLogedIn = true
