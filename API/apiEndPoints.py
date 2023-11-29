@@ -286,7 +286,6 @@ def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...)
             status_code=503, detail="No se pudo establecer conexión con la base de datos.")
 
     except Exception as error_name:
-        print(f'este es el error {error_name}')
         raise HTTPException(status_code=500, detail=str(error_name))
     
 
