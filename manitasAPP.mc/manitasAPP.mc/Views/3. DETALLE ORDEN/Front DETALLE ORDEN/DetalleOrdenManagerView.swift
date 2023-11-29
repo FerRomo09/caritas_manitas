@@ -19,7 +19,9 @@ struct DetalleOrdenManagerView: View {
                 }
                 Spacer()
             }.padding(.horizontal, 20)
-            ProfileManagerView()
+            NavigationLink(destination: ProfileView().navigationBarBackButtonHidden(true)){
+                ProfileManagerView()
+            }
             
             Spacer()
             ZStack{

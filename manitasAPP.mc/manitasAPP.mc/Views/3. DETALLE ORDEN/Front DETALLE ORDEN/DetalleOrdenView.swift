@@ -25,6 +25,7 @@ struct DetalleOrdenView: View {
     //@Environment(\.dismiss) var dismiss
     
     var body: some View {
+        NavigationStack{
             VStack{
                 HStack {
                     Button("← Regresar") {
@@ -32,8 +33,10 @@ struct DetalleOrdenView: View {
                     }
                     Spacer()
                 }
-                ProfileBarView()
-                
+                NavigationLink(destination: (ProfileView()
+                    .navigationBarBackButtonHidden(true))){
+                    ProfileBarView()
+                }
                 
                 ZStack{
                     
@@ -81,9 +84,9 @@ struct DetalleOrdenView: View {
                         }
                     }
                     .offset(x:-30, y:-60)
-                  
                     
-                  
+                    
+                    
                     
                     ZStack{
                         Image("Top2")
@@ -102,7 +105,7 @@ struct DetalleOrdenView: View {
                                 Text("\(orden.callePrincipal)")
                                     .font(.system(size: 18, weight: .light))
                             }
-                      
+                            
                             
                             HStack{
                                 Text("Número Exterior:")
@@ -110,7 +113,7 @@ struct DetalleOrdenView: View {
                                 Text("123")//REEMPLAZAR POR VARIABLE
                                     .font(.system(size: 18, weight: .light))
                             }
-                    
+                            
                             
                             HStack{
                                 Text("Colonia:")
@@ -118,7 +121,7 @@ struct DetalleOrdenView: View {
                                 Text("\(orden.colonia)")
                                     .font(.system(size: 18, weight: .light))
                             }
-                
+                            
                             
                             HStack{
                                 Text("Código Postal:")
@@ -126,7 +129,7 @@ struct DetalleOrdenView: View {
                                 Text("\(String(orden.codigoPostal))")
                                     .font(.system(size: 18, weight: .light))
                             }
-                  
+                            
                             
                             HStack{
                                 Text("Municipio:")
@@ -137,10 +140,10 @@ struct DetalleOrdenView: View {
                             
                         }
                         .offset(x:-35, y:125)
-
                         
                         
-           
+                        
+                        
                         
                         Button(action: {
                             openMapsForAddress(address: self.address)
@@ -220,6 +223,7 @@ struct DetalleOrdenView: View {
                 }
                 
             }.padding()
+        }
     }
     
     func reprogramarConComentario(_ comentario: String) {
