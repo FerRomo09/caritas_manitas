@@ -15,6 +15,7 @@ struct CambioRepartidor: View {
     let deliveryPeople = ["Hernan Ramirez", "Enrique Torres", "Guillermo Alarcon", "Pablo Zubiria", "Gaston Belden"]
     @State private var repartidorSelect = "Hernan Ramirez"
     @State private var isActive = false
+    @State private var showingAlert = false
     
     var body: some View {
         
@@ -48,6 +49,7 @@ struct CambioRepartidor: View {
                Button("**Confirmar Reasignación**                   ") {
                    changeEmployeeOrder(orderID: orderID, empID: empID)
                                presentationMode.wrappedValue.dismiss()
+                               self.showingAlert = true
                            }
                            .padding()
                            .background(Color.green)
@@ -56,6 +58,12 @@ struct CambioRepartidor: View {
                Spacer()
            }
            .padding(.all, 20)
+           .alert(isPresented: $showingAlert) {
+                Alert(title: Text("Confirmar Reasignación"), message: Text("¿Estás seguro de que quieres reasignar el repartidor?"), primaryButton: .destructive(Text("Confirmar")) {
+                    changeEmployeeOrder(orderID: orderID, empID: empID)
+                    presentationMode.wrappedValue.dismiss()
+                }, secondaryButton: .cancel())
+           }
        }
    }
 

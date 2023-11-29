@@ -240,8 +240,6 @@ def modificar_clave(diccionario, vieja_clave, nueva_clave):
 @app.get("/ordenes/{ID_EMPLEADO}/{ESTATUS_ORDEN}")
 def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...),):
 
-    #fecha = '2023-11-28'
-
     try:
         with get_db_connection() as conn:
             conn = get_db_connection()
@@ -249,7 +247,6 @@ def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...)
             cursor.execute(
                 "EXEC SelectOrder @EmpleadoID = ? , @EstatusOrden = ? , @Fecha = ?", (ID_EMPLEADO, ESTATUS_ORDEN, fecha,))
             resultados = cursor.fetchall()
-            print(len(resultados))
             if len(resultados) != 0:
                 ordenes_list = []
 
@@ -360,8 +357,7 @@ def conteo_suma_ordenes_por_estado(ID_EMPLEADO: int,):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8086, reload=True,
-                ssl_keyfile="./SSL/equipo19_key.pem", ssl_certfile="./SSL/equipo19.pem")
+    uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8086, reload=True)
 
 
     #    import uvicorn
