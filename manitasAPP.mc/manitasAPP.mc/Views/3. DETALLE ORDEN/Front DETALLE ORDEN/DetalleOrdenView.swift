@@ -21,6 +21,7 @@ struct DetalleOrdenView: View {
     @State private var mostrarTexto = false
     @State private var razonUsuario = ""
     let address = "Av. Eugenio Garza Sada 2501 Sur, Tecnológico, 64849 Monterrey, Nuevo Leon"
+    @State private var showingConfirmationAlert = false
     
     //@Environment(\.dismiss) var dismiss
     
