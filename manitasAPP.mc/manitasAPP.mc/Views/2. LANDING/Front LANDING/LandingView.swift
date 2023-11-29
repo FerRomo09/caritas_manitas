@@ -32,12 +32,13 @@ struct LandingView: View {
         NavigationStack(){
             VStack(){
                 VStack(){
-                    NavigationLink(destination: (ProfileView())){
+                    NavigationLink(destination: (ProfileView()
+                        .navigationBarBackButtonHidden(true))){
                         ProfileBarView()
                     }
                     .padding(.top, 10)
                     .padding(.bottom, 5)
-                    .navigationBarBackButtonHidden(false)
+                    .navigationBarBackButtonHidden(true)
                 }
                 NavigationView{
                     VStack{
@@ -84,7 +85,9 @@ struct LandingView: View {
                     List {
                         Section(header: Text("Pendientes")) {
                             ForEach(ordenesPendientes, id: \.idOrden) { orden in
-                                NavigationLink(destination: DetalleOrdenView(orden: orden)) {
+                                NavigationLink(destination: DetalleOrdenView(orden: orden)
+                                    .navigationBarBackButtonHidden(true)
+                                ) {
                                     OrdenBarView(orden: orden)
                                 }
                             }
@@ -108,7 +111,9 @@ struct LandingView: View {
                                 }
                             }else{
                                 ForEach(ordenesRecolectadas, id: \.idOrden) { orden in
-                                    NavigationLink(destination: DetalleOrdenView(orden: orden)) {
+                                    NavigationLink(destination: DetalleOrdenView(orden: orden)
+                                        .navigationBarBackButtonHidden(true)
+                                    ) {
                                         OrdenBarView(orden: orden)
                                     }
                                 }
@@ -134,7 +139,9 @@ struct LandingView: View {
                                 }
                             }else{
                                 ForEach(ordenesNoRecolectadas, id: \.idOrden) { orden in
-                                    NavigationLink(destination: DetalleOrdenView(orden: orden)) {
+                                    NavigationLink(destination: DetalleOrdenView(orden: orden)
+                                        .navigationBarBackButtonHidden(true)
+                                    ) {
                                         OrdenBarView(orden: orden)
                                     }
                                 }

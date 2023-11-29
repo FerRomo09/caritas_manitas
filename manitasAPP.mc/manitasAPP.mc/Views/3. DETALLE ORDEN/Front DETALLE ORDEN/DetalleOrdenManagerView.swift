@@ -43,29 +43,31 @@ struct DetalleOrdenManagerView: View {
                 Image("Bottom")
                     .offset(y:-60)
                 
-                HStack{
-                    Text("Donante:")
-                        .font(.system(size: 18))
-                    Text("Sr. Francisco Torres J.")//REEMPLAZAR POR VARIABLE
-                        .font(.system(size: 18, weight: .light))
+                VStack(alignment: .leading){
+                    HStack{
+                        Text("Donante:")
+                            .font(.system(size: 18))
+                        Text("Sr. Francisco Torres J.")//REEMPLAZAR POR VARIABLE
+                            .font(.system(size: 18, weight: .light))
+                    }
+                    
+                    HStack{
+                        Text("Cantidad:")
+                            .font(.system(size: 18))
+                        Text("$2,500.00 pesos")//REEMPLAZAR POR VARIABLE
+                            .font(.system(size: 18, weight: .light))
+                        
+                    }
+                    
+                    HStack{
+                        Text("Teléfono:")
+                            .font(.system(size: 18))
+                        Text("3221231231")//REEMPLAZAR POR VARIABLE
+                            .font(.system(size: 18, weight: .light))
+                    }
+                    
                 }
-                .offset(x:-15, y:-90)
-                
-                HStack{
-                    Text("Cantidad:")
-                        .font(.system(size: 18))
-                    Text("$2,500.00 pesos")//REEMPLAZAR POR VARIABLE
-                        .font(.system(size: 18, weight: .light))
-                    
-                }.offset(x:-31, y:-62)
-                
-                HStack{
-                    Text("Teléfono:")
-                        .font(.system(size: 18))
-                    Text("3221231231")//REEMPLAZAR POR VARIABLE
-                        .font(.system(size: 18, weight: .light))
-                    
-                }.offset(x:-40, y:-35)
+                .offset(x:-20, y:-65)
                 
                 ZStack{
                     Image("Top2")
@@ -77,46 +79,49 @@ struct DetalleOrdenManagerView: View {
                     Image("Bottom2")
                         .offset(y:125)
                     
+                    VStack(alignment: .leading){
+                        HStack{
+                            Text("Calle:")
+                                .font(.system(size: 18))
+                            Text("Avenida Revolucion")//REEMPLAZAR POR VARIABLE
+                                .font(.system(size: 18, weight: .light))
+                        }
+             
+                        
+                        HStack{
+                            Text("Número Exterior:")
+                                .font(.system(size: 18))
+                            Text("123")//REEMPLAZAR POR VARIABLE
+                                .font(.system(size: 18, weight: .light))
+                        }
+                   
+                        
+                        HStack{
+                            Text("Colonia:")
+                                .font(.system(size: 18))
+                            Text("Los Pinos")//REEMPLAZAR POR VARIABLE
+                                .font(.system(size: 18, weight: .light))
+                        }
+                
+                        
+                        HStack{
+                            Text("Código Postal:")
+                                .font(.system(size: 18))
+                            Text("64840")//REEMPLAZAR POR VARIABLE
+                                .font(.system(size: 18, weight: .light))
+                        }
+               
+                        
+                        HStack{
+                            Text("Municipio:")
+                                .font(.system(size: 18))
+                            Text("Monterrey")//REEMPLAZAR POR VARIABLE
+                                .font(.system(size: 18, weight: .light))
+                        }
                     
-                    HStack{
-                        Text("Calle:")
-                            .font(.system(size: 18))
-                        Text("Avenida Revolucion")//REEMPLAZAR POR VARIABLE
-                            .font(.system(size: 18, weight: .light))
+                        
                     }
-                    .offset(x:-38, y:78)
-                    
-                    HStack{
-                        Text("Número Exterior:")
-                            .font(.system(size: 18))
-                        Text("123")//REEMPLAZAR POR VARIABLE
-                            .font(.system(size: 18, weight: .light))
-                    }
-                    .offset(x:-52, y:101)
-                    
-                    HStack{
-                        Text("Colonia:")
-                            .font(.system(size: 18))
-                        Text("Los Pinos")//REEMPLAZAR POR VARIABLE
-                            .font(.system(size: 18, weight: .light))
-                    }
-                    .offset(x:-64, y:123)
-                    
-                    HStack{
-                        Text("Código Postal:")
-                            .font(.system(size: 18))
-                        Text("64840")//REEMPLAZAR POR VARIABLE
-                            .font(.system(size: 18, weight: .light))
-                    }
-                    .offset(x:-48, y:145)
-                    
-                    HStack{
-                        Text("Municipio:")
-                            .font(.system(size: 18))
-                        Text("Monterrey")//REEMPLAZAR POR VARIABLE
-                            .font(.system(size: 18, weight: .light))
-                    }
-                    .offset(x:-52, y:170)
+                    .offset(x:-40, y:120)
                     
                     Image("Reemplazar")
                         .offset(x:110, y:145)

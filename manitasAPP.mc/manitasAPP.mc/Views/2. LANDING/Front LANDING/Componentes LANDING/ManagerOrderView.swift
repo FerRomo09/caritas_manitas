@@ -20,7 +20,8 @@ struct ManagerOrderView: View {
                     .offset(x:50, y:30)
 
                 VStack(alignment:.leading){
-                    Text(nombre) 
+                    Text(nombre)
+                    //Text("Nombre Apellidos")
                         .font(.system(size: 20))
                         .fontWeight(.bold)
                         .foregroundColor(Color("manitasNegro"))
@@ -32,7 +33,7 @@ struct ManagerOrderView: View {
     
                 }
                 .padding(.leading)
-                .offset(x: -30, y:-30)
+                .offset(x: -4, y:-30)
                 
                 Text("Ver Detalles")
                     .font(.system(size: 15))
