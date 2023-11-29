@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProfileManagerView: View {
     var body: some View {
+        
         ZStack(){
             Image("barManager")
                 .cornerRadius(24)
@@ -21,7 +22,7 @@ struct ProfileManagerView: View {
                         .fontWeight(.regular)
                         .foregroundColor(Color("manitasNegro"))
                     //Text(currentUser.name)
-                    Text("Manager") //quitar despues
+                    Text(curretUser.name) //quitar despues
                         .font(.system(size: 30))
                         .fontWeight(.heavy)
                         .foregroundColor(Color("manitasNegro"))
