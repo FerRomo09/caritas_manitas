@@ -60,7 +60,7 @@ struct LandingManagerView: View {
     }
 
     let timer=Timer.publish(every: 1, on: .current, in: .common).autoconnect()
-    
+
     var body: some View {
         NavigationStack(){
             HStack {
@@ -111,7 +111,7 @@ struct LandingManagerView: View {
                         VStack(){
                             let porcentaje = (Dinerorecolectado / Dinerototals) * 100.0
                             let dineroFaltante = Dinerototals - Dinerorecolectado
-                           
+
 
                             VStack(alignment: .leading){
                                 HStack{Spacer()}
@@ -139,7 +139,7 @@ struct LandingManagerView: View {
                     }
                 }
                 .frame(height:150)
-                
+
                 if ordenesPendientes.isEmpty{
                     VStack {
                         Spacer()
@@ -161,7 +161,7 @@ struct LandingManagerView: View {
                                 ) {
                                     OrdenBarView(orden: orden)
                                 }
-                                
+
                             }
                         }
                         Section(header: Text("Recolectadas")) {
@@ -174,7 +174,7 @@ struct LandingManagerView: View {
                                         .frame(width: 100, height: 100)
                                         .foregroundColor(.gray)
                                         .padding()
-                                    
+
                                     Text("No Hay Recibos Recolectados")
                                         .font(.title)
                                         .fontWeight(.regular)
@@ -192,7 +192,7 @@ struct LandingManagerView: View {
                                 }
                             }
                         }
-                        
+
                         Section(header: Text("No Recolectadas")) {
                             if ordenesNoRecolectadas.isEmpty{
                                 HStack{
@@ -203,7 +203,7 @@ struct LandingManagerView: View {
                                         .frame(width: 100, height: 100)
                                         .foregroundColor(.gray)
                                         .padding()
-                                    
+
                                     Text("No Hay Recibos No Recolectados")
                                         .font(.title)
                                         .fontWeight(.regular)
@@ -234,20 +234,20 @@ struct LandingManagerView: View {
                            RecibosCompletados = Double(countOne)
                            Dinerototals = Double(sumaOne) + Double(sumaZero)
                            Dinerorecolectado = Double(sumaOne)
-                 
-                           
-                           
+
+
+
                        } else {
                            print("Conteo Estado0 y Estado1 no estan disponibles")
                        }
                        // ... imprimir otros valores o realizar otras acciones ...
-                       
-                       
+
+
                    case .failure(let error):
                        print("Error: \(error.localizedDescription)")
                    }
                }
-                
+
                 // Ejecuta todas las solicitudes de carga de datos
                 fetchOrders(forEmployeeID: idRepartidor, forEstatusId: 0) { ordenes in
                     self.ordenesPendientes = ordenes
@@ -279,8 +279,8 @@ struct LandingManagerView: View {
                            print("Conteo Estado0 y Estado1 no estan disponibles")
                        }
                        // ... imprimir otros valores o realizar otras acciones ...
-                       
-                       
+
+
                    case .failure(let error):
                        print("Error: \(error.localizedDescription)")
                    }
