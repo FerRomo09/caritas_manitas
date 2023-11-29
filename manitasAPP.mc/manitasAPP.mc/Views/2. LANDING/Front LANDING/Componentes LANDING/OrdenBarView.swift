@@ -99,6 +99,7 @@ struct OrdenBarView: View {
                 
                 VStack(alignment: .trailing) {
                     
+                    
                     ZStack {
                         Rectangle()
                             .frame(width: 104.0, height: 150.0)
@@ -121,6 +122,7 @@ struct OrdenBarView: View {
                                 .multilineTextAlignment(.center)
                         }
                     }
+                    .offset(x:20)
                 }
                 .padding(.trailing, 12)
             }

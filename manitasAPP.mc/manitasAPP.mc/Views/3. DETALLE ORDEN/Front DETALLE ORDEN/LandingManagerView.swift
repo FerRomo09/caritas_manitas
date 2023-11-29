@@ -222,6 +222,9 @@ struct LandingManagerView: View {
                             }
                         }
                     }
+                    .listStyle(PlainListStyle())
+                    .background(Color.white) 
+                    .edgesIgnoringSafeArea(.all)
                 }
             }
             .onAppear {
