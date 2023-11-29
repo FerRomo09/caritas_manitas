@@ -10,8 +10,8 @@ import SwiftUI
 
 struct CambioRepartidor: View {
     @Environment(\.presentationMode) var presentationMode
-    let orderID = 1
-    let empID = 1
+    var orderID = 1
+    @State var empID = 1
     let deliveryPeople = ["Hernan Ramirez", "Enrique Torres", "Guillermo Alarcon", "Pablo Zubiria", "Gaston Belden"]
     @State private var repartidorSelect = "Hernan Ramirez"
     @State private var isActive = false
@@ -36,9 +36,9 @@ struct CambioRepartidor: View {
                    .bold()
                    .padding(.bottom)
 
-               Picker("Selecciona un repartidor", selection: $repartidorSelect){
-                   ForEach(deliveryPeople, id: \.self) {
-                       Text($0)
+               Picker("Selecciona un repartidor", selection: $empID){
+                   ForEach(0..<repartidores.count) {
+                       Text(repartidores[$0].nombre).tag(repartidores[$0].id)
                    }
                }
                .pickerStyle(.inline)

@@ -18,7 +18,7 @@ struct ProfileView: View {
                 }
                 Spacer()
             }
-            .padding(.horizontal, 30)
+            .padding(.horizontal, 20)
             VStack{
                 VStack {
                     let user=curretUser
@@ -114,8 +114,9 @@ struct ProfileView: View {
                     .padding(.top,10)
                     .navigationDestination(isPresented: $logOut){
                         ContentView()
+                        .navigationBarBackButtonHidden(true)
                     }
-                    .navigationBarBackButtonHidden(true)
+                    
                     
                     .padding()
                 }

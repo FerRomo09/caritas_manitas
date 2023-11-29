@@ -19,7 +19,7 @@ struct OrdenBarView: View {
         case 1:
             return "Recolectado"
         case 2:
-            return "No recolectado"
+            return "No Recolectado"
         default:
             return "Desconocido"
         }
@@ -76,7 +76,7 @@ struct OrdenBarView: View {
                         .fontWeight(.light)
                         
                     
-                    // Colonia, municipio, codigo postal
+                    // Colonia, municipio, código postal
                     Text("Col: \(orden.colonia)")
                         .font(.system(size: 16))
                         .fontWeight(.medium)
@@ -85,7 +85,7 @@ struct OrdenBarView: View {
                         .font(.system(size: 16))
                         .fontWeight(.medium)
                         
-                    Text("CP: \(String(orden.codigoPostal))")
+                    Text("C.P.: \(String(orden.codigoPostal))")
                         .font(.system(size: 16))
                         .fontWeight(.medium)
                         
@@ -98,6 +98,7 @@ struct OrdenBarView: View {
                 
                 
                 VStack(alignment: .trailing) {
+                    
                     
                     ZStack {
                         Rectangle()
@@ -117,10 +118,11 @@ struct OrdenBarView: View {
                             Text(textoRecibido)
                                 .fontWeight(.semibold)
                                 .foregroundColor(Color.white)
-                                .font(.system(size: 14))
+                                .font(.system(size: 13))
                                 .multilineTextAlignment(.center)
                         }
                     }
+                    .offset(x:20)
                 }
                 .padding(.trailing, 12)
             }
@@ -128,7 +130,6 @@ struct OrdenBarView: View {
     }
 }
 
-// Extensión para hacer esquinas redondeadas específicas
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape(RoundedCorner(radius: radius, corners: corners))
@@ -145,7 +146,6 @@ struct RoundedCorner: Shape {
     }
 }
 
-// Código de la vista previa actualizado
 struct OrdenBarView_Previews: PreviewProvider {
     static var previews: some View {
         OrdenBarView(orden: Orden.ejemplo)

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct DineroProgressBarView: View {
-    @State private var dineroTotal: Double = 12000
-    @State private var dineroRecolectado: Double = 5400
+    @State var dineroTotal: Double = 12000
+    @State var dineroRecolectado: Double = 5400
     var body: some View {
         VStack(){
             let porcentaje = (dineroRecolectado / dineroTotal) * 100.0
@@ -18,8 +18,8 @@ struct DineroProgressBarView: View {
 
             VStack(alignment: .leading){
                 HStack{Spacer()}
-                Text("Total a recolectar: ")
-                    .font(.system(size: 22))
+                Text("Total a Recolectar: ")
+                    .font(.system(size: 21))
                     .fontWeight(.bold)
                     .foregroundColor(Color("manitasNegro"))
                 + Text("\(FormatearNumero(numeroBase: dineroTotal))") //REEMPLAZAR POR VARIABLES
@@ -31,7 +31,7 @@ struct DineroProgressBarView: View {
             ProgressView(value: porcentaje, total: 100) //Remplazar con formula para calcular el porcentaje
                 .padding(.horizontal, 40) //Remplazar
                 .tint(Color("manitasMorado"))
-            Text("Donativo faltante: ")
+            Text("Donativo Faltante: ")
                 .font(.system(size: 15))
                 .foregroundColor(Color("manitasNegro"))
             + Text("\(FormatearNumero(numeroBase: dineroFaltante))") //REEMPLAZAR POR VARIABLE ENTERA

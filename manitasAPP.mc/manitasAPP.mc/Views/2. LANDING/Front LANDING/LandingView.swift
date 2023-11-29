@@ -18,6 +18,7 @@ struct LandingView: View {
     @State private var isView1Active = true
     @State private var toggleText = ""
     @State private var toggleIcon = "star"
+    @State private var idRepartidor=curretUser.ID
     
     // Función para verificar si se han cargado los datos
     private func checkLoadingState() {
@@ -26,46 +27,80 @@ struct LandingView: View {
         }
     }
 
-    let timer=Timer.publish(every: 100, on: .current, in: .common).autoconnect()
+    let timer=Timer.publish(every: 1, on: .current, in: .common).autoconnect()
     
     var body: some View {
         NavigationStack(){
             VStack(){
                 VStack(){
-                    NavigationLink(destination: (ProfileView())){
+                    NavigationLink(destination: (ProfileView()
+                        .navigationBarBackButtonHidden(true))){
                         ProfileBarView()
                     }
                     .padding(.top, 10)
                     .padding(.bottom, 5)
-                    .navigationBarBackButtonHidden(false)
+                    .navigationBarBackButtonHidden(true)
                 }
                 NavigationView{
                     VStack{
                         VStack{
-                            if isView1Active {
-                                View1()
-                                //toggleIcon = "arrow.right.circle.fill"
-                            } else {
-                                View2()
-                                //toggleIcon = "arrow.backward.circle.fill"
-                                
-                            }
-                        }
-                        Spacer()
-                        HStack{
-                            HStack{Spacer()}
-                            Button(action: {
-                                // Toggle between views
-                                isView1Active.toggle()
-                            }) {
-                                Image(systemName: toggleIcon)
-                                    .resizable()
-                                    .frame(width: 40, height: 40)
+                            VStack(){
+                                let porcentaje = (RecibosCompletados / RecibosTotales) * 100.0
+                                let recibosFaltantes = RecibosTotales - RecibosCompletados
+
+                                VStack(alignment: .leading){
+                                    HStack{Spacer()}
+                                    Text("Recibos del Día: ")
+                                        .font(.system(size: 22))
+                                        .fontWeight(.bold)
+                                        .foregroundColor(Color("manitasNegro"))
+                                    + Text("\(String(format: "%.0f", RecibosTotales))") //REEMPLAZAR POR VARIABLES
+                                        .font(.system(size: 22))
+                                        .fontWeight(.bold)
+                                        .foregroundColor(Color("manitasAzul"))
+                                }
+                                .padding(.horizontal, 40)
+                                ProgressView(value: porcentaje, total: 100) //Remplazar con formula para calcular el porcentaje
+                                    .padding(.horizontal, 40) //Remplazar
+                                    .tint(Color("manitasAzul"))
+                                Text("Recibos Faltantes: ")
+                                    .font(.system(size: 15))
+                                    .foregroundColor(Color("manitasNegro"))
+                                + Text("\(String(format: "%.0f", recibosFaltantes))") //REEMPLAZAR POR VARIABLE ENTERA
+                                    .font(.system(size: 15))
                                     .foregroundColor(Color("manitasAzul"))
                             }
-                            HStack{Spacer()}
                         }
+                        VStack(){
+                            let porcentaje = (Dinerorecolectado / Dinerototals) * 100.0
+                            let dineroFaltante = Dinerototals - Dinerorecolectado
+                           
+
+                            VStack(alignment: .leading){
+                                HStack{Spacer()}
+                                Text("Total a Recolectar: ")
+                                    .font(.system(size: 21))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color("manitasNegro"))
+                                + Text("\(FormatearNumero(numeroBase: Dinerototals))") //REEMPLAZAR POR VARIABLES
+                                    .font(.system(size: 22))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color("manitasMorado"))
+                            }
+                            .padding(.horizontal, 40)
+                            ProgressView(value: porcentaje, total: 100) //Remplazar con formula para calcular el porcentaje
+                                .padding(.horizontal, 40) //Remplazar
+                                .tint(Color("manitasMorado"))
+                            Text("Donativo Faltante: ")
+                                .font(.system(size: 15))
+                                .foregroundColor(Color("manitasNegro"))
+                            + Text("\(FormatearNumero(numeroBase: dineroFaltante))") //REEMPLAZAR POR VARIABLE ENTERA
+                                .font(.system(size: 15))
+                                .foregroundColor(Color("manitasMorado"))
+                        }
+                        Spacer()
                     }
+
                 }
                 .frame(height:150)
                 
@@ -84,7 +119,9 @@ struct LandingView: View {
                     List {
                         Section(header: Text("Pendientes")) {
                             ForEach(ordenesPendientes, id: \.idOrden) { orden in
-                                NavigationLink(destination: DetalleOrdenView(orden: orden)) {
+                                NavigationLink(destination: DetalleOrdenView(orden: orden)
+                                    .navigationBarBackButtonHidden(true)
+                                ) {
                                     OrdenBarView(orden: orden)
                                 }
                             }
@@ -108,7 +145,9 @@ struct LandingView: View {
                                 }
                             }else{
                                 ForEach(ordenesRecolectadas, id: \.idOrden) { orden in
-                                    NavigationLink(destination: DetalleOrdenView(orden: orden)) {
+                                    NavigationLink(destination: DetalleOrdenView(orden: orden)
+                                        .navigationBarBackButtonHidden(true)
+                                    ) {
                                         OrdenBarView(orden: orden)
                                     }
                                 }
@@ -134,41 +173,92 @@ struct LandingView: View {
                                 }
                             }else{
                                 ForEach(ordenesNoRecolectadas, id: \.idOrden) { orden in
-                                    NavigationLink(destination: DetalleOrdenView(orden: orden)) {
+                                    NavigationLink(destination: DetalleOrdenView(orden: orden)
+                                        .navigationBarBackButtonHidden(true)
+                                    ) {
                                         OrdenBarView(orden: orden)
                                     }
                                 }
                             }
                         }
                     }
+                    .listStyle(PlainListStyle()) // Apply plain style to the list
+                   .background(Color.white) // Set the background color of the list to white
+                   .edgesIgnoringSafeArea(.all)
+                    
                 }
             }
             .onAppear {
+                fetchOrderCountForEmployee(employeeID: idRepartidor) { result in
+                   switch result {
+                   case .success(let response):
+                       print("Mensaje: \(response.mensaje)")
+                       if let countZero = response.conteo.Estado0 , let countOne = response.conteo.Estado1, let sumaZero = response.suma.Estado0, let sumaOne = response.suma.Estado1{
+                           RecibosTotales = Double(countZero + countOne)
+                           RecibosCompletados = Double(countOne)
+                           Dinerototals = Double(sumaOne) + Double(sumaZero)
+                           Dinerorecolectado = Double(sumaOne)
+                 
+                           
+                           
+                       } else {
+                           print("Conteo Estado0 y Estado1 no estan disponibles")
+                       }
+                       // ... imprimir otros valores o realizar otras acciones ...
+                       
+                       
+                   case .failure(let error):
+                       print("Error: \(error.localizedDescription)")
+                   }
+               }
+                
                 // Ejecuta todas las solicitudes de carga de datos
-                fetchOrders(forEmployeeID: 2, forEstatusId: 0) { ordenes in
+                fetchOrders(forEmployeeID: idRepartidor, forEstatusId: 0) { ordenes in
                     self.ordenesPendientes = ordenes
                     checkLoadingState()
                 }
-                fetchOrders(forEmployeeID: 2, forEstatusId: 1) { ordenes in
+                fetchOrders(forEmployeeID: idRepartidor, forEstatusId: 1) { ordenes in
                     self.ordenesRecolectadas = ordenes
                     checkLoadingState()
                 }
-                fetchOrders(forEmployeeID: 2, forEstatusId: 2) { ordenes in
+                fetchOrders(forEmployeeID: idRepartidor, forEstatusId: 2) { ordenes in
                     self.ordenesNoRecolectadas = ordenes
                     checkLoadingState()
                 }
             }
             .onReceive(timer){ _ in
+                fetchOrderCountForEmployee(employeeID: idRepartidor) { result in
+                   switch result {
+                   case .success(let response):
+                       print("Mensaje: \(response.mensaje)")
+                       if let countZero = response.conteo.Estado0 , let countOne = response.conteo.Estado1, let sumaZero = response.suma.Estado0, let sumaOne = response.suma.Estado1{
+                           RecibosTotales = Double(countZero + countOne)
+                           RecibosCompletados = Double(countOne)
+                           print(RecibosTotales)
+                           print("--------------------------------")
+                           Dinerototals = Double(sumaOne) + Double(sumaZero)
+                           Dinerorecolectado = Double(sumaOne)
+
+                       } else {
+                           print("Conteo Estado0 y Estado1 no estan disponibles")
+                       }
+                       // ... imprimir otros valores o realizar otras acciones ...
+                       
+                       
+                   case .failure(let error):
+                       print("Error: \(error.localizedDescription)")
+                   }
+               }
                 // Ejecuta todas las solicitudes de carga de datos
-                fetchOrders(forEmployeeID: 2, forEstatusId: 0) { ordenes in
+                fetchOrders(forEmployeeID: idRepartidor, forEstatusId: 0) { ordenes in
                     self.ordenesPendientes = ordenes
                     checkLoadingState()
                 }
-                fetchOrders(forEmployeeID: 2, forEstatusId: 1) { ordenes in
+                fetchOrders(forEmployeeID: idRepartidor, forEstatusId: 1) { ordenes in
                     self.ordenesRecolectadas = ordenes
                     checkLoadingState()
                 }
-                fetchOrders(forEmployeeID: 2, forEstatusId: 2) { ordenes in
+                fetchOrders(forEmployeeID: idRepartidor, forEstatusId: 2) { ordenes in
                     self.ordenesNoRecolectadas = ordenes
                     checkLoadingState()
                 }
@@ -178,13 +268,17 @@ struct LandingView: View {
 }
 
 struct View1: View {
+    var totales:Double
+    var completados:Double
     var body: some View {
-        ProgressBarView()
+        ProgressBarView(recibosTotales: totales, recibosCompletados: completados)
     }
 }
 struct View2: View {
+    var total=0.0
+    var recolectado=0.0
     var body: some View {
-        DineroProgressBarView()
+        DineroProgressBarView(dineroTotal: total, dineroRecolectado: recolectado)
     }
 }
 
@@ -193,3 +287,4 @@ struct LandingView_Previews: PreviewProvider {
         LandingView()
     }
 }
+
