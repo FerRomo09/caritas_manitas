@@ -19,9 +19,10 @@ struct LandingManagerView: View {
     @State private var isView1Active = true
     @State private var toggleText = ""
     @State private var toggleIcon = "star"
-    @State var total=0.0
-    @State var recolectado=0.0
-
+    @State var Dinerototals=0.0
+    @State var Dinerorecolectado=0.0
+    @State var Recibostotales=0
+    @State var RecibosCompletados=0
     // Función para verificar si se han cargado los datos
     private func checkLoadingState() {
         if !ordenesPendientes.isEmpty {
@@ -53,11 +54,11 @@ struct LandingManagerView: View {
                         VStack{
                             if isView1Active {
                                 
-                                View1(totales: Double(listaOrdenes.count), completados: Double(ordenesRecolectadas.count-listaOrdenes.count))
+                                View1(totales: Double(Recibostotales), completados: Double(RecibosCompletados))
                                 
                                 //toggleIcon = "arrow.right.circle.fill"
                             } else {
-                                View2(total: total, recolectado: recolectado)
+                                View2(total: Dinerototals, recolectado: Dinerorecolectado)
                                 //toggleIcon = "arrow.backward.circle.fill"
                                 
                             }
@@ -179,12 +180,6 @@ struct LandingManagerView: View {
                     self.ordenesNoRecolectadas = ordenes
                     checkLoadingState()
                 }
-                total=5/*listaOrdenes.reduce(0.0){ result, orden in
-                    return result + orden.importe!
-                }*/
-                recolectado=2/*ordenesRecolectadas.reduce(0.0){ result, orden in
-                    return result + orden.importe!
-                }*/
             }
             .onReceive(timer){ _ in
                 // Ejecuta todas las solicitudes de carga de datos
@@ -200,12 +195,6 @@ struct LandingManagerView: View {
                     self.ordenesNoRecolectadas = ordenes
                     checkLoadingState()
                 }
-                total=5/*listaOrdenes.reduce(0.0){ result, orden in
-                    return result + orden.importe!
-                }*/
-                recolectado=2/*ordenesRecolectadas.reduce(0.0){ result, orden in
-                    return result + orden.importe!
-                }*/
             }
         }
     }
