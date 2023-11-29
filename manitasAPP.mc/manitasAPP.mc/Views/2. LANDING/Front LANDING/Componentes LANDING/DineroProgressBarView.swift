@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct DineroProgressBarView: View {
-    @State private var dineroTotal: Double = 12000
-    @State private var dineroRecolectado: Double = 5400
+    @State var dineroTotal: Double = 12000
+    @State var dineroRecolectado: Double = 5400
     var body: some View {
         VStack(){
             let porcentaje = (dineroRecolectado / dineroTotal) * 100.0
