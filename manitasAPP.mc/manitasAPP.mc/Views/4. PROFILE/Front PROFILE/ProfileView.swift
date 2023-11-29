@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @State private var logOut=false
+    @State private var showingLogoutAlert = false
     @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationStack{
@@ -102,9 +103,7 @@ struct ProfileView: View {
                     .offset(y:-80)
                     
                     Button(action: {
-                        UserDefaults.standard.set("", forKey: "token")
-                        token=""
-                        logOut=true
+                        self.showingLogoutAlert = true
                     }){
                         Text("**Cerrar Sesión**                            ")
                     }
@@ -121,6 +120,13 @@ struct ProfileView: View {
                     .padding()
                 }
                 .padding(.horizontal, 20)
+            }
+            .alert(isPresented: $showingLogoutAlert) {
+                Alert(title: Text("Cerrar Sesión"), message: Text("¿Estás seguro de que quieres cerrar la sesión?"), primaryButton: .destructive(Text("Cerrar Sesión")) {
+                    UserDefaults.standard.set("", forKey: "token")
+                    token=""
+                    logOut=true
+                }, secondaryButton: .cancel())
             }
         }
         

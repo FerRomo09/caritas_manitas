@@ -12,8 +12,7 @@ struct CambioRepartidor: View {
     @Environment(\.presentationMode) var presentationMode
     var orderID = 1
     @State var empID = 1
-    let deliveryPeople = ["Hernan Ramirez", "Enrique Torres", "Guillermo Alarcon", "Pablo Zubiria", "Gaston Belden"]
-    @State private var repartidorSelect = "Hernan Ramirez"
+
     @State private var isActive = false
     @State private var showingAlert = false
     
@@ -52,7 +51,7 @@ struct CambioRepartidor: View {
                                self.showingAlert = true
                            }
                            .padding()
-                           .background(Color.green)
+                           .background(Color("manitasNaranja"))
                            .foregroundColor(.white)
                            .cornerRadius(10)
                Spacer()
