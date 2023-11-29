@@ -114,8 +114,9 @@ struct ProfileView: View {
                     .padding(.top,10)
                     .navigationDestination(isPresented: $logOut){
                         ContentView()
+                        .navigationBarBackButtonHidden(true)
                     }
-                    .navigationBarBackButtonHidden(true)
+                    
                     
                     .padding()
                 }

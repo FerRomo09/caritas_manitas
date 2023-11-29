@@ -19,16 +19,12 @@ struct ManagerView: View {
                 NavigationLink(destination: ProfileView().navigationBarBackButtonHidden(true)){
                     ProfileManagerView()
                 }
-                Text("Ordenes Asignadas")
-                    .font(.system(size: 20))
-                    .fontWeight(.semibold)
-                    .foregroundColor(.orange)
-                Divider()
+                
                 Text("Repartidores Activos")
                     .font(.system(size: 20))
                     .fontWeight(.bold)
                     .foregroundColor(Color("manitasNegro"))
-                
+                Divider()
                 ScrollView(.vertical, showsIndicators: true){
                     LazyVStack() {
                         Grid(horizontalSpacing: 12, verticalSpacing: 20) {

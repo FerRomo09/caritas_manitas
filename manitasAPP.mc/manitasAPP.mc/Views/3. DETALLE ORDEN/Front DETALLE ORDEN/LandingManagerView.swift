@@ -71,7 +71,7 @@ struct LandingManagerView: View {
             } .padding(.horizontal, 20)
             VStack(){
                 VStack(){
-                    NavigationLink(destination: (ProfileView())){
+                    NavigationLink(destination: ProfileView().navigationBarBackButtonHidden(true)){
                         ProfileManagerView()
                     }
                     .padding(.top, 10)
