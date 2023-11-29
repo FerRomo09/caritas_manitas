@@ -49,11 +49,22 @@ struct LandingManagerView: View {
                 NavigationView{
                     VStack{
                         VStack{
+                            var total:Double=listaOrdenes.reduce(0.0) result, orden in
+                                result + orden.importe
+                            }
+                            var recolectado: Double=ordenesRecolectadas.reduce(0.0) result, orden in
+                                result + orden.importe
+                            }
+                            
+                            ForEach(ordenesPendientes, id: \.idOrden) { orden in
+                                
+                            }
+                            
                             if isView1Active {
-                                View1()
+                                View1(totales: Double(listaOrdenes.count), completados: Double(ordenesRecolectadas.count-listaOrdenes.count))
                                 //toggleIcon = "arrow.right.circle.fill"
                             } else {
-                                View2()
+                                View2(total: total, recolectado: recolectado)
                                 //toggleIcon = "arrow.backward.circle.fill"
                                 
                             }
@@ -191,17 +202,6 @@ struct LandingManagerView: View {
                 }
             }
         }
-    }
-}
-
-struct ManagerView1: View {
-    var body: some View {
-        ProgressBarView()
-    }
-}
-struct ManagerView2: View {
-    var body: some View {
-        DineroProgressBarView()
     }
 }
 

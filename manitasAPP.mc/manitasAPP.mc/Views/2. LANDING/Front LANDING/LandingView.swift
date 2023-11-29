@@ -178,13 +178,17 @@ struct LandingView: View {
 }
 
 struct View1: View {
+    @State var totales=0.0
+    @State var completados=0.0
     var body: some View {
-        ProgressBarView()
+        ProgressBarView(recibosTotales: totales, recibosCompletados: completados)
     }
 }
 struct View2: View {
+    var total=0.0
+    var recolectado=0.0
     var body: some View {
-        DineroProgressBarView()
+        DineroProgressBarView(dineroTotal: total, dineroRecolectado: recolectado)
     }
 }
 

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ProgressBarView: View {
-    @State private var recibosTotales: Double = 12
-    @State private var recibosCompletados: Double = 5
+    @State var recibosTotales: Double = 12
+    @State var recibosCompletados: Double = 5
     var body: some View {
         //Stack ordenes del dia
         VStack(){
