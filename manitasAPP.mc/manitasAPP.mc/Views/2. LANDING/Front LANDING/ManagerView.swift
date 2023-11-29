@@ -70,6 +70,19 @@ struct ManagerView: View {
                     }
                 }
             }
+            .onDisappear {
+                // Call the function when the view appears
+                getEmpleados() { result in
+                    switch result {
+                    case .success(let empleados):
+                        self.empleados = empleados
+                        repartidores=empleados
+                        self.numOrdenes = empleados.count
+                    case .failure(let error):
+                        print("Error fetching empleados: \(error)")
+                    }
+                }
+            }
             
         }
     }

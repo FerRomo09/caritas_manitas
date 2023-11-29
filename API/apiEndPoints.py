@@ -111,7 +111,7 @@ async def get_user(current_user: dict = Depends(get_current_user)):
         else:
             # If the user exists, the user details are returned
             return {
-                'id': user[0],
+                'id': int(user[0]),
                 'apellido': user[1] + " " + user[2],
                 'nombre': user[3],
                 'email': user[5],
