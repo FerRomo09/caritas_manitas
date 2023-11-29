@@ -35,6 +35,10 @@ struct SumDetails: Codable {
     let Estado2: Double?
 }
 
+var Dinerototals=0.0
+var Dinerorecolectado=0.0
+var RecibosTotales=21.0
+var RecibosCompletados=0.0
 
 struct LandingManagerView: View {
     @State var idRepartidor = 2
@@ -48,10 +52,6 @@ struct LandingManagerView: View {
     @State private var isView1Active = true
     @State private var toggleText = ""
     @State private var toggleIcon = "star"
-    @State var Dinerototals=0.0
-    @State var Dinerorecolectado=0.0
-    @State var Recibostotales=1.0
-    @State var RecibosCompletados=0.0
     // Función para verificar si se han cargado los datos
     private func checkLoadingState() {
         if !ordenesPendientes.isEmpty {
@@ -71,7 +71,7 @@ struct LandingManagerView: View {
             } .padding(.horizontal, 20)
             VStack(){
                 VStack(){
-                    NavigationLink(destination: (ProfileView())){
+                    NavigationLink(destination: ProfileView().navigationBarBackButtonHidden(true)){
                         ProfileManagerView()
                     }
                     .padding(.top, 10)
@@ -81,31 +81,61 @@ struct LandingManagerView: View {
                 NavigationView{
                     VStack{
                         VStack{
-                            if isView1Active {
-                                
-                                View1(totales: Recibostotales, completados: RecibosCompletados)
-                                
-                                //toggleIcon = "arrow.right.circle.fill"
-                            } else {
-                                View2(total: Dinerototals, recolectado: Dinerorecolectado)
-                                //toggleIcon = "arrow.backward.circle.fill"
-                                
-                            }
-                        }
-                        Spacer()
-                        HStack{
-                            HStack{Spacer()}
-                            Button(action: {
-                                // Toggle between views
-                                isView1Active.toggle()
-                            }) {
-                                Image(systemName: toggleIcon)
-                                    .resizable()
-                                    .frame(width: 40, height: 40)
+                            VStack(){
+                                let porcentaje = (RecibosCompletados / RecibosTotales) * 100.0
+                                let recibosFaltantes = RecibosTotales - RecibosCompletados
+
+                                VStack(alignment: .leading){
+                                    HStack{Spacer()}
+                                    Text("Recibos del Día: ")
+                                        .font(.system(size: 22))
+                                        .fontWeight(.bold)
+                                        .foregroundColor(Color("manitasNegro"))
+                                    + Text("\(String(format: "%.0f", RecibosTotales))") //REEMPLAZAR POR VARIABLES
+                                        .font(.system(size: 22))
+                                        .fontWeight(.bold)
+                                        .foregroundColor(Color("manitasAzul"))
+                                }
+                                .padding(.horizontal, 40)
+                                ProgressView(value: porcentaje, total: 100) //Remplazar con formula para calcular el porcentaje
+                                    .padding(.horizontal, 40) //Remplazar
+                                    .tint(Color("manitasAzul"))
+                                Text("Recibos Faltantes: ")
+                                    .font(.system(size: 15))
+                                    .foregroundColor(Color("manitasNegro"))
+                                + Text("\(String(format: "%.0f", recibosFaltantes))") //REEMPLAZAR POR VARIABLE ENTERA
+                                    .font(.system(size: 15))
                                     .foregroundColor(Color("manitasAzul"))
                             }
-                            HStack{Spacer()}
                         }
+                        VStack(){
+                            let porcentaje = (Dinerorecolectado / Dinerototals) * 100.0
+                            let dineroFaltante = Dinerototals - Dinerorecolectado
+                           
+
+                            VStack(alignment: .leading){
+                                HStack{Spacer()}
+                                Text("Total a Recolectar: ")
+                                    .font(.system(size: 21))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color("manitasNegro"))
+                                + Text("\(FormatearNumero(numeroBase: Dinerototals))") //REEMPLAZAR POR VARIABLES
+                                    .font(.system(size: 22))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color("manitasMorado"))
+                            }
+                            .padding(.horizontal, 40)
+                            ProgressView(value: porcentaje, total: 100) //Remplazar con formula para calcular el porcentaje
+                                .padding(.horizontal, 40) //Remplazar
+                                .tint(Color("manitasMorado"))
+                            Text("Donativo Faltante: ")
+                                .font(.system(size: 15))
+                                .foregroundColor(Color("manitasNegro"))
+                            + Text("\(FormatearNumero(numeroBase: dineroFaltante))") //REEMPLAZAR POR VARIABLE ENTERA
+                                .font(.system(size: 15))
+                                .foregroundColor(Color("manitasMorado"))
+                        }
+                        Spacer()
                     }
                 }
                 .frame(height:150)
@@ -125,7 +155,7 @@ struct LandingManagerView: View {
                     List {
                         Section(header: Text("Pendientes")) {
                             ForEach(ordenesPendientes, id: \.idOrden) { orden in
-                                NavigationLink(destination: DetalleOrdenView(orden: orden)
+                                NavigationLink(destination: DetalleOrdenManagerView(idRepartridor: idRepartidor, orden: orden)
                                     // ERROR: DetalleOrdenManagerView
                                     .navigationBarBackButtonHidden(true)
                                 ) {
@@ -200,7 +230,7 @@ struct LandingManagerView: View {
                    case .success(let response):
                        print("Mensaje: \(response.mensaje)")
                        if let countZero = response.conteo.Estado0 , let countOne = response.conteo.Estado1, let sumaZero = response.suma.Estado0, let sumaOne = response.suma.Estado1{
-                           Recibostotales = Double(countZero + countOne)
+                           RecibosTotales = Double(countZero + countOne)
                            RecibosCompletados = Double(countOne)
                            Dinerototals = Double(sumaOne) + Double(sumaZero)
                            Dinerorecolectado = Double(sumaOne)
@@ -238,9 +268,9 @@ struct LandingManagerView: View {
                    case .success(let response):
                        print("Mensaje: \(response.mensaje)")
                        if let countZero = response.conteo.Estado0 , let countOne = response.conteo.Estado1, let sumaZero = response.suma.Estado0, let sumaOne = response.suma.Estado1{
-                           Recibostotales = Double(countZero + countOne)
+                           RecibosTotales = Double(countZero + countOne)
                            RecibosCompletados = Double(countOne)
-                           print(Recibostotales)
+                           print(RecibosTotales)
                            print("--------------------------------")
                            Dinerototals = Double(sumaOne) + Double(sumaZero)
                            Dinerorecolectado = Double(sumaOne)
@@ -319,5 +349,24 @@ func fetchOrderCountForEmployee(employeeID: Int, completion: @escaping (Result<O
         }
     }
     task.resume()
+}
+func FormatearNumero(numeroBase: Double?) -> String {
+    var numeroStr: String = ""
+    var numeroBaseSimple = 0.0
+    let formatoNumero = NumberFormatter()
+
+    formatoNumero.numberStyle = .currency
+
+    if let numeroBase = numeroBase {
+        numeroBaseSimple = numeroBase
+    } else {
+        numeroBaseSimple = 0.0
+    }
+
+    if let formattedNumber = formatoNumero.string(from: NSNumber(value: numeroBaseSimple)) {
+        numeroStr = formattedNumber
+    }
+
+    return numeroStr
 }
 

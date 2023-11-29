@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+var repartidores: [Empleado] = []
+
 
 struct ManagerView: View {
     @State var numOrdenes: Int = 3
@@ -17,16 +19,12 @@ struct ManagerView: View {
                 NavigationLink(destination: ProfileView().navigationBarBackButtonHidden(true)){
                     ProfileManagerView()
                 }
-                Text("Ordenes Asignadas")
-                    .font(.system(size: 20))
-                    .fontWeight(.semibold)
-                    .foregroundColor(.orange)
-                Divider()
+                
                 Text("Repartidores Activos")
                     .font(.system(size: 20))
                     .fontWeight(.bold)
                     .foregroundColor(Color("manitasNegro"))
-                
+                Divider()
                 ScrollView(.vertical, showsIndicators: true){
                     LazyVStack() {
                         Grid(horizontalSpacing: 12, verticalSpacing: 20) {
@@ -65,6 +63,7 @@ struct ManagerView: View {
                     switch result {
                     case .success(let empleados):
                         self.empleados = empleados
+                        repartidores=empleados
                         self.numOrdenes = empleados.count
                     case .failure(let error):
                         print("Error fetching empleados: \(error)")

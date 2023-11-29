@@ -25,6 +25,7 @@ struct DetalleOrdenView: View {
     //@Environment(\.dismiss) var dismiss
     
     var body: some View {
+        NavigationStack{
             VStack{
                 HStack {
                     Button("← Regresar") {
@@ -32,17 +33,20 @@ struct DetalleOrdenView: View {
                     }
                     Spacer()
                 }
-                //ProfileBarView()
+                NavigationLink(destination: (ProfileView()
+                    .navigationBarBackButtonHidden(true))){
+                    ProfileBarView()
+                }
                 
-                Spacer()
                 ZStack{
                     
                     Image("Carusel")
-                    
-                    Text("Recibo #\(String(orden.idOrden))")//REEMPLAZAR POR VARIABLE
-                        .font(.system(size: 25, weight: .bold))
-                        .offset(x:-60, y:-200)
-                    
+                    VStack(alignment: .center){
+                        Text("Recibo #\(String(orden.idOrden))")//REEMPLAZAR POR VARIABLE
+                            .font(.system(size: 25, weight: .bold))
+                            .offset(x:-60, y:-200)
+                        
+                    }
                     
                     
                     Image("Top")
@@ -56,29 +60,33 @@ struct DetalleOrdenView: View {
                     Image("Bottom")
                         .offset(y:-60)
                     
-                    HStack{
-                        Text("Donante:")
-                            .font(.system(size: 18))
-                        Text("\(orden.nombre ?? "N/A") \(orden.apellidoPaterno) \(orden.apellidoMaterno ?? "")")
-                            .font(.system(size: 18, weight: .light))
+                    VStack(alignment: .leading){
+                        HStack(alignment: .top){
+                            Text("Donante:")
+                                .font(.system(size: 18))
+                            
+                            Text("\(orden.nombre ?? "N/A") \(orden.apellidoPaterno) \(orden.apellidoMaterno ?? "")")
+                                .font(.system(size: 18, weight: .light))
+                        }
+                        
+                        HStack(alignment: .top){
+                            Text("Cantidad:")
+                                .font(.system(size: 18))
+                            Text("\(String(orden.importeFormateado))")
+                                .font(.system(size: 18, weight: .light))
+                        }
+                        HStack(alignment: .top){
+                            Text("Forma de pago:")
+                                .font(.system(size: 18))
+                            Text("Efectivo")
+                                .font(.system(size: 18, weight: .light))
+                            
+                        }
                     }
-                    .offset(x:-15, y:-90)
+                    .offset(x:-30, y:-60)
                     
-                    HStack{
-                        Text("Cantidad:")
-                            .font(.system(size: 18))
-                        Text("\(String(orden.importeFormateado))")
-                            .font(.system(size: 18, weight: .light))
-                        
-                    }.offset(x:-31, y:-62)
                     
-                    HStack{
-                        Text("Forma de pago:")
-                            .font(.system(size: 18))
-                        Text("Efectivo")
-                            .font(.system(size: 18, weight: .light))
-                        
-                    }.offset(x:-40, y:-35)
+                    
                     
                     ZStack{
                         Image("Top2")
@@ -90,46 +98,52 @@ struct DetalleOrdenView: View {
                         Image("Bottom2")
                             .offset(y:125)
                         
-                        
-                        HStack{
-                            Text("Calle:")
-                                .font(.system(size: 18))
-                            Text("\(orden.callePrincipal)")
-                                .font(.system(size: 18, weight: .light))
+                        VStack(alignment: .leading){
+                            HStack{
+                                Text("Calle:")
+                                    .font(.system(size: 18))
+                                Text("\(orden.callePrincipal)")
+                                    .font(.system(size: 18, weight: .light))
+                            }
+                            
+                            
+                            HStack{
+                                Text("Número Exterior:")
+                                    .font(.system(size: 18))
+                                Text("123")//REEMPLAZAR POR VARIABLE
+                                    .font(.system(size: 18, weight: .light))
+                            }
+                            
+                            
+                            HStack{
+                                Text("Colonia:")
+                                    .font(.system(size: 18))
+                                Text("\(orden.colonia)")
+                                    .font(.system(size: 18, weight: .light))
+                            }
+                            
+                            
+                            HStack{
+                                Text("Código Postal:")
+                                    .font(.system(size: 18))
+                                Text("\(String(orden.codigoPostal))")
+                                    .font(.system(size: 18, weight: .light))
+                            }
+                            
+                            
+                            HStack{
+                                Text("Municipio:")
+                                    .font(.system(size: 18))
+                                Text("\(orden.municipio ?? "N/A")")//REEMPLAZAR POR VARIABLE
+                                    .font(.system(size: 18, weight: .light))
+                            }
+                            
                         }
-                        .offset(x:-38, y:78)
+                        .offset(x:-35, y:125)
                         
-                        HStack{
-                            Text("Número Exterior:")
-                                .font(.system(size: 18))
-                            Text("123")//REEMPLAZAR POR VARIABLE
-                                .font(.system(size: 18, weight: .light))
-                        }
-                        .offset(x:-52, y:101)
                         
-                        HStack{
-                            Text("Colonia:")
-                                .font(.system(size: 18))
-                            Text("\(orden.colonia)")
-                                .font(.system(size: 18, weight: .light))
-                        }
-                        .offset(x:-64, y:123)
                         
-                        HStack{
-                            Text("Código Postal:")
-                                .font(.system(size: 18))
-                            Text("\(String(orden.codigoPostal))")
-                                .font(.system(size: 18, weight: .light))
-                        }
-                        .offset(x:-48, y:145)
                         
-                        HStack{
-                            Text("Municipio:")
-                                .font(.system(size: 18))
-                            Text("\(orden.municipio ?? "N/A")")//REEMPLAZAR POR VARIABLE
-                                .font(.system(size: 18, weight: .light))
-                        }
-                        .offset(x:-52, y:170)
                         
                         Button(action: {
                             openMapsForAddress(address: self.address)
@@ -147,7 +161,7 @@ struct DetalleOrdenView: View {
                 Spacer()
                 
                 if orden.estatusOrden != 1 && orden.estatusOrden != 2 {
-                    Button("**Cobrado**"){
+                    Button("**Cobrado**                                         "){
                         confirmOrder(orderID: Int(orden.idOrden)) { success, message in
                             if success {
                                 print("Operación exitosa: \(message)")
@@ -181,7 +195,7 @@ struct DetalleOrdenView: View {
                         Alert(title: Text("Error de conexión"), message: Text("No se pudo confirmar la orden"), dismissButton: .default(Text("OK")))
                     }
                     
-                    Button("**No cobrado**"){
+                    Button("**No cobrado**                                      "){
                         actionSheet = true
                     }
                     .actionSheet(isPresented: $actionSheet){
@@ -209,6 +223,7 @@ struct DetalleOrdenView: View {
                 }
                 
             }.padding()
+        }
     }
     
     func reprogramarConComentario(_ comentario: String) {
@@ -287,18 +302,7 @@ struct DetalleOrdenView: View {
         mostrarTexto = false
         razonUsuario = ""
     }
-    
-    func openMapsForAddress(address: String) {
-        let addressEncoded = address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
 
-        if let url = URL(string: "http://maps.apple.com/?address=\(addressEncoded)") {
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        } else {
-            print("Invalid address")
-        }
-    }
 }
 
 
@@ -309,3 +313,14 @@ struct DetalleOrdenView_Previews: PreviewProvider {
     }
 }
 
+func openMapsForAddress(address: String) {
+    let addressEncoded = address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+
+    if let url = URL(string: "http://maps.apple.com/?address=\(addressEncoded)") {
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    } else {
+        print("Invalid address")
+    }
+}
