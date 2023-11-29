@@ -8,104 +8,190 @@
 import SwiftUI
 
 struct LandingManagerView: View {
-    @State var idRepartidor: String=""
-    @State var nombreRecibido: String="Manager"
-    @State private var textoStatus: String = "Recolectado"
-    @State private var colorStatus: Color = .green
-    @State private var iconStatus: Image = Image(systemName: "checkmark.circle.fill")
-    @State private var numStatus: Int = 3
-    @State private var numRecibos: Int = 15
-    @State private var arrayNumStatus: [Int] = [1,2,3]
+    @State var idRepartidor = 2
     @State private var isActive = false
     @Environment(\.dismiss) var dismiss
+    @State private var listaOrdenes: [Orden] = []
+    @State private var ordenesPendientes: [Orden] = []
+    @State private var ordenesRecolectadas: [Orden] = []
+    @State private var ordenesNoRecolectadas: [Orden] = []
+    @State private var isLoading = true
+    @State private var isView1Active = true
+    @State private var toggleText = ""
+    @State private var toggleIcon = "star"
 
+    // Función para verificar si se han cargado los datos
+    private func checkLoadingState() {
+        if !ordenesPendientes.isEmpty {
+            isLoading = false
+        }
+    }
+
+    let timer=Timer.publish(every: 100, on: .current, in: .common).autoconnect()
     
     var body: some View {
         NavigationStack(){
-            //Main VStack
-            VStack(){
-                HStack {
-                    Button("← Regresar") {
-                        dismiss()
-                    }
-                    Spacer()
+            HStack {
+                Button("← Regresar") {
+                    dismiss()
                 }
-                .padding(.horizontal, 30)
-                
-                /*
+                Spacer()
+                            }
+            VStack(){
                 VStack(){
-                    //Profile Bar, link a profile view
-                    NavigationLink(destination: (ManagerProfileView())){
+                    NavigationLink(destination: (ProfileView())){
                         ProfileManagerView()
                     }
                     .padding(.top, 10)
                     .padding(.bottom, 5)
+                    .navigationBarBackButtonHidden(false)
                 }
-                 */
-                
-                //Stack ordenes del dia
-                VStack(alignment: .leading){
-                    
-                    HStack{Spacer()}
-                    Text("Recibos del dia: ")
-                        .font(.system(size: 25))
-                        .fontWeight(.bold)
-                        .foregroundColor(Color("manitasNegro"))
-                    + Text("15")//REEMPLAZAR POR VARIABLES
-                        .font(.system(size: 25))
-                        .fontWeight(.bold)
-                        .foregroundColor(Color("manitasAzul"))
+                NavigationView{
+                    VStack{
+                        VStack{
+                            if isView1Active {
+                                View1()
+                                //toggleIcon = "arrow.right.circle.fill"
+                            } else {
+                                View2()
+                                //toggleIcon = "arrow.backward.circle.fill"
+                                
+                            }
+                        }
+                        Spacer()
+                        HStack{
+                            HStack{Spacer()}
+                            Button(action: {
+                                // Toggle between views
+                                isView1Active.toggle()
+                            }) {
+                                Image(systemName: toggleIcon)
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                                    .foregroundColor(Color("manitasAzul"))
+                            }
+                            HStack{Spacer()}
+                        }
+                    }
                 }
-                .padding(.horizontal, 40)
-                ProgressView(value: 20, total: 100)
-                    .padding(.horizontal, 40) //Remplazar
-                    .tint(Color("manitasAzul"))
-                Text("Recibos faltantes: ")
-                    .font(.system(size: 15))
-                    .foregroundColor(Color("manitasNegro"))
-                + Text("20") //REEMPLAZAR POR VARIABLE ENTERA
-                    .font(.system(size: 15))
-                    .foregroundColor(Color("manitasAzul"))
-            }
-            .padding(.bottom, 10)
-            
-            ScrollView(.vertical, showsIndicators: true){
+                .frame(height:150)
                 
-                LazyVStack(){
-                    ForEach(1...15, id: \.self) {
-                        i in
-                        let numStatus = Int.random(in: 1..<4)
-                        if (numStatus == 3){
-                            let textoStatus = "Recolectado"
-                            let colorStatus = Color.green
-                            let iconStatus = Image(systemName: "checkmark.circle.fill")
-                            NavigationLink(destination: (DetalleOrdenManagerView())){
-                                OrdenManagerBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
+                if ordenesPendientes.isEmpty{
+                    VStack {
+                        Spacer()
+                        ProgressView()
+                            .scaleEffect(3)
+                            .padding(.bottom, 30)
+                        Text("Cargando recibos . . .")
+                            .font(.system(size: 30))
+                            .foregroundColor(.blue)
+                        Spacer()
+                    }
+                } else {
+                    List {
+                        Section(header: Text("Pendientes")) {
+                            ForEach(ordenesPendientes, id: \.idOrden) { orden in
+                                NavigationLink(destination: DetalleOrdenView(orden: orden)) {
+                                    OrdenBarView(orden: orden)
+                                }
                             }
-                        } else if (numStatus == 2){
-                            let textoStatus = "Pendiente"
-                            let colorStatus = Color.yellow
-                            let iconStatus = Image(systemName: "exclamationmark.triangle.fill")
-                            NavigationLink(destination: (DetalleOrdenManagerView())){
-                                OrdenManagerBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
+                        }
+                        Section(header: Text("Recolectadas")) {
+                            if ordenesRecolectadas.isEmpty{
+                                HStack{
+                                    Spacer()
+                                    Image(systemName: "tray.fill")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 100, height: 100)
+                                        .foregroundColor(.gray)
+                                        .padding()
+                                    
+                                    Text("No hay recolectados")
+                                        .font(.title)
+                                        .fontWeight(.regular)
+                                        .foregroundColor(.secondary)
+                                    Spacer()
+                                }
+                            }else{
+                                ForEach(ordenesRecolectadas, id: \.idOrden) { orden in
+                                    NavigationLink(destination: DetalleOrdenView(orden: orden)) {
+                                        OrdenBarView(orden: orden)
+                                    }
+                                }
                             }
-                        }else if (numStatus == 1){
-                            let textoStatus = """
-                            No
-                            recolectado
-                            """
-                            let colorStatus = Color.red
-                            let iconStatus = Image(systemName: "xmark.circle.fill")
-                            NavigationLink(destination: (DetalleOrdenManagerView())){
-                                OrdenManagerBarView(textoRecibido: textoStatus, colorRecibido: colorStatus, iconRecibido: iconStatus)
+                        }
+                        
+                        Section(header: Text("No Recolectadas")) {
+                            if ordenesNoRecolectadas.isEmpty{
+                                HStack{
+                                    Spacer()
+                                    Image(systemName: "tray.fill")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 100, height: 100)
+                                        .foregroundColor(.gray)
+                                        .padding()
+                                    
+                                    Text("No hay recolectados")
+                                        .font(.title)
+                                        .fontWeight(.regular)
+                                        .foregroundColor(.secondary)
+                                    Spacer()
+                                }
+                            }else{
+                                ForEach(ordenesNoRecolectadas, id: \.idOrden) { orden in
+                                    NavigationLink(destination: DetalleOrdenView(orden: orden)) {
+                                        OrdenBarView(orden: orden)
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
-
-            Spacer()
+            .onAppear {
+                // Ejecuta todas las solicitudes de carga de datos
+                fetchOrders(forEmployeeID: idRepartidor, forEstatusId: 0) { ordenes in
+                    self.ordenesPendientes = ordenes
+                    checkLoadingState()
+                }
+                fetchOrders(forEmployeeID: idRepartidor, forEstatusId: 1) { ordenes in
+                    self.ordenesRecolectadas = ordenes
+                    checkLoadingState()
+                }
+                fetchOrders(forEmployeeID: idRepartidor, forEstatusId: 2) { ordenes in
+                    self.ordenesNoRecolectadas = ordenes
+                    checkLoadingState()
+                }
+            }
+            .onReceive(timer){ _ in
+                // Ejecuta todas las solicitudes de carga de datos
+                fetchOrders(forEmployeeID: idRepartidor, forEstatusId: 0) { ordenes in
+                    self.ordenesPendientes = ordenes
+                    checkLoadingState()
+                }
+                fetchOrders(forEmployeeID: idRepartidor, forEstatusId: 1) { ordenes in
+                    self.ordenesRecolectadas = ordenes
+                    checkLoadingState()
+                }
+                fetchOrders(forEmployeeID: idRepartidor, forEstatusId: 2) { ordenes in
+                    self.ordenesNoRecolectadas = ordenes
+                    checkLoadingState()
+                }
+            }
         }
+    }
+}
+
+struct ManagerView1: View {
+    var body: some View {
+        ProgressBarView()
+    }
+}
+struct ManagerView2: View {
+    var body: some View {
+        DineroProgressBarView()
     }
 }
 
