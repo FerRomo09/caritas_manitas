@@ -59,6 +59,7 @@ struct LandingView: View {
                                         .fontWeight(.bold)
                                         .foregroundColor(Color("manitasAzul"))
                                 }
+                                .padding(.top,10)
                                 .padding(.horizontal, 40)
                                 ProgressView(value: porcentaje, total: 100) //Remplazar con formula para calcular el porcentaje
                                     .padding(.horizontal, 40) //Remplazar
@@ -94,10 +95,12 @@ struct LandingView: View {
                             Text("Donativo Faltante: ")
                                 .font(.system(size: 15))
                                 .foregroundColor(Color("manitasNegro"))
+                            
                             + Text("\(FormatearNumero(numeroBase: dineroFaltante))") //REEMPLAZAR POR VARIABLE ENTERA
                                 .font(.system(size: 15))
                                 .foregroundColor(Color("manitasMorado"))
                         }
+                        .padding(.bottom,10)
                         Spacer()
                     }
 
