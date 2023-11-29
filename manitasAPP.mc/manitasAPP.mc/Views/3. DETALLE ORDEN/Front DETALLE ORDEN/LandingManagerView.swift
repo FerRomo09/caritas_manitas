@@ -49,8 +49,12 @@ struct LandingManagerView: View {
                 NavigationView{
                     VStack{
                         VStack{
-                            var total:Double=0.0
-                            var recolectado: Double=0.0
+                            var total:Double=listaOrdenes.reduce(0.0) result, orden in
+                                result + orden.importe
+                            }
+                            var recolectado: Double=ordenesRecolectadas.reduce(0.0) result, orden in
+                                result + orden.importe
+                            }
                             
                             ForEach(ordenesPendientes, id: \.idOrden) { orden in
                                 
