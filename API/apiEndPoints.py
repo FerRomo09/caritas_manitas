@@ -229,18 +229,14 @@ async def get_empleados(current_user: dict = Depends(get_current_user)):
         raise HTTPException(status_code=500, detail="Internal server error")
 
 
-# funcion para modificar unas de las llaves del diccionario
 
-
+# function to modify one of the dictionary's keys
 def modificar_clave(diccionario, vieja_clave, nueva_clave):
     return {clave if clave != vieja_clave else nueva_clave: valor for clave, valor in diccionario.items()}
 
-
-# endpoint que regresa en formato json las ordenes filtradas por el id del empleado
+# endpoint that returns in json format the orders filtered by the employee's id
 @app.get("/ordenes/{ID_EMPLEADO}/{ESTATUS_ORDEN}")
 def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...),):
-
-    #fecha = '2023-11-28'
 
     try:
         with get_db_connection() as conn:
@@ -249,7 +245,6 @@ def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...)
             cursor.execute(
                 "EXEC SelectOrder @EmpleadoID = ? , @EstatusOrden = ? , @Fecha = ?", (ID_EMPLEADO, ESTATUS_ORDEN, fecha,))
             resultados = cursor.fetchall()
-            print(len(resultados))
             if len(resultados) != 0:
                 ordenes_list = []
 
@@ -258,13 +253,9 @@ def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...)
                     data = {column[0]: value for column,
                             value in zip(cursor.description, item)}
 
-                    # model_instance = am.Orden(**data)
-
                     data = modificar_clave(data, 'ID_ORDEN', 'id')
 
                     ordenes_list.append(data)
-
-                    # print(type(model_instance))
 
             else:
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -275,19 +266,17 @@ def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...)
 
         return {"mensaje": "ordenes llamadas exitosamente", "list": ordenes_list}
 
-    # Asumiendo que DatabaseConnectionError es una excepción que podría lanzar get_db_connection().
+    # Assuming that DatabaseConnectionError is an exception that could be thrown by get_db_connection().
     except pyodbc.Error as e:
         print(e)
         raise HTTPException(
             status_code=503, detail="No se pudo establecer conexión con la base de datos.")
 
     except Exception as error_name:
-        print(f'este es el error {error_name}')
         raise HTTPException(status_code=500, detail=str(error_name))
     
 
-
-# Endpoint para cambiar la informacion de las ordenes reprogramadas
+# Endpoint to change the information of rescheduled orders
 @app.put("/reprogram_order/{orderID}")
 def reprogram_order(orderID: int,  info_body: am.Reprogramacion, current_user: dict = Depends(get_current_user)):
 
@@ -319,7 +308,7 @@ def reprogram_order(orderID: int,  info_body: am.Reprogramacion, current_user: d
 
 
 @app.get("/conteo_ordenes/{ID_EMPLEADO}")
-def conteo_suma_ordenes_por_estado(ID_EMPLEADO: int,):
+def conteo_suma_ordenes_por_estado(ID_EMPLEADO: int, ):
 #def conteo_suma_ordenes_por_estado(ID_EMPLEADO: int,  current_user: dict = Depends(get_current_user),):
     try:
         with get_db_connection() as conn:
