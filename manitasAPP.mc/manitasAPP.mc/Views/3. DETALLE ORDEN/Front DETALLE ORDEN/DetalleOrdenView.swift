@@ -162,33 +162,10 @@ struct DetalleOrdenView: View {
                 
                 if orden.estatusOrden != 1 && orden.estatusOrden != 2 {
                     Button("**Cobrado**                                         "){
-                        confirmOrder(orderID: Int(orden.idOrden)) { success, message in
-                            if success {
-                                print("Operación exitosa: \(message)")
-                                DispatchQueue.main.async {
-                                    self.presentationMode.wrappedValue.dismiss()
-                                    
-                                }
-                            } else {
-                                print("Error: \(message)")
-                            }
-                        }
-                        
-                        /*
-                         checkConnection{connected in
-                         if connected{
-                         confirmOrder(orderID: orderID, token: token)
-                         }
-                         else{
-                         offlineAlert = true
-                         print("Error al confirmar orden")
-                         }
-                         }
-                         */
-                        
+                        self.showingConfirmationAlert = true   
                     }
                     .controlSize(.large)
-                    .frame(width: 1000)//checar
+                    .frame(width: 1000)
                     .buttonStyle(.borderedProminent)
                     .tint(.green)
                     .alert(isPresented: $offlineAlert){
@@ -223,6 +200,20 @@ struct DetalleOrdenView: View {
                 }
                 
             }.padding()
+            .alert(isPresented: $showingConfirmationAlert) {
+                Alert(title: Text("Confirmar Cobro"), message: Text("¿Estás seguro de que quieres confirmar el cobro?"), primaryButton: .destructive(Text("Confirmar")) {
+                    confirmOrder(orderID: Int(orden.idOrden)) { success, message in
+                        if success {
+                            print("Operación exitosa: \(message)")
+                            DispatchQueue.main.async {
+                                self.presentationMode.wrappedValue.dismiss()
+                            }
+                        } else {
+                            print("Error: \(message)")
+                        }
+                    }
+                }, secondaryButton: .cancel())
+            }
         }
     }
     
