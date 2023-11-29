@@ -17,7 +17,7 @@ struct DetalleOrdenView: View {
     @State private var actionSheet = false
     @State private var offlineAlert = false
     
-    @State var orderID = 1
+    @State var orderID = 2
     @State private var mostrarTexto = false
     @State private var razonUsuario = ""
     let address = "Av. Eugenio Garza Sada 2501 Sur, Tecnológico, 64849 Monterrey, Nuevo Leon"

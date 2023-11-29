@@ -110,12 +110,13 @@ func fetchOrders(forEmployeeID employeeID: Int, forEstatusId StatusId: Int, comp
     let today = dateFormatter.string(from: Date())
     //print(type(of: today))
     
-    let urlString = "http://10.22.139.95:8086/ordenes/\(employeeID)/\(StatusId)?fecha=\(today)"
+    let urlString = "\(apiUrl)/ordenes/\(employeeID)/\(StatusId)?fecha=\(today)"
     guard let url = URL(string: urlString) else {
         print("URL inválida")
         completion([])
         return
     }
+
     
     let task = URLSession.shared.dataTask(with: url) { data, response, error in
         // Verificar si hay errores
@@ -169,7 +170,7 @@ func fetchOrders(forEmployeeID employeeID: Int, forEstatusId StatusId: Int, comp
 
 
 func reprogramOrder(orderID: Int, reprogramacionInfo: ReprogramacionInfo, completion: @escaping (Bool, String) -> Void) {
-    let urlString = "http://10.22.139.95:8086/reprogram_order/\(orderID)"
+    let urlString = "\(apiUrl)/reprogram_order/\(orderID)"
     guard let url = URL(string: urlString) else {
         print("URL inválida")
         completion(false, "URL inválida")
@@ -179,6 +180,7 @@ func reprogramOrder(orderID: Int, reprogramacionInfo: ReprogramacionInfo, comple
     var request = URLRequest(url: url)
     request.httpMethod = "PUT"
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
     do {
         let jsonData = try JSONEncoder().encode(reprogramacionInfo)
@@ -188,6 +190,8 @@ func reprogramOrder(orderID: Int, reprogramacionInfo: ReprogramacionInfo, comple
         completion(false, "Error al codificar los datos")
         return
     }
+    
+    
 
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
         if let error = error {
@@ -212,7 +216,7 @@ func reprogramOrder(orderID: Int, reprogramacionInfo: ReprogramacionInfo, comple
 
 
 func confirmOrder(orderID: Int, completion: @escaping (Bool, String) -> Void) {
-    let urlString = "http://10.22.139.95:8086/confirm_order/\(orderID)"
+    let urlString = "\(apiUrl)/confirm_order/\(orderID)"
     guard let url = URL(string: urlString) else {
         print("URL inválida")
         completion(false, "URL inválida")
@@ -221,6 +225,8 @@ func confirmOrder(orderID: Int, completion: @escaping (Bool, String) -> Void) {
 
     var request = URLRequest(url: url)
     request.httpMethod = "PUT"
+    
+    request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
         if let error = error {

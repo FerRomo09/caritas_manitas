@@ -8,15 +8,26 @@
 import SwiftUI
 import Foundation
 
+
 struct LandingView: View {
     @State private var listaOrdenes: [Orden] = []
     @State private var ordenesPendientes: [Orden] = []
     @State private var ordenesRecolectadas: [Orden] = []
     @State private var ordenesNoRecolectadas: [Orden] = []
+    @State private var isLoading = true
     @State private var isView1Active = true
     @State private var toggleText = ""
     @State private var toggleIcon = "star"
+    
+    // Función para verificar si se han cargado los datos
+    private func checkLoadingState() {
+        if !ordenesPendientes.isEmpty {
+            isLoading = false
+        }
+    }
 
+    let timer=Timer.publish(every: 100, on: .current, in: .common).autoconnect()
+    
     var body: some View {
         NavigationStack(){
             VStack(){
@@ -33,11 +44,11 @@ struct LandingView: View {
                         VStack{
                             if isView1Active {
                                 View1()
-                               //toggleIcon = "arrow.right.circle.fill"
+                                //toggleIcon = "arrow.right.circle.fill"
                             } else {
                                 View2()
                                 //toggleIcon = "arrow.backward.circle.fill"
-
+                                
                             }
                         }
                         Spacer()
@@ -58,47 +69,112 @@ struct LandingView: View {
                 }
                 .frame(height:150)
                 
-                List {
-                    Section(header: Text("Pendientes")) {
-                        ForEach(ordenesPendientes, id: \.idOrden) { orden in
-                            NavigationLink(destination: DetalleOrdenView(orden: orden)) {
-                                OrdenBarView(orden: orden)
+                if ordenesPendientes.isEmpty{
+                    VStack {
+                        Spacer()
+                        ProgressView()
+                            .scaleEffect(3)
+                            .padding(.bottom, 30)
+                        Text("Cargando recibos . . .")
+                            .font(.system(size: 30))
+                            .foregroundColor(.blue)
+                        Spacer()
+                    }
+                } else {
+                    List {
+                        Section(header: Text("Pendientes")) {
+                            ForEach(ordenesPendientes, id: \.idOrden) { orden in
+                                NavigationLink(destination: DetalleOrdenView(orden: orden)) {
+                                    OrdenBarView(orden: orden)
+                                }
                             }
                         }
-                    }
-                    
-                    Section(header: Text("Recolectadas")) {
-                        ForEach(ordenesRecolectadas, id: \.idOrden) { orden in
-                            NavigationLink(destination: DetalleOrdenView(orden: orden)) {
-                                OrdenBarView(orden: orden)
+                        Section(header: Text("Recolectadas")) {
+                            if ordenesRecolectadas.isEmpty{
+                                HStack{
+                                    Spacer()
+                                    Image(systemName: "tray.fill")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 100, height: 100)
+                                        .foregroundColor(.gray)
+                                        .padding()
+                                    
+                                    Text("No hay recolectados")
+                                        .font(.title)
+                                        .fontWeight(.regular)
+                                        .foregroundColor(.secondary)
+                                    Spacer()
+                                }
+                            }else{
+                                ForEach(ordenesRecolectadas, id: \.idOrden) { orden in
+                                    NavigationLink(destination: DetalleOrdenView(orden: orden)) {
+                                        OrdenBarView(orden: orden)
+                                    }
+                                }
                             }
                         }
-                    }
-                    
-                    Section(header: Text("No Recolectadas")) {
-                        ForEach(ordenesNoRecolectadas, id: \.idOrden) { orden in
-                            NavigationLink(destination: DetalleOrdenView(orden: orden)) {
-                                OrdenBarView(orden: orden)
+                        
+                        Section(header: Text("No Recolectadas")) {
+                            if ordenesNoRecolectadas.isEmpty{
+                                HStack{
+                                    Spacer()
+                                    Image(systemName: "tray.fill")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 100, height: 100)
+                                        .foregroundColor(.gray)
+                                        .padding()
+                                    
+                                    Text("No hay recolectados")
+                                        .font(.title)
+                                        .fontWeight(.regular)
+                                        .foregroundColor(.secondary)
+                                    Spacer()
+                                }
+                            }else{
+                                ForEach(ordenesNoRecolectadas, id: \.idOrden) { orden in
+                                    NavigationLink(destination: DetalleOrdenView(orden: orden)) {
+                                        OrdenBarView(orden: orden)
+                                    }
+                                }
                             }
                         }
                     }
                 }
-                .onAppear {
-                    fetchOrders(forEmployeeID: 1, forEstatusId: 0) { ordenes in
-                        self.ordenesPendientes = ordenes
-                    }
-                    fetchOrders(forEmployeeID: 1, forEstatusId: 1) { ordenes in
-                        self.ordenesRecolectadas = ordenes
-                    }
-                    fetchOrders(forEmployeeID: 1, forEstatusId: 2) { ordenes in
-                        self.ordenesNoRecolectadas = ordenes
-                    }
+            }
+            .onAppear {
+                // Ejecuta todas las solicitudes de carga de datos
+                fetchOrders(forEmployeeID: 2, forEstatusId: 0) { ordenes in
+                    self.ordenesPendientes = ordenes
+                    checkLoadingState()
                 }
-                //Manda foto para arriba
-               Spacer()
-            } //Vstack
-        } //navstck
-    }//var body
+                fetchOrders(forEmployeeID: 2, forEstatusId: 1) { ordenes in
+                    self.ordenesRecolectadas = ordenes
+                    checkLoadingState()
+                }
+                fetchOrders(forEmployeeID: 2, forEstatusId: 2) { ordenes in
+                    self.ordenesNoRecolectadas = ordenes
+                    checkLoadingState()
+                }
+            }
+            .onReceive(timer){ _ in
+                // Ejecuta todas las solicitudes de carga de datos
+                fetchOrders(forEmployeeID: 2, forEstatusId: 0) { ordenes in
+                    self.ordenesPendientes = ordenes
+                    checkLoadingState()
+                }
+                fetchOrders(forEmployeeID: 2, forEstatusId: 1) { ordenes in
+                    self.ordenesRecolectadas = ordenes
+                    checkLoadingState()
+                }
+                fetchOrders(forEmployeeID: 2, forEstatusId: 2) { ordenes in
+                    self.ordenesNoRecolectadas = ordenes
+                    checkLoadingState()
+                }
+            }
+        }
+    }
 }
 
 struct View1: View {
