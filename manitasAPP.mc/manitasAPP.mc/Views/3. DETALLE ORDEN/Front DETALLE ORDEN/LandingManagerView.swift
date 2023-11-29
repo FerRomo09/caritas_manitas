@@ -185,11 +185,15 @@ struct LandingManagerView: View {
 }
 
 struct ManagerView1: View {
+    @State var total=0
+    @State var completos=0
     var body: some View {
         ProgressBarView()
     }
 }
 struct ManagerView2: View {
+    @State var total=0
+    @State var completos=0
     var body: some View {
         DineroProgressBarView()
     }
