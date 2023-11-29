@@ -129,7 +129,7 @@ async def get_user(current_user: dict = Depends(get_current_user)):
 
 
 @app.put("/confirm_order/{orderID}")
-async def confirm_order(orderID: int,):
+async def confirm_order(orderID: int, current_user: dict = Depends(get_current_user)):
    # async def confirm_order(orderID: int, current_user: dict = Depends(get_current_user)):
     try:
         # Establish connection with the database
@@ -237,11 +237,12 @@ def modificar_clave(diccionario, vieja_clave, nueva_clave):
 
 # endpoint que regresa en formato json las ordenes filtradas por el id del empleado
 @app.get("/ordenes/{ID_EMPLEADO}/{ESTATUS_ORDEN}")
-def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...)):
+def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...),):
     # def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...)):
     # def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int):
+    # def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...),current_user: dict = Depends(get_current_user),):
 
-    # fecha = '2023-11-28'
+    #fecha = '2023-11-28'
 
     try:
         with get_db_connection() as conn:
@@ -270,6 +271,7 @@ def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...)
             else:
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                                     detail=f"orders with id: {ID_EMPLEADO} does not exists")
+                print("hola jervi")
 
             cursor.close()
             conn.close()
@@ -283,13 +285,14 @@ def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...)
             status_code=503, detail="No se pudo establecer conexión con la base de datos.")
 
     except Exception as error_name:
-        print(error_name)
+        print(f'este es el error {error_name}')
         raise HTTPException(status_code=500, detail=str(error_name))
+    
 
 
 # Endpoint para cambiar la informacion de las ordenes reprogramadas
 @app.put("/reprogram_order/{orderID}")
-def reprogram_order(orderID: int,  info_body: am.Reprogramacion, ):
+def reprogram_order(orderID: int,  info_body: am.Reprogramacion, current_user: dict = Depends(get_current_user)):
 
     comentarios = info_body.comentarios
 
@@ -320,6 +323,7 @@ def reprogram_order(orderID: int,  info_body: am.Reprogramacion, ):
 
 @app.get("/conteo_ordenes/{ID_EMPLEADO}")
 def conteo_suma_ordenes_por_estado(ID_EMPLEADO: int,):
+#def conteo_suma_ordenes_por_estado(ID_EMPLEADO: int,  current_user: dict = Depends(get_current_user),):
     try:
         with get_db_connection() as conn:
             cursor = conn.cursor()
@@ -358,7 +362,7 @@ def conteo_suma_ordenes_por_estado(ID_EMPLEADO: int,):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8086, reload=True)
+    uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8086, reload=True,)
 
     #    import uvicorn
     # uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8037, reload=True,
