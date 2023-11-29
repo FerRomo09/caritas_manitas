@@ -59,7 +59,7 @@ struct LandingManagerView: View {
         }
     }
 
-    let timer=Timer.publish(every: 10, on: .current, in: .common).autoconnect()
+    let timer=Timer.publish(every: 1, on: .current, in: .common).autoconnect()
     
     var body: some View {
         NavigationStack(){

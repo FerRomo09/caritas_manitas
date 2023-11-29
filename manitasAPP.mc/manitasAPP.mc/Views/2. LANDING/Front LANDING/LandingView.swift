@@ -18,7 +18,7 @@ struct LandingView: View {
     @State private var isView1Active = true
     @State private var toggleText = ""
     @State private var toggleIcon = "star"
-    @State private var idRepartidor=curretUser.id
+    @State private var idRepartidor=curretUser.ID
     
     // Función para verificar si se han cargado los datos
     private func checkLoadingState() {
@@ -27,7 +27,7 @@ struct LandingView: View {
         }
     }
 
-    let timer=Timer.publish(every: 100, on: .current, in: .common).autoconnect()
+    let timer=Timer.publish(every: 1, on: .current, in: .common).autoconnect()
     
     var body: some View {
         NavigationStack(){
