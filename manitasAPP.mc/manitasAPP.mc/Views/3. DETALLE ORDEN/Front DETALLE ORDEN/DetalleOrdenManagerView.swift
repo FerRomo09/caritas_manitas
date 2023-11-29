@@ -44,89 +44,89 @@ struct DetalleOrdenManagerView: View {
                 Image("Bottom")
                     .offset(y:-60)
 
-                VStack(alignment: .leading){
-                    HStack{
-                        Text("Donante:")
-                            .font(.system(size: 18))
-                        Text("\(orden.nombre ?? "N/A") \(orden.apellidoPaterno) \(orden.apellidoMaterno ?? "")")
-                            .font(.system(size: 18, weight: .light))
+                VStack(){
+                    
+                    VStack(alignment: .leading){
+                        HStack(alignment: .top){
+                            Text("Donante:")
+                                .font(.system(size: 18))
+                            Text("\(orden.nombre ?? "N/A") \(orden.apellidoPaterno) \(orden.apellidoMaterno ?? "")")
+                                .font(.system(size: 18, weight: .light))
+                        }
+                        HStack{
+                            Text("Cantidad:")
+                                .font(.system(size: 18))
+                            Text("\(String(orden.importeFormateado))")
+                                .font(.system(size: 18, weight: .light))
+                        }
+                        HStack{
+                            Text("Forma de pago:")
+                                .font(.system(size: 18))
+                            Text("Efectivo")
+                                .font(.system(size: 18, weight: .light))
+                        }
                     }
-                    .offset(x:-15, y:-90)
-
-                    HStack{
-                        Text("Cantidad:")
-                            .font(.system(size: 18))
-                        Text("\(String(orden.importeFormateado))")
-                            .font(.system(size: 18, weight: .light))
-                    }.offset(x:-31, y:-62)
-
-                    HStack{
-                        Text("Forma de pago:")
-                            .font(.system(size: 18))
-                        Text("Efectivo")
-                            .font(.system(size: 18, weight: .light))
-                    }.offset(x:-40, y:-35)
+                    .offset(x:-30,y:30)
+                  
 
                     ZStack{
+                       
                         Image("Top2")
-                            .offset(y:35)
+                        Image("Bottom2")
+                            .offset(y:90)
+                        
                         Text("Dirección")
                             .font(.system(size: 20, weight: .medium))
-                            .offset(x:-98, y:40)
-
-                        Image("Bottom2")
-                            .offset(y:125)
-
+                            .offset(x:-100)
+         
                         VStack(alignment: .leading){
-                            HStack{
-                                Text("Calle:")
-                                    .font(.system(size: 18))
-                                Text("\(orden.callePrincipal)")
-                                    .font(.system(size: 18, weight: .light))
-                            }
-                            .offset(x:-38, y:78)
+                            VStack(alignment: .leading){
+                                HStack{
+                                    Text("Calle:")
+                                        .font(.system(size: 18))
+                                    Text("\(orden.callePrincipal)")
+                                        .font(.system(size: 18, weight: .light))
+                                }
 
-                            HStack{
-                                Text("Número Exterior:")
-                                    .font(.system(size: 18))
-                                Text("123")//REEMPLAZAR POR VARIABLE
-                                    .font(.system(size: 18, weight: .light))
-                            }
-                            .offset(x:-52, y:101)
+                                HStack{
+                                    Text("Número Exterior:")
+                                        .font(.system(size: 18))
+                                    Text("123")//REEMPLAZAR POR VARIABLE
+                                        .font(.system(size: 18, weight: .light))
+                                }
 
-                            HStack{
-                                Text("Colonia:")
-                                    .font(.system(size: 18))
-                                Text("\(orden.colonia)")
-                                    .font(.system(size: 18, weight: .light))
+                                HStack{
+                                    Text("Colonia:")
+                                        .font(.system(size: 18))
+                                    Text("\(orden.colonia)")
+                                        .font(.system(size: 18, weight: .light))
+                                }
+      
+                                HStack{
+                                    Text("Código Postal:")
+                                        .font(.system(size: 18))
+                                    Text("\(String(orden.codigoPostal))")
+                                        .font(.system(size: 18, weight: .light))
+                                }
+             
+                                HStack{
+                                    Text("Municipio:")
+                                        .font(.system(size: 18))
+                                    Text("\(orden.municipio ?? "N/A")")//REEMPLAZAR POR VARIABLE
+                                        .font(.system(size: 18, weight: .light))
+                                }
                             }
-                            .offset(x:-64, y:123)
-
-                            HStack{
-                                Text("Código Postal:")
-                                    .font(.system(size: 18))
-                                Text("\(String(orden.codigoPostal))")
-                                    .font(.system(size: 18, weight: .light))
-                            }
-                            .offset(x:-48, y:145)
-
-                            HStack{
-                                Text("Municipio:")
-                                    .font(.system(size: 18))
-                                Text("\(orden.municipio ?? "N/A")")//REEMPLAZAR POR VARIABLE
-                                    .font(.system(size: 18, weight: .light))
-                            }
-                            .offset(x:-52, y:170)
-
+                            .offset(x:-30,y:130)
+     
                             Button(action: {
                                 openMapsForAddress(address: self.address)
                             }, label: {
                                 Image("mapaBoton")
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 80)
+                                    .frame(width: 60)
                             })
-                            .offset(x:110, y:145)
+                            .offset(x:180, y:25)
                         }
                     }
                 }

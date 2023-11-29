@@ -239,9 +239,6 @@ def modificar_clave(diccionario, vieja_clave, nueva_clave):
 # endpoint que regresa en formato json las ordenes filtradas por el id del empleado
 @app.get("/ordenes/{ID_EMPLEADO}/{ESTATUS_ORDEN}")
 def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...),):
-    # def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...)):
-    # def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int):
-    # def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...),current_user: dict = Depends(get_current_user),):
 
     #fecha = '2023-11-28'
 
@@ -272,7 +269,6 @@ def llamar_ordenes(ID_EMPLEADO: int, ESTATUS_ORDEN: int, fecha: str = Query(...)
             else:
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                                     detail=f"orders with id: {ID_EMPLEADO} does not exists")
-                print("hola jervi")
 
             cursor.close()
             conn.close()
@@ -326,9 +322,11 @@ def conteo_suma_ordenes_por_estado(ID_EMPLEADO: int,):
 #def conteo_suma_ordenes_por_estado(ID_EMPLEADO: int,  current_user: dict = Depends(get_current_user),):
     try:
         with get_db_connection() as conn:
+            current_date = datetime.date.today()
+            current_date = current_date.strftime("%Y-%m-%d")
             cursor = conn.cursor()
             cursor.execute(
-                "EXEC dbo.ContarPorEstatus @IDEmpleado = ?", (ID_EMPLEADO,))
+                "EXEC dbo.ContarPorEstatus @IDEmpleado = ?, @FechaCobro = ?", (ID_EMPLEADO,current_date,))
             resultado = cursor.fetchone()
             cursor.close()
             if resultado:
@@ -362,8 +360,10 @@ def conteo_suma_ordenes_por_estado(ID_EMPLEADO: int,):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8086, reload=True,)
+    uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8086, reload=True,
+                ssl_keyfile="./SSL/equipo19_key.pem", ssl_certfile="./SSL/equipo19.pem")
+
 
     #    import uvicorn
-    # uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8037, reload=True,
+    # uvicorn.run("apiEndPoints:app", host="0.0.0.0", port=8086, reload=True,
     #            ssl_keyfile="./SSL/equipo19_key.pem", ssl_certfile="./SSL/equipo19.pem")
