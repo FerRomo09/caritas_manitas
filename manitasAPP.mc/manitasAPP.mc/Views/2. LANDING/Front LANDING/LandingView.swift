@@ -182,6 +182,9 @@ struct LandingView: View {
                             }
                         }
                     }
+                    .listStyle(PlainListStyle()) // Apply plain style to the list
+                   .background(Color.white) // Set the background color of the list to white
+                   .edgesIgnoringSafeArea(.all) 
                 }
             }
             .onAppear {
