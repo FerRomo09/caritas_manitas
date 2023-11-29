@@ -12,7 +12,6 @@
 		539C60C32AFF042500AB10F2 /* ProfileManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539C60C22AFF042500AB10F2 /* ProfileManagerView.swift */; };
 		539C60C52AFF08BC00AB10F2 /* LandingManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539C60C42AFF08BC00AB10F2 /* LandingManagerView.swift */; };
 		539C60C72AFF0BBB00AB10F2 /* DetalleOrdenManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539C60C62AFF0BBB00AB10F2 /* DetalleOrdenManagerView.swift */; };
-		539C60CD2AFF3D8100AB10F2 /* ManagerProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539C60CC2AFF3D8100AB10F2 /* ManagerProfileView.swift */; };
 		539C60CF2B01647300AB10F2 /* ManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539C60CE2B01647300AB10F2 /* ManagerView.swift */; };
 		539C60D12B01705E00AB10F2 /* ManagerOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539C60D02B01705E00AB10F2 /* ManagerOrderView.swift */; };
 		FB0F7A762B16783A006CE12A /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0F7A752B16783A006CE12A /* ProgressBarView.swift */; };
@@ -49,7 +48,6 @@
 		539C60C22AFF042500AB10F2 /* ProfileManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManagerView.swift; sourceTree = "<group>"; };
 		539C60C42AFF08BC00AB10F2 /* LandingManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingManagerView.swift; sourceTree = "<group>"; };
 		539C60C62AFF0BBB00AB10F2 /* DetalleOrdenManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetalleOrdenManagerView.swift; sourceTree = "<group>"; };
-		539C60CC2AFF3D8100AB10F2 /* ManagerProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerProfileView.swift; sourceTree = "<group>"; };
 		539C60CE2B01647300AB10F2 /* ManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerView.swift; sourceTree = "<group>"; };
 		539C60D02B01705E00AB10F2 /* ManagerOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerOrderView.swift; sourceTree = "<group>"; };
 		FB0F7A752B16783A006CE12A /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
@@ -248,7 +246,6 @@
 			isa = PBXGroup;
 			children = (
 				FB1491602AE19FB100C29C1E /* ProfileView.swift */,
-				539C60CC2AFF3D8100AB10F2 /* ManagerProfileView.swift */,
 			);
 			path = "Front PROFILE";
 			sourceTree = "<group>";
@@ -345,7 +342,6 @@
 				FB14915F2AE075C000C29C1E /* OrdenBarView.swift in Sources */,
 				FB0F7A782B167DA7006CE12A /* DineroProgressBarView.swift in Sources */,
 				FB9E4B252B112C6F00E373F1 /* GetRepartidoresFile.swift in Sources */,
-				539C60CD2AFF3D8100AB10F2 /* ManagerProfileView.swift in Sources */,
 				FB0F7A762B16783A006CE12A /* ProgressBarView.swift in Sources */,
 				53427A012B1128A4004F61F6 /* GetOrderFile.swift in Sources */,
 				539C60C52AFF08BC00AB10F2 /* LandingManagerView.swift in Sources */,

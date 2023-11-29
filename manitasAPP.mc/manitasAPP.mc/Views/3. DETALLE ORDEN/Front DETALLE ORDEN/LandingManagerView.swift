@@ -38,7 +38,7 @@ struct LandingManagerView: View {
                     dismiss()
                 }
                 Spacer()
-                            }
+            } .padding(.horizontal, 20)
             VStack(){
                 VStack(){
                     NavigationLink(destination: (ProfileView())){
@@ -95,9 +95,13 @@ struct LandingManagerView: View {
                     List {
                         Section(header: Text("Pendientes")) {
                             ForEach(ordenesPendientes, id: \.idOrden) { orden in
-                                NavigationLink(destination: DetalleOrdenView(orden: orden)) {
+                                NavigationLink(destination: DetalleOrdenView(orden: orden)
+                                    // ERROR: DetalleOrdenManagerView
+                                    .navigationBarBackButtonHidden(true)
+                                ) {
                                     OrdenBarView(orden: orden)
                                 }
+                                
                             }
                         }
                         Section(header: Text("Recolectadas")) {
@@ -111,7 +115,7 @@ struct LandingManagerView: View {
                                         .foregroundColor(.gray)
                                         .padding()
                                     
-                                    Text("No hay recolectados")
+                                    Text("No Hay Recibos Recolectados")
                                         .font(.title)
                                         .fontWeight(.regular)
                                         .foregroundColor(.secondary)
@@ -119,7 +123,10 @@ struct LandingManagerView: View {
                                 }
                             }else{
                                 ForEach(ordenesRecolectadas, id: \.idOrden) { orden in
-                                    NavigationLink(destination: DetalleOrdenView(orden: orden)) {
+                                    NavigationLink(destination: DetalleOrdenView(orden: orden)
+                                        // ERROR: DetalleOrdenManagerView
+                                        .navigationBarBackButtonHidden(true)
+                                    ) {
                                         OrdenBarView(orden: orden)
                                     }
                                 }
@@ -137,7 +144,7 @@ struct LandingManagerView: View {
                                         .foregroundColor(.gray)
                                         .padding()
                                     
-                                    Text("No hay recolectados")
+                                    Text("No Hay Recibos No Recolectados")
                                         .font(.title)
                                         .fontWeight(.regular)
                                         .foregroundColor(.secondary)
@@ -145,7 +152,10 @@ struct LandingManagerView: View {
                                 }
                             }else{
                                 ForEach(ordenesNoRecolectadas, id: \.idOrden) { orden in
-                                    NavigationLink(destination: DetalleOrdenView(orden: orden)) {
+                                    NavigationLink(destination: DetalleOrdenView(orden: orden)
+                                        // ERROR: DetalleOrdenManagerView
+                                        .navigationBarBackButtonHidden(true)
+                                    ) {
                                         OrdenBarView(orden: orden)
                                     }
                                 }
