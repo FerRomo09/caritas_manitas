@@ -108,7 +108,6 @@ func fetchOrders(forEmployeeID employeeID: Int, forEstatusId StatusId: Int, comp
     dateFormatter.dateFormat = "yyyy-MM-dd"
     
     let today = dateFormatter.string(from: Date())
-    //print(type(of: today))
     
     let urlString = "\(apiUrl)/ordenes/\(employeeID)/\(StatusId)?fecha=\(today)"
     guard let url = URL(string: urlString) else {
@@ -151,8 +150,6 @@ func fetchOrders(forEmployeeID employeeID: Int, forEstatusId StatusId: Int, comp
             
             let ordenesResponse = try decoder.decode(OrdenesResponse.self, from: data)
             let ordenes = ordenesResponse.list
-
-            print("Ordenes decodificadas: \(ordenes)")
 
    
             completion(ordenes)
